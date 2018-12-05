@@ -1,11 +1,16 @@
 # RAFIKI
 ## Logo
-```
+
     Company Logo:
 
     ![]( https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png)
 
- ````   
+
+##Project
+```
+    Our project was created to create a friendly place for students to expose their doubts and to let other fellow and even their teachers to resolve their doubts. We are going to create a way to students compete between them while they also help each other.
+    The idea of this is to create a comunity and to make that comunity fun while helping the college life.
+```
 ## RAFIKI setup
 ```
 npm install
