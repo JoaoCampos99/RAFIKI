@@ -41,7 +41,7 @@ npm run build
     
     *src
 
-        *assets -->LogoR is our app logo
+        *assets -->CSS and stuff. Directory where we save bootstrap
 
         *components--> All the components we need and we will use
     
