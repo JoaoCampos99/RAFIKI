@@ -4,6 +4,8 @@
     Company Logo:
 
     ![ ](https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png)
+    ![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+
 ```
 
 ## Project
