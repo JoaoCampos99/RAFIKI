@@ -1,5 +1,8 @@
 # RAFIKI
+###Logo
+![alt text][logo]
 
+[logo]:(https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png "App Logo")
 ## RAFIKI setup
 ```
 npm install
@@ -24,7 +27,7 @@ npm run build
  
 *src
 
-    *assets
+    *assets -->LogoR is our app logo
 
     *components--> All the components we need and we will use
   
