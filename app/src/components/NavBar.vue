@@ -28,7 +28,7 @@
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'ranking' }" :class="{ 'nav-link': true }">Ranking</router-link>
+          <router-link :to="{ name: 'rankings' }" :class="{ 'nav-link': true }">Ranking</router-link>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
