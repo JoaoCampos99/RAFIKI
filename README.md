@@ -4,7 +4,7 @@
     Company Logo:
 
     ![Company Image]
-    (src\assets\logoR.png)
+    (src/assets/logoR.png)
 
  ````   
 ## RAFIKI setup
