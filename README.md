@@ -1,11 +1,12 @@
 # RAFIKI
 ## Logo
 ```
-Company Logo:
-![alt text][logo]
+    Company Logo:
 
-[logo]:https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png "App Logo"
+    ![Company Image]
+    (https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png)
 
+ ````   
 ## RAFIKI setup
 ```
 npm install
@@ -23,8 +24,8 @@ npm run build
 
 ######################################### 
 
-##RAFIKI Structure
-
+## RAFIKI Structure
+```
 *public
     *index.html 
  
@@ -46,3 +47,4 @@ npm run build
     *stores.js--> Save our data
     
 *configuration files
+```
