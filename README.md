@@ -31,6 +31,9 @@ npm run build
 
 ## RAFIKI Structure
 ```
+*mockups --> Mockups Directory
+    *PDF File
+    *Xd File
 *public
     *index.html 
  
