@@ -1,6 +1,6 @@
 # RAFIKI
 ## Logo
-![](logo/logoR.png)
+                ![](logo/logoR.png)
 ## Project
 
 RAFIKI was created within the curricular unit "Programação Web I" of "TSIW -Tecnologias e Sistemas de Informação para Web" degree.
