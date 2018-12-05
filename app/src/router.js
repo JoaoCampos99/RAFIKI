@@ -1,6 +1,14 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import Ranking from "./views/Ranking.vue";
+import Badges from "./views/Badges.vue";
+import Thread from "./views/Thread.vue";
+import Profile from "./views/Profile.vue";
+import Faq from "./views/Faq.vue";
+import Login from "./views/Login.vue";
+import CreateThread from "./views/CreateThread.vue";
+
 
 Vue.use(Router);
 
@@ -12,48 +20,39 @@ export default new Router({
       component: Home
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/rankings",
+      name: "rankings",
+      component: Ranking
     },
-    // {
-    //   path: "/rankings",
-    //   name: "rankings",
-    //   component: Ranking
-    // },
-    // {
-    //   path: "/badges",
-    //   name: "badges",
-    //   component: Badges
-    // },
-    // {
-    //   path: "/thread",
-    //   name: "thread",
-    //   component: Thread
-    // },
-    // {
-    //   path: "/profile",
-    //   name: "profile",
-    //   component: Profile
-    // },
-    // {
-    //   path: "/faq",
-    //   name: "faq",
-    //   component: Faq
-    // },
-    // {
-    //   path: "/login",
-    //   name: "login",
-    //   component: Login
-    // },
-    // {
-    //   path: "/createThread",
-    //   name: "createThread",
-    //   component: CreateThread
-    // }
+    {
+      path: "/badges",
+      name: "badges",
+      component: Badges
+    },
+    {
+      path: "/thread",
+      name: "thread",
+      component: Thread
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile
+    },
+    {
+      path: "/faq",
+      name: "faq",
+      component: Faq
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login
+    },
+    {
+      path: "/createThread",
+      name: "createThread",
+      component: CreateThread
+    }
   ]
 });

@@ -1,5 +1,12 @@
 <template>
-    <div>
-        <h1>Isto é a página dos rankings</h1>
-    </div>
+    <NavBar/>
 </template>
+
+<script>
+import NavBar from "@/components/NavBar.vue"
+export default {
+    components: {
+    NavBar
+    }
+}
+</script>
