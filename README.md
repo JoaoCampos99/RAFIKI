@@ -3,7 +3,7 @@
 ```
     Company Logo:
 
-    ![Company Image](https://github.com/JoaoCampos99/RAFIKI/blob/master/logo/logoR.png)
+    ![Company Image](logo/logoR.png)
     
 ```
 
