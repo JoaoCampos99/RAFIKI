@@ -57,4 +57,5 @@ npm run build
         *stores.js--> Save our data
         
     *configuration files
+*logo--> company logo
 ```
