@@ -26,9 +26,6 @@ npm run build
 
 ## RAFIKI Structure
 ```
-*mockups --> Mockups Directory
-    *PDF File
-    *Xd File
 *app --> Application Files    
     *public
         *index.html 
@@ -51,5 +48,11 @@ npm run build
         *stores.js--> Save our data
         
     *configuration files
+    
 *logo--> company logo
+
+*mockups --> Mockups Directory
+    *PDF File
+    *Xd File
+
 ```
