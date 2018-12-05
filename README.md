@@ -1,11 +1,5 @@
 # RAFIKI
 ## Logo
-```
-    Company Logo:
-
-    
-    
-```
 ![](logo/logoR.png)
 ## Project
 
