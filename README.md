@@ -3,10 +3,10 @@
 ```
     Company Logo:
 
-    ![Company Image](logo/logoR.png)
+    
     
 ```
-
+![](logo/logoR.png)
 ## Project
 
 ```
