@@ -3,7 +3,8 @@
 ```
     Company Logo:
 
-    ![](https://github.com/JoaoCampos99/RAFIKI/blob/master/src/assets/logoR.png)
+    ![Company Image]
+    (logoR.png)
 
  ````   
 ## RAFIKI setup
