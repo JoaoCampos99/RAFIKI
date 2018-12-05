@@ -1,18 +1,12 @@
 # RAFIKI
 ## Logo
-```
-    Company Logo:
-
-    
-    
-```
 ![](logo/logoR.png)
 ## Project
 
-```
-    Our project was created to create a friendly place for students to expose their doubts and to let other fellow and even their teachers to resolve their doubts. We are going to create a way to students compete between them while they also help each other.
-    The idea of this is to create a comunity and to make that comunity fun while helping the college life.
-```
+RAFIKI was created within the curricular unit "Programação Web I" of "TSIW -Tecnologias e Sistemas de Informação para Web" degree.
+
+Our project consists on developling a friendly web application where students are allowed to expose their doubts, while colleagues and teachers provide answers. Users may compete with each other while working together to solve any problem that may occur.
+
 ## RAFIKI setup
 ```
 npm install
