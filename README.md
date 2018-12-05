@@ -3,7 +3,7 @@
 ```
     Company Logo:
 
-    <img src="RAFIKI/src/assets/logoR.png" alt="Company Logo"/>
+    <img src="/src/assets/logoR.png" alt="Company Logo"/>
 
  ````   
 ## RAFIKI setup
