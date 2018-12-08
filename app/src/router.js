@@ -8,6 +8,7 @@ import Profile from "./views/Profile.vue";
 import Faq from "./views/Faq.vue";
 import Login from "./views/Login.vue";
 import CreateThread from "./views/CreateThread.vue";
+import ContactUs from "./views/ContactUs.vue"
 
 
 Vue.use(Router);
@@ -53,6 +54,11 @@ export default new Router({
       path: "/createThread",
       name: "createThread",
       component: CreateThread
+    },
+    {
+      path: "/contactus",
+      name: "contactus",
+      component: ContactUs
     }
   ]
 });
