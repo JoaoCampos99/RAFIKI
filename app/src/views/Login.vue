@@ -1,44 +1,72 @@
 <template>
   <div>
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 login-form-1">
+          <h3>Login Now</h3>
 
-<div class="container login-container">
-            <div class="row">
-                <div class="col-md-6 login-form-1">
-                    <h3>Login Form 1</h3>
-                    
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
-                        </div>
-                        <div class="form-group">
-                            <a href="#" class="btnForgetPwd">Forget Password?</a>
-                        </div>
-                    
-                </div>
-                <div class="col-md-6 login-form-2">
-                    <h3>Login Form 2</h3>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Email *" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" />
-                        </div>
-                        <div class="form-group">
-
-                            <a href="#" class="btnForgetPwd" value="Login">Forget Password?</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Your Email *" value>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Your Password *" value>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btnSubmit" value="Login">
+          </div>
+          <div class="form-group">
+            <a href="#" class="btnForgetPwd">Forgot Password?</a>
+          </div>
         </div>
+        <div class="col-md-6 login-form-2">
+          <h3>Register Now</h3>
+          <form>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Your Username"
+                v-model="newUsername"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Your Email"
+                v-model="newEmail"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Your Password *"
+                v-model="newPassword"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm Password *"
+                v-model="newCPassword"
+                required
+              >
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btnSubmit" value="Register" @click="addUser">
+            </div>
+            <div class="form-group">
+              <a href="#" class="btnForgetPwd" value="Login">Forgot Password?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,9 +76,63 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 
 export default {
   data() {
-    return {};
+    return {
+      users: this.$store.getters.getUsers,
+      newUsername: "",
+      newEmail: "",
+      newPassword: "",
+      newCPassword: ""
+    };
   },
-  methods: {}
+  methods: {
+    getLastID() {
+      let maior;
+      if (this.users.length != 0) {
+        this.users.sort(function(a, b) {
+          if (a.id > b.id) return 1;
+          if (a.id < b.id) return -1;
+        });
+        //Por isto a dar
+        console.log("Dá?" + this.users.length);
+        console.log("ID:" + this.users[1].id);
+        maior = this.users[this.users.length - 1].id;
+        console.log(maior);
+        return maior;
+      } else {
+        return 0;
+      }
+    },
+    addUser() {
+      //Verificar email, depois username
+      let emailExists = this.users.some(user => user.email == this.newEmail);
+      let usernameExists = this.users.some(
+        user => user.name == this.newUsername
+      );
+
+      if (this.newPassword === this.newCPassword) {
+        if (emailExists || usernameExists) {
+          Swal("Já Existe alguém com essas credenciais");
+        } else {
+          this.$store.dispatch("addUserAct", {
+            id: this.getLastID() + 1,
+            name: this.newUsername,
+            email: this.newEmail,
+            password: this.newPassword,
+            level: 0,
+            exp: 0,
+            badges: [],
+            rank: 0,
+            desc: "Newbie",
+            foto: "",
+            follow: []
+          });
+          Swal("Utilizador registado com sucesso");
+        }
+      } else {
+        Swal("Password Diferente de Confirmar Password");
+      }
+    }
+  }
 };
 </script>
 
@@ -58,7 +140,7 @@ export default {
 <style>
 .login-container {
   margin-top: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
 }
 .login-form-1 {
   padding: 9%;
