@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light row">
     <button
       class="navbar-toggler"
       type="button"
@@ -38,3 +38,9 @@
     </div>
   </nav>
 </template>
+
+<style>
+nav {
+  width: 
+}
+</style>

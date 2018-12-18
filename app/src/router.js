@@ -8,7 +8,7 @@ import Profile from "./views/Profile.vue";
 import Faq from "./views/Faq.vue";
 import Login from "./views/Login.vue";
 import CreateThread from "./views/CreateThread.vue";
-import ContactUs from "./views/ContactUs.vue"
+import ContactUs from "./views/ContactUs.vue";
 
 
 Vue.use(Router);
