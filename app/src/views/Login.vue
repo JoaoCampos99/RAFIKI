@@ -10,8 +10,8 @@
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
 
-import Swal from "C:/Users/Álvaro/Desktop/Faculdade ESMAD/2º Ano/PW1/Project Rafiki/RAFIKI/app/node_modules/sweetalert2/dist/sweetalert2.js";
-import "C:/Users/Álvaro/Desktop/Faculdade ESMAD/2º Ano/PW1/Project Rafiki/RAFIKI/app/node_modules/sweetalert2/src/sweetalert2.scss";
+import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
+import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 
 export default {
   data() {
@@ -29,7 +29,7 @@ export default {
           title: "Login",
           html:
             '<input id="login" class="swal2-input">' +
-            '<input id="pass" class="swal-input">',
+            '<input id="pass" class="swal2-input">',
           focusConfirm: false,
           preConfirm: () => {
             return [
