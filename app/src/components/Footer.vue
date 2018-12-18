@@ -26,7 +26,7 @@ export default {};
 
 <style scoped>
 footer {
-  position: inherit;
+  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
@@ -39,4 +39,3 @@ footer {
   text-decoration: none;
 }
 </style>
-

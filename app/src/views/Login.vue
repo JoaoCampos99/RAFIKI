@@ -1,15 +1,8 @@
 <template>
-  <div>
-    <NavBar/>
-    <button v-on:click="login">Clica - me</button>
-    <Footer/>
-  </div>
+  <div></div>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
-
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
 import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 
@@ -48,10 +41,6 @@ export default {
       });
       // console.log(a)
     }
-  },
-  components: {
-    NavBar,
-    Footer
   }
 };
 </script>
