@@ -38,9 +38,3 @@
     </div>
   </nav>
 </template>
-
-<style>
-nav {
-  width: 
-}
-</style>

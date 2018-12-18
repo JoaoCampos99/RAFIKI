@@ -32,6 +32,7 @@ footer {
   left: 0;
   padding: 1rem;
   background: black;
+  width: 100%;
   /* margin-top: 50px; */
   color: white;
 }
