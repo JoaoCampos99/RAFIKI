@@ -58,7 +58,7 @@
               >
             </div>
             <div class="form-group">
-              <input type="submit" class="btnSubmit" value="Register" @click="addUser">
+              <input type="button" class="btnSubmit" value="Register" @click="addUser">
             </div>
             <div class="form-group">
               <a href="#" class="btnForgetPwd" value="Login">Forgot Password?</a>
@@ -77,12 +77,15 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      users: this.$store.getters.getUsers,
+      users: [],
       newUsername: "",
       newEmail: "",
       newPassword: "",
       newCPassword: ""
     };
+  },
+  created() {
+    this.users = this.$store.getters.getUsers;
   },
   methods: {
     getLastID() {
@@ -94,7 +97,7 @@ export default {
         });
         //Por isto a dar
         console.log("Dá?" + this.users.length);
-        console.log("ID:" + this.users[1].id);
+        console.log("ID:" + this.users);
         maior = this.users[this.users.length - 1].id;
         console.log(maior);
         return maior;
@@ -108,13 +111,16 @@ export default {
       let usernameExists = this.users.some(
         user => user.name == this.newUsername
       );
+      console.log("Email Existe:" + emailExists);
+      console.log("Nome existe:" + usernameExists);
 
-      if (this.newPassword === this.newCPassword) {
+      if (this.newPassword == this.newCPassword) {
         if (emailExists || usernameExists) {
           Swal("Já Existe alguém com essas credenciais");
         } else {
+          let id = this.getLastID() + 1;
           this.$store.dispatch("addUserAct", {
-            id: this.getLastID() + 1,
+            id: id,
             name: this.newUsername,
             email: this.newEmail,
             password: this.newPassword,
@@ -127,6 +133,10 @@ export default {
             follow: []
           });
           Swal("Utilizador registado com sucesso");
+          this.$router.push({
+            name: "profile",
+            params: { userid: id }
+          });
         }
       } else {
         Swal("Password Diferente de Confirmar Password");

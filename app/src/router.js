@@ -10,7 +10,6 @@ import Login from "./views/Login.vue";
 import CreateThread from "./views/CreateThread.vue";
 import ContactUs from "./views/ContactUs.vue";
 
-
 Vue.use(Router);
 
 export default new Router({
@@ -36,7 +35,7 @@ export default new Router({
       component: Thread
     },
     {
-      path: "/profile",
+      path: "/profile/:userid",
       name: "profile",
       component: Profile
     },

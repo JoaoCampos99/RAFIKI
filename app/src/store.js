@@ -3,7 +3,7 @@ import Vuex, { mapGetters } from "vuex";
 
 Vue.use(Vuex);
 
-let $ = require("../node_modules/jquery/dist/jquery.js")
+let $ = require("../node_modules/jquery/dist/jquery.js");
 
 export default new Vuex.Store({
   state: {
@@ -21,22 +21,23 @@ export default new Vuex.Store({
       //   follow: [] //Array que vai ter os id's dos threads que o utilizador segue
       // }
     ],
-    badges: [{
-      id: 1,
-      name: "you are a beast",
-      goal: (user) => {
-        if (user.exp >= 200) {
-          return true;
-        }
-        else return false;
-      },
-      desc: "",
-      category: ""
-    }],
+    badges: [
+      {
+        id: 1,
+        name: "you are a beast",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "",
+        category: ""
+      }
+    ],
     groups: [
       {
         id: 0,
-        name: '',
+        name: "",
         users: [2, 3, 34, 33]
       }
     ],
@@ -44,7 +45,7 @@ export default new Vuex.Store({
       {
         id: 0,
         userId: 0,
-        question: '',
+        question: "",
         tags: [],
         idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
         upvotes: 0,
@@ -58,7 +59,7 @@ export default new Vuex.Store({
       {
         id: 0,
         idThread: 0,
-        answer: '',
+        answer: "",
         idUser: 0,
         upvotes: 0,
         date: "xx/xx/xx"
@@ -79,9 +80,7 @@ export default new Vuex.Store({
   },
   actions: {
     addUserAct(context, user) {
-      context.commit('addUser', {
-        user
-      });
+      context.commit("addUser", user);
     }
   },
   getters: {
@@ -89,12 +88,11 @@ export default new Vuex.Store({
       return state.users.length;
     },
     getUsers: state => {
-      if (localStorage.getItem('users')) {
+      if (localStorage.getItem("users")) {
         console.log("já está no localstorage");
         state.users = JSON.parse(localStorage.getItem("users"));
-      }
-      else {
-        console.log("ainda não está no localstorage")
+      } else {
+        console.log("ainda não está no localstorage");
         let payload = {
           //PKx5elCuP-52eqXNW9oWPQ, meu token
           //I6EFQFoKLa1FFP453_jzQg , token pedro
@@ -124,21 +122,20 @@ export default new Vuex.Store({
             return resp;
           })(ans => {
             console.log(ans);
-            console.log(typeof state.users)
+            console.log(typeof state.users);
 
             for (let persona of ans) {
-              state.users.push(persona)
+              state.users.push(persona);
             }
           })
         });
       }
 
-
       console.log(state.users);
 
       return state.users;
     }
-  },
+  }
   // ...mapGetters({
 
   // })
