@@ -4,19 +4,38 @@
       <div class="row">
         <div class="col-md-6 login-form-1">
           <h3>Login Now</h3>
-
-          <div class="form-group">
-            <input type="email" class="form-control" placeholder="Your Email *" value>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" placeholder="Your Password *" value>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btnSubmit" value="Login">
-          </div>
-          <div class="form-group">
-            <a href="#" class="btnForgetPwd">Forgot Password?</a>
-          </div>
+          <form>
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Your Email *"
+                v-model="inputEmail"
+                value
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Your Password *"
+                v-model="inputPassword"
+                value
+              >
+            </div>
+            <div class="form-group">
+              <input
+                type="button"
+                class="btnSubmit"
+                value="Login"
+                @click="login"
+                :disabled="inputEmail==''"
+              >
+            </div>
+            <div class="form-group">
+              <a href="#" class="btnForgetPwd">Forgot Password?</a>
+            </div>
+          </form>
         </div>
         <div class="col-md-6 login-form-2">
           <h3>Register Now</h3>
@@ -60,9 +79,6 @@
             <div class="form-group">
               <input type="button" class="btnSubmit" value="Register" @click="addUser">
             </div>
-            <div class="form-group">
-              <a href="#" class="btnForgetPwd" value="Login">Forgot Password?</a>
-            </div>
           </form>
         </div>
       </div>
@@ -78,6 +94,8 @@ export default {
   data() {
     return {
       users: [],
+      inputEmail: "",
+      inputPassword: "",
       newUsername: "",
       newEmail: "",
       newPassword: "",
@@ -140,6 +158,25 @@ export default {
         }
       } else {
         Swal("Password Diferente de Confirmar Password");
+      }
+    },
+    login() {
+      let id = this.users.filter(user => {
+        if (
+          user.email == this.inputEmail &&
+          user.password == this.inputPassword
+        ) {
+          return true;
+        } else {
+          return 0;
+        }
+      })[0].id;
+      console.log(id);
+      if (id) {
+        this.$router.push({
+          name: "profile",
+          params: { userid: id }
+        });
       }
     }
   }
