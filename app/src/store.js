@@ -8,6 +8,7 @@ let $ = require("../node_modules/jquery/dist/jquery.js");
 
 export default new Vuex.Store({
   state: {
+    autenticated: false,
     users: [
       {
         id: 0,
@@ -78,11 +79,17 @@ export default new Vuex.Store({
   mutations: {
     addUser(state, user) {
       state.users.push(user);
+    },
+    AUTHENTICATION(state) {
+      state.autenticated = !state.autenticated;
     }
   },
   actions: {
     addUserAct(context, user) {
       context.commit("addUser", user);
+    },
+    authentication(context) {
+      context.commit("AUTHENTICATION");
     }
   },
   getters: {
@@ -90,7 +97,7 @@ export default new Vuex.Store({
       return state.users.length;
     },
     getUsers: state => {
-      if (!localStorage.getItem("vueX")) {
+      if (!localStorage.getItem("vuex")) {
         console.log("ainda não está no localstorage");
         let payload = {
           // PKx5elCuP-52eqXNW9oWPQ, meu token
@@ -130,9 +137,10 @@ export default new Vuex.Store({
         });
       }
 
-      console.log(state.users);
-
       return state.users;
+    },
+    getAuth: state => {
+      return state.autenticated;
     }
   }
   //...mapGetters({

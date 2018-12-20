@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Navbar/>
+    <NavbarAdmin v-if="logged"/>
+    <Navbar v-else/>
     <router-view/>
     <Footer/>
   </div>
@@ -9,14 +10,18 @@
 <script>
 // import { mapGetters } from "vuex";
 import Navbar from "@/components/NavBar.vue";
+import NavbarAdmin from "@/components/Navbar2.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
+    NavbarAdmin
   },
   data() {
-    return {};
+    return {
+      logged: this.$store.getters.getAuth
+    };
   },
   computed: {},
   created() {
@@ -31,6 +36,9 @@ export default {
     //       JSON.stringify(this.$store.state.users)
     //     ) /*console.log(this.$store.state.users); alert('a')}*/
     // );
+  },
+  updated() {
+    this.logged = this.$store.getters.getAuth;
   }
 };
 </script>

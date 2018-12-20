@@ -148,6 +148,8 @@ export default {
             follow: []
           });
           Swal("Utilizador registado com sucesso");
+          this.$store.dispatch("authentication");
+
           this.$router.push({
             name: "profile",
             params: { userid: id }
@@ -170,6 +172,7 @@ export default {
       })[0].id;
       console.log(id);
       if (id) {
+        this.$store.dispatch("authentication");
         this.$router.push({
           name: "profile",
           params: { userid: id }

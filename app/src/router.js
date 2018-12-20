@@ -9,10 +9,10 @@ import Faq from "./views/Faq.vue";
 import Login from "./views/Login.vue";
 import CreateThread from "./views/CreateThread.vue";
 import ContactUs from "./views/ContactUs.vue";
-
+import store from "./store.js";
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -37,7 +37,10 @@ export default new Router({
     {
       path: "/profile/:userid",
       name: "profile",
-      component: Profile
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/faq",
@@ -61,3 +64,14 @@ export default new Router({
     }
   ]
 });
+router.beforeEach((to, from, next) => {
+  let auth = store.getters.getAuth;
+  console.log(auth);
+  if (to.meta.requiresAuth && !auth) {
+    alert("NOT LOGGED IN");
+    next("/");
+  } else {
+    next();
+  }
+});
+export default router;
