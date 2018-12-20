@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex, { mapGetters } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -8,18 +9,18 @@ let $ = require("../node_modules/jquery/dist/jquery.js");
 export default new Vuex.Store({
   state: {
     users: [
-      // {
-      //   id: 0,
-      //   name: '',
-      //   mail: '',
-      //   level: 1,
-      //   exp: 0,
-      //   badges: [1],
-      //   rank: '',
-      //   desc: "",
-      //   photo: "",
-      //   follow: [] //Array que vai ter os id's dos threads que o utilizador segue
-      // }
+      {
+        id: 0,
+        name: "",
+        mail: "",
+        level: 1,
+        exp: 0,
+        badges: [1],
+        rank: "",
+        desc: "",
+        photo: "",
+        follow: [] // Array que vai ter os id's dos threads que o utilizador segue
+      }
     ],
     badges: [
       {
@@ -50,7 +51,7 @@ export default new Vuex.Store({
         idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
         upvotes: 0,
         date: "xx/xx/xx",
-        views: 0, //Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+        views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
         course: "",
         closeDate: "xx/xx/xx"
       }
@@ -73,6 +74,7 @@ export default new Vuex.Store({
       upvotes: 0
     }
   },
+  plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
       state.users.push(user);
@@ -88,15 +90,12 @@ export default new Vuex.Store({
       return state.users.length;
     },
     getUsers: state => {
-      if (localStorage.getItem("users")) {
-        console.log("já está no localstorage");
-        state.users = JSON.parse(localStorage.getItem("users"));
-      } else {
+      if (!localStorage.getItem("vueX")) {
         console.log("ainda não está no localstorage");
         let payload = {
-          //PKx5elCuP-52eqXNW9oWPQ, meu token
-          //I6EFQFoKLa1FFP453_jzQg , token pedro
-          //k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
+          // PKx5elCuP-52eqXNW9oWPQ, meu token
+          // I6EFQFoKLa1FFP453_jzQg , token pedro
+          // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: "numberInt",
@@ -115,10 +114,10 @@ export default new Vuex.Store({
 
         $.ajax({
           type: "POST",
-          url: "https://app.fakejson.com/q",
+          url: "https:app.fakejson.com/q",
           data: payload,
           success: (resp => {
-            // console.log(code)
+            //console.log(code);
             return resp;
           })(ans => {
             console.log(ans);
@@ -136,7 +135,7 @@ export default new Vuex.Store({
       return state.users;
     }
   }
-  // ...mapGetters({
+  //...mapGetters({
 
   // })
 });

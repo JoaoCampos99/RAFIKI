@@ -93,7 +93,7 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      users: [],
+      users: this.$store.getters.getUsers,
       inputEmail: "",
       inputPassword: "",
       newUsername: "",
@@ -101,9 +101,6 @@ export default {
       newPassword: "",
       newCPassword: ""
     };
-  },
-  created() {
-    this.users = this.$store.getters.getUsers;
   },
   methods: {
     getLastID() {
