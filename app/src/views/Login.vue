@@ -160,7 +160,7 @@ export default {
       }
     },
     login() {
-      console.log(this.users)
+      console.log(this.users);
       let id = this.users.filter(user => {
         if (
           user.email == this.inputEmail &&
