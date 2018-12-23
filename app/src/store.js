@@ -11,16 +11,16 @@ export default new Vuex.Store({
     autenticated: false,
     users: [
       {
-        id: 0,
-        name: "",
-        mail: "",
-        level: 1,
-        exp: 0,
-        badges: [1],
-        rank: "",
-        desc: "",
-        photo: "",
-        follow: [] // Array que vai ter os id's dos threads que o utilizador segue
+        // id: 0,
+        // name: "",
+        // mail: "",
+        // level: 1,
+        // exp: 0,
+        // badges: [1],
+        // rank: "",
+        // desc: "",
+        // photo: "",
+        // follow: [] // Array que vai ter os id's dos threads que o utilizador segue
       }
     ],
     badges: [
