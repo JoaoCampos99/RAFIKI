@@ -100,10 +100,10 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   let auth = store.getters.getAuth;
   let idlogin = store.getters.getloginID;
-  if (to.meta.requiresAuth && !auth) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !auth) {
     alert("NOT LOGGED IN");
     next("/");
-  } else if (to.meta.requiresAuth && auth) {
+  } else if (to.matched.some(record => record.meta.requiresAuth) && auth) {
     if (idlogin != 0) {
       if (idlogin == to.params.userid) {
         next();
