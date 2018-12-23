@@ -4,11 +4,6 @@
       <h1>isto é a página para nos contactar</h1>
 
       <form v-on:submit.prevent="submit">
-        <div class="text-right row" style="right: 0">
-          <div class="text-right">
-            <SearchThing/>
-          </div>
-        </div>
         <div class="row" style="margin-bottom: 20px">
           <div class="col-md-2"></div>
 
@@ -39,8 +34,6 @@
 </template>
 
 <script>
-import SearchThing from "@/components/searchThing.vue";
-
 /*npm Libraries*/
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
 import "../../node_modules/sweetalert2/src/sweetalert2.scss";
@@ -86,9 +79,6 @@ export default {
         console.log("Escolhe uma categoria");
       }
     }
-  },
-  components: {
-    SearchThing
   }
 };
 </script>
