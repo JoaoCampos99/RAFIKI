@@ -11,7 +11,7 @@ export default new Vuex.Store({
     autenticated: false,
     loginid: 0,
     users: [
-      {
+      // {
         // id: 0,
         // name: "",
         // mail: "",
@@ -22,7 +22,7 @@ export default new Vuex.Store({
         // desc: "",
         // photo: "",
         // follow: [] // Array que vai ter os id's dos threads que o utilizador segue
-      }
+      // }
     ],
     badges: [
       {
@@ -110,7 +110,8 @@ export default new Vuex.Store({
           // PKx5elCuP-52eqXNW9oWPQ, meu token
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
-          token: "8NqHTT2oovurU8SOUFhuSg", //Token do fiels
+          // 8NqHTT2oovurU8SOUFhuSg, jonas
+          token: "k_x0qyzrU3rzj9Y2qfzQSA", //Token do fields
           data: {
             id: "numberInt",
             name: "name",
@@ -135,11 +136,12 @@ export default new Vuex.Store({
             return resp;
           })(ans => {
             console.log(ans);
-            console.log(typeof state.users);
 
             for (let persona of ans) {
               state.users.push(persona);
+              console.log(persona);
             }
+            console.log(state.users);
           })
         });
       }
