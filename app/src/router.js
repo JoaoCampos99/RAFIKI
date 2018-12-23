@@ -10,6 +10,12 @@ import Login from "./views/Login.vue";
 import CreateThread from "./views/CreateThread.vue";
 import ContactUs from "./views/ContactUs.vue";
 import store from "./store.js";
+import AboutMe from "./views/AboutMe.vue";
+import MyThreads from "./views/MyThreads.vue";
+import MyGroups from "./views/MyGroups.vue";
+import MyBadges from "./views/MyBadges.vue";
+import MyRankings from "./views/MyRankings.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -40,7 +46,34 @@ const router = new Router({
       component: Profile,
       meta: {
         requiresAuth: true
-      }
+      },
+      children: [
+        {
+          path: "about",
+          name: "AboutMe",
+          component: AboutMe
+        },
+        {
+          path: "myThreads",
+          name: "MyThreads",
+          component: MyThreads
+        },
+        {
+          path: "myGroups",
+          name: "MyGroups",
+          component: MyGroups
+        },
+        {
+          path: "myBadges",
+          name: "MyBadges",
+          component: MyBadges
+        },
+        {
+          path: "Rankings",
+          name: "MyRankings",
+          component: MyRankings
+        }
+      ]
     },
     {
       path: "/faq",
@@ -75,7 +108,11 @@ router.beforeEach((to, from, next) => {
       if (idlogin == to.params.userid) {
         next();
       } else {
+<<<<<<< Updated upstream
         alert("You can't go there!");
+=======
+        alert("You Can't Go There");
+>>>>>>> Stashed changes
         router.go(-1);
       }
     }
