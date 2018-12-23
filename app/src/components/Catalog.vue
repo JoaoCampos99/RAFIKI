@@ -12,7 +12,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, cont) in $store.state.users" v-bind:key="user.id" v-if="cont<10">
+            <tr v-for="(user) in $store.state.users" v-bind:key="user.id">
               <th scope="row">{{user.id}}</th>
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
