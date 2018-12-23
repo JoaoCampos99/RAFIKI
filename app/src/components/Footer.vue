@@ -1,5 +1,5 @@
 <template>
-  <footer class="row">
+  <footer class="row text-center text-xs-center text-sm-left text-md-left">
     <div class="col-sm-4">
       <img alt="Vue logo" src="@/assets/logoR.png">
     </div>
@@ -26,15 +26,11 @@ export default {};
 
 <style scoped>
 footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background: black;
-  width: 100%;
-  /* margin-top: 50px; */
-  color: white;
+  padding: 10px;
+  margin: 0;
+  background: #282C35;
+  color: rgba(255, 255, 255, 0.774);
+  font-size: 12px;
 }
 #contactus {
   text-decoration: none;

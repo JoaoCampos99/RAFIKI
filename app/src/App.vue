@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="qnavi">
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
+    <div class="container">
     <router-view/>
+    </div>
     <Footer/>
   </div>
 </template>
@@ -42,3 +44,7 @@ export default {
   }
 };
 </script>
+
+<style>
+
+</style>

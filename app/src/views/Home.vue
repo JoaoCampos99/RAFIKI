@@ -1,5 +1,5 @@
 <template>
-  <div id="containerHome" class="firWindow">
+  <div id="containerHome" class="">
     <h1>Isto é uma página home</h1>
     <Catalog/>
   </div>

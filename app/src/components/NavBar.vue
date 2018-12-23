@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light row">
+  <nav class="navbar navbar-expand-lg navbar-light light">
     <button
       class="navbar-toggler"
       type="button"
@@ -11,7 +11,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/">RAFIKI</a>
+    <a class="navbar-brand" href="/">Rafiki</a>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -38,3 +38,9 @@
     </div>
   </nav>
 </template>
+
+<style>
+.navi {
+  padding: 10px;
+}
+</style>

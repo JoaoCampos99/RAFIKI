@@ -2,6 +2,7 @@
 node_modules
 /dist
 app/src/store.zip
+app/development.md
 
 # local env files
 .env.local
