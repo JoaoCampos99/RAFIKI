@@ -144,7 +144,8 @@ export default {
             badges: [],
             rank: 0,
             desc: "Newbie",
-            foto: "",
+            foto:
+              "http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG",
             follow: []
           });
           Swal("Utilizador registado com sucesso");
