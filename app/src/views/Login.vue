@@ -151,7 +151,7 @@ export default {
           this.$store.dispatch("authentication");
           this.$store.dispatch("change_loginid", id);
           this.$router.push({
-            name: "profile",
+            name: "AboutMe",
             params: { userid: id }
           });
         }
@@ -175,7 +175,7 @@ export default {
         this.$store.dispatch("authentication");
         this.$store.dispatch("change_loginid", id);
         this.$router.push({
-          name: "profile",
+          name: "AboutMe",
           params: { userid: id }
         });
       }

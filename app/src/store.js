@@ -110,7 +110,8 @@ export default new Vuex.Store({
           // PKx5elCuP-52eqXNW9oWPQ, meu token
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
-          token: "8NqHTT2oovurU8SOUFhuSg", //Token do fiels
+          // 8NqHTT2oovurU8SOUFhuSg Token do fields
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: "numberInt",
             name: "name",
