@@ -108,11 +108,7 @@ router.beforeEach((to, from, next) => {
       if (idlogin == to.params.userid) {
         next();
       } else {
-<<<<<<< Updated upstream
         alert("You can't go there!");
-=======
-        alert("You Can't Go There");
->>>>>>> Stashed changes
         router.go(-1);
       }
     }
