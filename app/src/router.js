@@ -75,7 +75,7 @@ router.beforeEach((to, from, next) => {
       if (idlogin == to.params.userid) {
         next();
       } else {
-        alert("You Cant Go There");
+        alert("You can't go there!");
         router.go(-1);
       }
     }
