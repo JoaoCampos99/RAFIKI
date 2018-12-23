@@ -66,10 +66,19 @@ const router = new Router({
 });
 router.beforeEach((to, from, next) => {
   let auth = store.getters.getAuth;
-  console.log(auth);
+  let idlogin = store.getters.getloginID;
   if (to.meta.requiresAuth && !auth) {
     alert("NOT LOGGED IN");
     next("/");
+  } else if (to.meta.requiresAuth && auth) {
+    if (idlogin != 0) {
+      if (idlogin == to.params.userid) {
+        next();
+      } else {
+        alert("You Cant Go There");
+        router.go(-1);
+      }
+    }
   } else {
     next();
   }

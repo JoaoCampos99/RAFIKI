@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { mapGetters } from "vuex";
+import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
@@ -9,6 +9,7 @@ let $ = require("../node_modules/jquery/dist/jquery.js");
 export default new Vuex.Store({
   state: {
     autenticated: false,
+    loginid: 0,
     users: [
       {
         id: 0,
@@ -82,6 +83,9 @@ export default new Vuex.Store({
     },
     AUTHENTICATION(state) {
       state.autenticated = !state.autenticated;
+    },
+    CHANGE_LOGINID(state, payload) {
+      state.loginid = payload;
     }
   },
   actions: {
@@ -90,6 +94,9 @@ export default new Vuex.Store({
     },
     authentication(context) {
       context.commit("AUTHENTICATION");
+    },
+    change_loginid(context, payload) {
+      context.commit("CHANGE_LOGINID", payload);
     }
   },
   getters: {
@@ -141,6 +148,9 @@ export default new Vuex.Store({
     },
     getAuth: state => {
       return state.autenticated;
+    },
+    getloginID: state => {
+      return state.loginid;
     }
   }
   //...mapGetters({

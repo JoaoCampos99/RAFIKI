@@ -130,10 +130,10 @@ export default {
       console.log("Nome existe:" + usernameExists);
 
       if (this.newPassword == this.newCPassword) {
+        let id = this.getLastID() + 1;
         if (emailExists || usernameExists) {
           Swal("Já Existe alguém com essas credenciais");
         } else {
-          let id = this.getLastID() + 1;
           this.$store.dispatch("addUserAct", {
             id: id,
             name: this.newUsername,
@@ -149,7 +149,7 @@ export default {
           });
           Swal("Utilizador registado com sucesso");
           this.$store.dispatch("authentication");
-
+          this.$store.dispatch("change_loginid", id);
           this.$router.push({
             name: "profile",
             params: { userid: id }
@@ -173,6 +173,7 @@ export default {
       console.log(id);
       if (id) {
         this.$store.dispatch("authentication");
+        this.$store.dispatch("change_loginid", id);
         this.$router.push({
           name: "profile",
           params: { userid: id }

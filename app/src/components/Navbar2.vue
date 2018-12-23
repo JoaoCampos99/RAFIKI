@@ -47,6 +47,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("authentication");
+      this.$store.dispatch("change_loginid", 0);
       this.$router.push("/");
     }
   }
