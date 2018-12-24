@@ -1,11 +1,20 @@
 <template>
 <div class="container"> 
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <h2>Badges</h2>
+      <br>
+      <h4>Helpful Awards</h4>
+      <hr>
+    </div>
+  </div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="badge in helpBadges" :key="badge.id">
 			<div class="offer offer-radius offer-success">
 				<div class="shape">
 					<div class="shape-text">
-												<p>{{badge.id}}</p>		
+						<p>{{badge.id}}</p>		
 					</div>
 				</div>
 				<div>
@@ -19,7 +28,40 @@
 			</div>
 		</div>	
 	</div>
+
+  <!-- AQUI COMEÇAM OS RANKING AWARDS-->
+  <div class="row">
+    <div class="col-md-12">
+      <br>
+      <h4>Ranking Awards</h4>
+      <hr>
+    </div>
+  </div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="badge in rankBadges" :key="badge.id">
+			<div class="offer offer-radius offer-warning">
+				<div class="shape">
+					<div class="shape-text">
+						<p>{{badge.id}}</p>		
+					</div>
+				</div>
+				<div>
+					<h3 class="offer-content">
+						{{badge.name}}
+					</h3>
+					<p class="offer-content2">
+              {{badge.text}}
+					</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+  <br>
+
+
 </div>
+
+
 </template>
 
 <script>
@@ -27,7 +69,8 @@ export default {
   name: "helpBadges",
   data: function() {
     return {
-      helpBadges: []
+      helpBadges: [],
+      rankBadges: []
     };
   },
   created() {
@@ -49,18 +92,47 @@ export default {
       },
       {
         id: 4,
-        name: "We don't deserve you!",
+        name: "You're like a guru!",
         text: "Give 40 answers",
       },
       {
         id: 5,
-        name: "We don't deserve you!",
+        name: "Rafiki, is that you?",
         text: "Give 50 answers",
       }
     ];
+  this.rankBadges = [
+    {
+        id: 1,
+        name: "THE 100 BEST",
+        text: "Reach TOP 100",
+      },
+      {
+        id: 2,
+        name: "Keep climbing!",
+        text: "Reach TOP 60",
+      },
+      {
+        id: 3,
+        name: "Leave them behind!",
+        text: "Reach TOP 50",
+      },
+      {
+        id: 4,
+        name: "You're a beast!",
+        text: "Reach TOP 5",
+      },
+      {
+        id: 5,
+        name: "Our Lord, our Rafiki",
+        text: "Reach 1st place",
+      }
+  ]
     
   }
 };
+
+
 
 
 
