@@ -1,5 +1,5 @@
 <template>
-  <div class="qnavi">
+  <div id="app">
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
     <div class="container">
@@ -46,5 +46,7 @@ export default {
 </script>
 
 <style>
-
+  #app{
+    background-color: rgba(248, 221, 215, 0.836);
+  }
 </style>

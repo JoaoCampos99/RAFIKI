@@ -111,7 +111,7 @@ export default new Vuex.Store({
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "k_x0qyzrU3rzj9Y2qfzQSA", //Token do fields
+          token: "I6EFQFoKLa1FFP453_jzQg", //Token do fields
           data: {
             id: "numberInt",
             name: "name",
