@@ -35,7 +35,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Give 10 answers",
-        category:"help"
+        category: "help"
       },
       {
         id: 2,
@@ -46,7 +46,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Give 20 answers",
-        category:"help"
+        category: "help"
       },
       {
         id: 3,
@@ -57,7 +57,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Give 30 answers",
-        category:"help"
+        category: "help"
       },
       {
         id: 4,
@@ -68,7 +68,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Give 40 answers",
-        category:"help"
+        category: "help"
       },
       {
         id: 5,
@@ -79,7 +79,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Give 50 answers",
-        category:"help"
+        category: "help"
       },
       // RANK AWARDS
       {
@@ -91,7 +91,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Reach TOP 100",
-        category:"rank"
+        category: "rank"
       },
       {
         id: 7,
@@ -102,7 +102,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Reach TOP 60",
-        category:"rank"
+        category: "rank"
       },
       {
         id: 8,
@@ -113,7 +113,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Reach TOP 50",
-        category:"rank"
+        category: "rank"
       },
       {
         id: 9,
@@ -124,7 +124,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Reach TOP 5",
-        category:"rank"
+        category: "rank"
       },
       {
         id: 10,
@@ -135,7 +135,7 @@ export default new Vuex.Store({
           } else return false;
         },
         desc: "Reach 1st place",
-        category:"rank"
+        category: "rank"
       }
     ],
 
@@ -213,7 +213,7 @@ export default new Vuex.Store({
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "I6EFQFoKLa1FFP453_jzQg", //Token do fields
+          token: "8NqHTT2oovurU8SOUFhuSg",
           data: {
             id: "numberInt",
             name: "name",
@@ -255,6 +255,9 @@ export default new Vuex.Store({
     },
     getloginID: state => {
       return state.loginid;
+    },
+    getBadges: state => {
+      return state.badges;
     }
   }
   //...mapGetters({
