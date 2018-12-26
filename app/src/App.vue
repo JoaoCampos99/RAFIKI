@@ -47,6 +47,6 @@ export default {
 
 <style>
   #app{
-    background-color: rgba(248, 221, 215, 0.836);
+    background-color: "#FEFEFE";
   }
 </style>

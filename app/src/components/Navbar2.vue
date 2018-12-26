@@ -1,20 +1,18 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light row">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarTogglerDemo03"
-      aria-controls="navbarTogglerDemo03"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="mx-auto order-0">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".dual-collapse2"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
     <a class="navbar-brand" href="/">Rafiki</a>
-
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link :to="{ name: 'faq' }" :class="{ 'nav-link': true }">FAQ</router-link>
         </li>
@@ -29,15 +27,18 @@
         </li>
         <li class="nav-item">
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
-        </li> 
+        </li>
+        <li class="nav-item" @click="profile">
+          <a class="nav-link">Profile</a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item" @click="logout">
           <a class="nav-link">Logout</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </nav>
 </template>
@@ -45,13 +46,26 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      loginID: this.$store.getters.getloginID
+    };
+  },
+  created() {
+    console.log(this.loginID);
   },
   methods: {
     logout() {
       this.$store.dispatch("authentication");
       this.$store.dispatch("change_loginid", 0);
-      this.$router.push("/");
+      if (this.$route.name === "home") {
+        this.$router.go(this.$router.currentRoute);
+      } else {
+        this.$router.push({ name: "home" });
+      }
+    },
+    profile() {
+      console.log("este e o id" + this.loginID);
+      this.$router.push({ name: "profile", params: { userid: this.loginID } });
     }
   }
 };
