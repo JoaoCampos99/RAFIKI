@@ -27,6 +27,9 @@
         <li class="nav-item">
           <router-link :to="{ name: 'rankings' }" :class="{ 'nav-link': true }">Ranking</router-link>
         </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
+        </li> 
         <li class="nav-item" @click="logout">
           <a class="nav-link">Logout</a>
         </li>

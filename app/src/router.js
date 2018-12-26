@@ -15,7 +15,7 @@ import MyThreads from "./views/MyThreads.vue";
 import MyGroups from "./views/MyGroups.vue";
 import MyBadges from "./views/MyBadges.vue";
 import MyRankings from "./views/MyRankings.vue";
-
+import Users from "./views/Users.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -29,6 +29,11 @@ const router = new Router({
       path: "/rankings",
       name: "rankings",
       component: Ranking
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: Users
     },
     {
       path: "/badges",

@@ -30,6 +30,9 @@
         <li class="nav-item">
           <router-link :to="{ name: 'rankings' }" :class="{ 'nav-link': true }">Ranking</router-link>
         </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
+        </li> 
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

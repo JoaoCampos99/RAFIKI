@@ -10,7 +10,7 @@
     </div>
   </div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="badge in helpBadges" :key="badge.id">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(badge) in $store.state.badges" v-if="badge.category==='help'" v-bind:key="badge.id">
 			<div class="offer offer-radius offer-success">
 				<div class="shape">
 					<div class="shape-text">
@@ -22,14 +22,14 @@
 						{{badge.name}}
 					</h3>
 					<p class="offer-content2">
-              {{badge.text}}
+              {{badge.desc}}
 					</p>
 				</div>
 			</div>
 		</div>	
 	</div>
 
-  <!-- AQUI COMEÇAM OS RANKING AWARDS-->
+  <!-- AQUI COMEÇAM OS RANKING AWARDS--> 
   <div class="row">
     <div class="col-md-12">
       <br>
@@ -38,7 +38,7 @@
     </div>
   </div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="badge in rankBadges" :key="badge.id">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(badge) in $store.state.badges"  v-if="badge.category==='rank'" v-bind:key="badge.id">
 			<div class="offer offer-radius offer-warning">
 				<div class="shape">
 					<div class="shape-text">
@@ -50,7 +50,7 @@
 						{{badge.name}}
 					</h3>
 					<p class="offer-content2">
-              {{badge.text}}
+              {{badge.desc}}
 					</p>
 				</div>
 			</div>
@@ -73,7 +73,7 @@ export default {
       rankBadges: []
     };
   },
-  created() {
+  /*created() {
     this.helpBadges = [
       {
         id: 1,
@@ -129,7 +129,7 @@ export default {
       }
   ]
     
-  }
+  }*/
 };
 
 
@@ -150,9 +150,7 @@ export default {
 .offer{
 	background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
 }
-.shape {
-	border-color: rgba(255,255,255,0) #d9534f rgba(255,255,255,0) rgba(255,255,255,0);
-}
+
 .offer-radius{
 	border-radius:7px;
 }

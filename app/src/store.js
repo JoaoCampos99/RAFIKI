@@ -25,18 +25,120 @@ export default new Vuex.Store({
       // }
     ],
     badges: [
+      //helpful awards
       {
         id: 1,
-        name: "you are a beast",
+        name: "Nice, you're helpful!",
         goal: user => {
           if (user.exp >= 200) {
             return true;
           } else return false;
         },
-        desc: "",
-        category: ""
+        desc: "Give 10 answers",
+        category:"help"
+      },
+      {
+        id: 2,
+        name: "Damn! You know alot!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Give 20 answers",
+        category:"help"
+      },
+      {
+        id: 3,
+        name: "We don't deserve you!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Give 30 answers",
+        category:"help"
+      },
+      {
+        id: 4,
+        name: "You're like a guru!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Give 40 answers",
+        category:"help"
+      },
+      {
+        id: 5,
+        name: "Rafiki, is that you?",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Give 50 answers",
+        category:"help"
+      },
+      // RANK AWARDS
+      {
+        id: 6,
+        name: "THE BEST 100",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Reach TOP 100",
+        category:"rank"
+      },
+      {
+        id: 7,
+        name: "Keep climbing!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Reach TOP 60",
+        category:"rank"
+      },
+      {
+        id: 8,
+        name: "Leave them behind!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Reach TOP 50",
+        category:"rank"
+      },
+      {
+        id: 9,
+        name: "You're a beast!",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Reach TOP 5",
+        category:"rank"
+      },
+      {
+        id: 10,
+        name: "Our Lord, our Rafiki",
+        goal: user => {
+          if (user.exp >= 200) {
+            return true;
+          } else return false;
+        },
+        desc: "Reach 1st place",
+        category:"rank"
       }
     ],
+
     groups: [
       {
         id: 0,
