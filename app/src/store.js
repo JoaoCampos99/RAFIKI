@@ -220,7 +220,7 @@ export default new Vuex.Store({
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "PKx5elCuP-52eqXNW9oWPQ",
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: "numberInt",
             name: "name",
@@ -230,7 +230,7 @@ export default new Vuex.Store({
             badges: "functionArray|3|numberInt",
             rank: "numberInt",
             desc: "stringLong",
-            foto: "",
+            foto: "personAvatar",
             follow: "functionArray|3|numberInt",
             _repeat: 1
           }

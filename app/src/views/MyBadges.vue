@@ -9,11 +9,12 @@
         <hr>
       </div>
     </div>
-    <div class="row" v-if="myBadgesHelp.length>0">
+    <div class="row">
       <div
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-        v-for="(badge) in myBadgesHelp"
+        v-for="badge in myBadges"
         v-bind:key="badge.id"
+        v-if="badge.category=='help'"
       >
         <div class="offer offer-radius offer-success">
           <div class="shape">
@@ -27,9 +28,9 @@
           </div>
         </div>
       </div>
-    </div>
-    <span v-else>Não Há Medalhas disto</span>
 
+      <span v-else>Não Há Medalhas disto</span>
+    </div>
     <!-- AQUI COMEÇAM OS RANKING AWARDS-->
     <div class="row">
       <div class="col-md-12">
@@ -38,10 +39,11 @@
         <hr>
       </div>
     </div>
-    <div class="row" v-if="myBadgesRank.length>0">
+    <div class="row">
       <div
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
-        v-for="(badge) in myBadgesRank"
+        v-for="badge in myBadges"
+        v-if="badge.category==='rank'"
         v-bind:key="badge.id"
       >
         <div class="offer offer-radius offer-warning">
@@ -56,16 +58,16 @@
           </div>
         </div>
       </div>
+
+      <span v-else>Não ha disso</span>
     </div>
-    <span v-else>Não ha disso</span>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      myBadgesHelp: [],
-      myBadgesRank: []
+      myBadges: []
     };
   },
   created() {
@@ -82,11 +84,8 @@ export default {
       console.log(allBadges[i]);
       for (let j = 0; j < badges.length; j++) {
         if (allBadges[i].id == badges[j]) {
-          if (allBadges[i].category === "help") {
-            this.myBadgesHelp.push(allBadges[i]);
-          } else {
-            this.myBadgesRank.push(allBadges[i]);
-          }
+          console.log("Deu");
+          this.myBadges.push(allBadges[i]);
         }
       }
     }
