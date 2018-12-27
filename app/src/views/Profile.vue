@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="margin-top:80px;margin-bottom:80px">
+  <div class="container">
     <div class="row">
       <div class="col-md-8" style="margin-left:100px;padding-bottom:100px">
         <img :src="getUser(this.$route.params.userid).foto" class="img-thumbnail picture hidden-xs">
@@ -43,8 +43,8 @@
         :to="{name:'MyRankings'}"
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
       >Rankings</router-link>
-      <router-view class="col-sm-4"></router-view>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 

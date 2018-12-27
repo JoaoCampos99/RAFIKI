@@ -1,14 +1,14 @@
 <template>
   <!-- <div class="container"> -->
-  <div class="row">
+  <div class="row" style="width: inherit">
     <div id="letabela" class="col-md-10">
-      <table class="table table-striped">
+      <table class="table table-striped" style="width: inherit">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nome</th>
             <th scope="col">thread</th>
-            <th scope="col">Handle</th>
+            <!-- <th scope="col">Handle</th> -->
           </tr>
         </thead>
         <tbody>
@@ -16,7 +16,7 @@
             <th scope="row">{{user.id}}</th>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
-            <td>{{user.level}}</td>
+            <!-- <td>{{user.level}}</td> -->
           </tr>
         </tbody>
       </table>

@@ -2,9 +2,7 @@
   <div id="app2" class="container-fluid">
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
-    <div>
     <router-view/>
-    </div>
     <Footer/>
   </div>
 </template>
@@ -29,7 +27,7 @@ export default {
   created() {
     this.$store.getters.getUsers;
     console.log("ata");
-    console.log(this.$store.state.users);
+    console.log(this.$store.state.users.uniq);
     // window.addEventListener(
     //   "unload",
     //   () =>

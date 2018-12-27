@@ -1,7 +1,7 @@
 <template>
   <footer class="row text-center text-xs-center text-sm-left text-md-left">
     <div class="col-sm-4">
-      <img alt="Vue logo" src="@/assets/logoR.png">
+      <img alt="Vue logo" src="@/assets/logoR.png" style="width: inherit">
     </div>
     <div class="col-sm-8 text-center">
       <div class="row">

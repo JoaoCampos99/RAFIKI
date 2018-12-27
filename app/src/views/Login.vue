@@ -141,7 +141,7 @@ export default {
             password: this.newPassword,
             level: 0,
             exp: 0,
-            badges: [],
+            badges: [1, 2, 8], 
             rank: 0,
             desc: "Newbie",
             foto:

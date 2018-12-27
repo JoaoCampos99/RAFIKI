@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <div class="row">
       <div class="col-md-12">
         <br>
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <span v-else>Não Há Medalhas disto</span>
+      <!-- <span v-else>Não Há Medalhas disto</span> -->
     </div>
     <!-- AQUI COMEÇAM OS RANKING AWARDS-->
     <div class="row">
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <span v-else>Não ha disso</span>
+      <!-- <span v-else>Não ha disso</span> -->
     </div>
   </div>
 </template>
@@ -75,7 +75,7 @@ export default {
     let user = this.$store.getters.getUsers.filter(
       user => user.id == this.$store.getters.getloginID
     );
-    console.log(user);
+    console.log(user[0]);
     let allBadges = this.$store.getters.getBadges;
     console.log(allBadges);
     let badges = user[0].badges;
@@ -89,6 +89,7 @@ export default {
         }
       }
     }
+    console.log(this.myBadges)
   }
 };
 </script>
