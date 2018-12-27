@@ -14,7 +14,7 @@
         class="col-xs-12 col-sm-6 col-md-4 col-lg-3"
         v-for="badge in myBadges"
         v-bind:key="badge.id"
-        v-if="badge.category=='help'"
+        v-if="badge.category==='help'"
       >
         <div class="offer offer-radius offer-success">
           <div class="shape">
@@ -28,8 +28,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <span v-else>Não Há Medalhas disto</span> -->
     </div>
     <!-- AQUI COMEÇAM OS RANKING AWARDS-->
     <div class="row">
@@ -58,8 +56,11 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
 
       <!-- <span v-else>Não ha disso</span> -->
+=======
+>>>>>>> ad952a9ee415c69cbd36222b58c43f4a5ab9dc1a
     </div>
   </div>
 </template>
