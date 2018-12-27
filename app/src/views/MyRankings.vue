@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="padding: 0px">
     <table class="table table-striped" v-if="ranks.length>0">
       <thead class="thead-dark">
         <tr>

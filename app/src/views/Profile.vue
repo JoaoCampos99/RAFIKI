@@ -1,28 +1,22 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-md-8" style="margin-left:100px;padding-bottom:100px">
-        <img :src="getUser(this.$route.params.userid).foto" class="img-thumbnail picture hidden-xs">
-        <div class="header">
-          <br>
-          <br>
-          <br>
-          <div class="row">
-            <div class="col md-3">
-              <h1>{{getUser(this.$route.params.userid).name}}</h1>
-              <span>Level:{{getUser(this.$route.params.userid).level}}</span>
-            </div>
-          </div>
-          <div class="progress">
-            <div
-              :style="{'width': getUserProgress(this.$route.params.userid)}"
-              class="progress-bar progress-bar-info"
-            ></div>
-          </div>
+    <div class="header row" style="margin-bottom: 40px;">
+      <div class="col-md-4 text-center">
+        <img :src="getUser(this.$route.params.userid).foto" class="picture">
+      </div>
+      <div class="col-md-8">
+        <h1>{{getUser(this.$route.params.userid).name}}</h1>
+        <span>Level:{{getUser(this.$route.params.userid).level}}</span>
+
+        <div class="progress">
+          <div
+            :style="{'width': getUserProgress(this.$route.params.userid)}"
+            class="progress-bar progress-bar-info"
+          ></div>
         </div>
       </div>
     </div>
-    <div class="list-group col-md-4" id="nav">
+    <div class="list-group text-center" id="nav" style="margin-bottom: 50px;">
       <router-link
         :to="{name:'AboutMe'}"
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
@@ -81,9 +75,9 @@ export default {
 .picture {
   height: 200px;
   width: 150px;
-  position: absolute;
-  top: 75px;
-  left: -75px;
+  /* position: absolute; */
+  /* top: 75px;
+  left: -75px; */
 }
 
 .picture_mob {
