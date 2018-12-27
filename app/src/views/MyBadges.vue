@@ -56,11 +56,6 @@
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-
-      <!-- <span v-else>Não ha disso</span> -->
-=======
->>>>>>> ad952a9ee415c69cbd36222b58c43f4a5ab9dc1a
     </div>
   </div>
 </template>
