@@ -136,6 +136,13 @@ export default new Vuex.Store({
         },
         desc: "Reach 1st place",
         category: "rank"
+      },
+      {
+        id: 11,
+        name: "10 Clicks!!! És grande",
+        goal: clicks => (clicks == 10 ? true : false),
+        desc: "10 clicks on Rafiki",
+        category: "hardwork" //Pode mudar de nome, mas devia ser uma categoria diferente
       }
     ],
 
@@ -213,7 +220,7 @@ export default new Vuex.Store({
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "8NqHTT2oovurU8SOUFhuSg",
+          token: "PKx5elCuP-52eqXNW9oWPQ",
           data: {
             id: "numberInt",
             name: "name",
