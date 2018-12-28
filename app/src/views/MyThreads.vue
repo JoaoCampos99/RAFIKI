@@ -1,43 +1,34 @@
 <template>
-  <div>
-    <div class="row" v-for="thread in mythreads" v-bind:key="thread.id">
-      <div class="span8">
-        <div class="row">
-          <div class="span8">
-            <h4>
-              <strong>
-                <a>{{thread.title}}</a>
-              </strong>
-            </h4>
-          </div>
+  <div class="row">
+    <div v-for="thread in mythreads" v-bind:key="thread.id">
+      <h4>
+        <strong>
+          <a>{{thread.title}}</a>
+        </strong>
+      </h4>
+      <div class="row">
+        <div class="span6">
+          <!--Descrição-->
+          <p>{{thread.question}}</p>
+          <p>
+            <a class="btn btn-primary">Read more</a>
+            <!--Depois alterar-->
+          </p>
         </div>
-        <div class="row">
-          <div class="span6">
-            <!--Descrição-->
-            <p>{{thread.question}}</p>
-            <p>
-              <a class="btn btn-primary">Read more</a>
-              <!--Depois alterar-->
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="span8">
-            <p></p>
-            <p>
-              <i class="icon-calendar"></i>
-              {{thread.date}}
-              <!--Data-->
-              |
-              <i class="icon-tags"></i> Tags :
-              <!--TAGS-->
-              <a v-for="tag in thread.tags" v-bind:key="tag">
-                <!---->
-                <span class="label label-info">{{tag}} |</span>
-              </a>
-            </p>
-          </div>
-        </div>
+      </div>
+      <div class="row">
+        <p>
+          <i class="icon-calendar"></i>
+          {{thread.date}}
+          <!--Data-->
+          |
+          <i class="icon-tags"></i> Tags :
+          <!--TAGS-->
+          <a v-for="tag in thread.tags" v-bind:key="tag">
+            <!---->
+            <span class="label label-info">{{tag}}</span>
+          </a>
+        </p>
       </div>
     </div>
   </div>
