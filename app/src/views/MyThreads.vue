@@ -1,35 +1,33 @@
 <template>
-  <div class="row">
+  <div class="span8">
     <div v-for="thread in mythreads" v-bind:key="thread.id">
       <h4>
         <strong>
           <a>{{thread.title}}</a>
         </strong>
       </h4>
-      <div class="row">
-        <div class="span6">
-          <!--Descrição-->
-          <p>{{thread.question}}</p>
-          <p>
-            <a class="btn btn-primary">Read more</a>
-            <!--Depois alterar-->
-          </p>
-        </div>
-      </div>
-      <div class="row">
+
+      <div class="span6">
+        <!--Descrição-->
+        <p>{{thread.question}}</p>
         <p>
-          <i class="icon-calendar"></i>
-          {{thread.date}}
-          <!--Data-->
-          |
-          <i class="icon-tags"></i> Tags :
-          <!--TAGS-->
-          <a v-for="tag in thread.tags" v-bind:key="tag">
-            <!---->
-            <span class="label label-info">{{tag}}</span>
-          </a>
+          <a class="btn btn-primary">Read more</a>
+          <!--Depois alterar-->
         </p>
       </div>
+
+      <p>
+        <i class="icon-calendar"></i>
+        {{thread.date}}
+        <!--Data-->
+        |
+        <i class="icon-tags"></i> Tags :
+        <!--TAGS-->
+        <a v-for="tag in thread.tags" v-bind:key="tag">
+          <!---->
+          <span class="label label-info">{{tag}}</span>
+        </a>
+      </p>
     </div>
   </div>
 </template>
