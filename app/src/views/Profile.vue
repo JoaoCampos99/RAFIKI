@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="list-group text-center" id="nav" style="margin-bottom: 50px;">
+    <!-- <div class="list-group text-center" id="nav" style="margin-bottom: 50px;">
       <router-link
         :to="{name:'AboutMe'}"
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
@@ -37,7 +37,25 @@
         :to="{name:'MyRankings'}"
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
       >Rankings</router-link>
-    </div>
+    </div>-->
+    <ul class="nav nav-tabs" id="nav" style="margin-bottom:1em">
+      <li class="nav-item">
+        <router-link :to="{name:'AboutMe'}" :class="{'nav-link':true}">About Me</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{name:'MyThreads'}" :class="{'nav-link':true}">My Threads</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{name:'MyGroups'}" :class="{'nav-link':true}">My Groups</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{name:'MyBadges'}" :class="{'nav-link':true}">My Badges</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
+      </li>
+    </ul>
+
     <router-view></router-view>
   </div>
 </template>
