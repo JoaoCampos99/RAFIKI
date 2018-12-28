@@ -155,16 +155,17 @@ export default new Vuex.Store({
     ],
     threads: [
       {
-        id: 0,
-        userId: 0,
-        question: "",
-        tags: [],
-        idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-        upvotes: 0,
-        date: "xx/xx/xx",
-        views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-        course: "",
-        closeDate: "xx/xx/xx"
+        // id: 0,
+        // userId: 0,
+        // question: "",
+        //Title:"",
+        // tags: [],
+        // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
+        // upvotes: 0,
+        // date: "xx/xx/xx",
+        // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+        // course: "",
+        // closeDate: "xx/xx/xx"
       }
     ],
     answers: [
@@ -265,6 +266,9 @@ export default new Vuex.Store({
     },
     getBadges: state => {
       return state.badges;
+    },
+    getThreads: state => {
+      return state.threads;
     }
   }
   //...mapGetters({
