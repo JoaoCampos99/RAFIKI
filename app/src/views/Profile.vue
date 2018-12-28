@@ -55,8 +55,9 @@
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
     </ul>
-
-    <router-view></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view id="router-view"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -85,6 +86,13 @@ export default {
   border-color: #007bff;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .header {
   color: #808080;
   margin-left: 10%;
