@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     autenticated: false,
     loginid: 0,
+    preenchido: false,
     users: [
       // {
       // id: 0,
@@ -196,6 +197,9 @@ export default new Vuex.Store({
     },
     CHANGE_LOGINID(state, payload) {
       state.loginid = payload;
+    },
+    save(state) {
+      state.preenchido = true;
     }
   },
   actions: {
@@ -207,6 +211,9 @@ export default new Vuex.Store({
     },
     change_loginid(context, payload) {
       context.commit("CHANGE_LOGINID", payload);
+    },
+    save(context) {
+      context.commit("save");
     }
   },
   getters: {
@@ -214,17 +221,19 @@ export default new Vuex.Store({
       return state.users.length;
     },
     getUsers: state => {
-      if (!localStorage.getItem("vuex")) {
+      let users = []
+      if (!localStorage.getItem("vuex") == true) {
         console.log("ainda não está no localstorage");
         let payload = {
           // PKx5elCuP-52eqXNW9oWPQ, meu token
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "I6EFQFoKLa1FFP453_jzQg",
+          token: "PKx5elCuP-52eqXNW9oWPQ",
           data: {
-            id: "numberInt",
-            name: "name",
+            id: 1,
+            name: "personNickname",
+            password: "personPassword",
             email: "internetEmail",
             level: "numberInt",
             exp: "numberInt",
@@ -233,6 +242,7 @@ export default new Vuex.Store({
             desc: "stringLong",
             foto: "personAvatar",
             follow: "functionArray|3|numberInt",
+            skills: "personSkill",
             _repeat: 1
           }
         };
@@ -248,15 +258,19 @@ export default new Vuex.Store({
             console.log(ans);
 
             for (let persona of ans) {
-              state.users.push(persona);
+              persona.id = users.length == 0 ? 1 : users[users.length - 1].id + 1
+
+              users.push(persona);
               console.log(persona);
             }
-            console.log(state.users);
+            console.log(users);
           })
         });
+      }else{
+        users = JSON.parse(localStorage.getItem('vuex')).users;
       }
 
-      return state.users;
+      return users;
     },
     getAuth: state => {
       return state.autenticated;

@@ -25,9 +25,15 @@ export default {
   },
   computed: {},
   created() {
-    this.$store.getters.getUsers;
-    console.log("ata");
-    console.log(this.$store.state.users.uniq);
+    this.$store.state.users = this.$store.getters.getUsers;
+
+    if(this.$store.state.preenchido == false) { //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site 
+      this.$store.dispatch('save')
+      console.log(this.$store.state.preenchido)
+    }
+
+    // console.log("ata");
+    console.log(this.$store.state.users);
     // window.addEventListener(
     //   "unload",
     //   () =>
