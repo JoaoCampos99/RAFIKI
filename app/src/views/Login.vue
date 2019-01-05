@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="container login-container" >
-      <div class="row" >
+    <div class="container login-container">
+      <div class="row">
         <div class="col-md-6 login-form-1" style="border-radius: 10px;">
           <h3>Login Now</h3>
-          <form>
+          <form v-on:submit.prevent="submitfp()">
             <div class="form-group">
               <input
                 type="email"
@@ -33,7 +33,14 @@
               >
             </div>
             <div class="form-group">
-              <a href="#" class="btnForgetPwd">Forgot Password?</a>
+              <p href="#" class="btnForgetPwd" v-on:click="showfp = !showfp">Forgot Password?</p>
+              <div class="col-md-12" v-show="showfp">
+                <p class="form-text">Insere o teu e-mail e nós mandamos-te um manguito</p>
+                <input type="email" v-model="emailfp" class="form-control" placeholder="E-mail..." required>
+                <div class="col-md-12 text-right" style="margin-top: 1rem;">
+                  <button type="submit" class="btn btn-success" >Enviar</button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -99,7 +106,9 @@ export default {
       newUsername: "",
       newEmail: "",
       newPassword: "",
-      newCPassword: ""
+      newCPassword: "",
+      showfp: true,
+      emailfp: null
     };
   },
   methods: {
@@ -141,7 +150,7 @@ export default {
             password: this.newPassword,
             level: 0,
             exp: 0,
-            badges: [1, 2, 8], 
+            badges: [1, 2, 8],
             rank: 0,
             desc: "Newbie",
             foto:
@@ -181,6 +190,9 @@ export default {
           params: { userid: id }
         });
       }
+    },
+    submitfp(){
+      console.log(this.emailfp)
     }
   }
 };
@@ -193,7 +205,7 @@ export default {
   margin-bottom: 15%;
 }
 .login-form-1 {
-  padding: 9%;
+  padding: 1rem;
   background: rgba(9, 71, 204, 0.904);
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
@@ -203,7 +215,7 @@ export default {
   color: #fff;
 }
 .login-form-2 {
-  padding: 9%;
+  padding: 1rem;
   background: #f05837;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
@@ -222,12 +234,30 @@ export default {
   padding: 2%;
 }
 .btnForgetPwd {
-  color: #fff;
-  font-weight: 600;
+  color: rgb(255, 212, 212);
+  /* text-decoration: none; */
+  font-family: "Arial Narrow Bold", sans-serif;
+}
+.btnForgetPwd:active {
   text-decoration: none;
+  cursor: help;
+  animation: 0.2s change_font;
 }
 .btnForgetPwd:hover {
-  text-decoration: none;
-  color: #fff;
+  cursor: help;
+}
+@keyframes change_font {
+  from {
+    font-family: "Arial Narrow Bold", sans-serif;
+  }
+  to {
+    font-family: Tahoma, "Arial Narrow Bold", sans-serif;
+    font-weight: 500;
+  }
+}
+.form-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  text-align: center;
 }
 </style>
