@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button
       class="navbar-toggler"
       type="button"
@@ -34,10 +34,9 @@
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
         </li> 
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      <!-- <div class="navbar-brand">
+        <img src="../assets/logoR.png" class="d-inline-block align-top img-fluid" alt="">
+      </div> -->
     </div>
   </nav>
 </template>
@@ -45,5 +44,8 @@
 <style>
 .navi {
   padding: 10px;
+}
+nav{
+  margin-bottom: 2rem;
 }
 </style>

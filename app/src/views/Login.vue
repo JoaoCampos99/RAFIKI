@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="container login-container">
-      <div class="row">
-        <div class="col-md-6 login-form-1">
+    <div class="container login-container" >
+      <div class="row" >
+        <div class="col-md-6 login-form-1" style="border-radius: 10px;">
           <h3>Login Now</h3>
           <form>
             <div class="form-group">
@@ -37,7 +37,7 @@
             </div>
           </form>
         </div>
-        <div class="col-md-6 login-form-2">
+        <div class="col-md-6 login-form-2" style="border-radius: 10px;">
           <h3>Register Now</h3>
           <form>
             <div class="form-group">

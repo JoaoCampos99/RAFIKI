@@ -1,10 +1,15 @@
 <template>
   <div id="searchBox">
-    <div>
-      <button id="searchButton" class="btn btn-primary" v-on:click="search">
+    <div class="cont">
+      <button id="searchButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" v-on:click="openDialog">
         <i class="fas fa-search"></i>
       </button>
     </div>
+
+    <!-- Modal -->
+    <dialog>
+      <h1>ola</h1>
+    </dialog>
   </div>
 </template>
 
@@ -21,17 +26,8 @@ export default {
     };
   },
   methods: {
-    search() {
+    openDialog() {
       console.log(this.users);
-      JSON.parse(localStorage["vuex"]).users = JSON.stringify(this.users)
-      console.log(JSON.parse(localStorage["vuex"]).users);
-
-      // /*const {value: } = await*/ Swal({
-      //   title: 'oh pa mim',
-      //   html: '<ul><li v-for="(user, cont) in users" v-bind:key="user.id">{{cont}}<li></ul>',
-      //   focusConfirm: false
-
-      // })
     }
   },
   computed: {
@@ -57,7 +53,7 @@ export default {
   bottom: 0;
   z-index: 100;
 }
-#searchBox > div {
+#searchBox > div.cont {
   padding: 2px;
   border-radius: 5px;
   margin: 5px;

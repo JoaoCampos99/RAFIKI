@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
-        <img :src="getUser(this.$route.params.userid).foto" class="picture">
+        <img :src="getUser(this.$route.params.userid).foto" class="picture img-fluid">
       </div>
       <div class="col-md-8">
         <h1>{{getUser(this.$route.params.userid).name}}</h1>
