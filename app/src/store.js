@@ -190,6 +190,7 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
+      user.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
       state.users.push(user);
     },
     AUTHENTICATION(state) {
@@ -201,15 +202,33 @@ export default new Vuex.Store({
     save(state) {
       state.preenchido = true;
     },
-    save_users(state) {
-      if (!localStorage.getItem("vuex") == true) {
+    save_users(state, arr) {
+      state.users = arr;
+    }
+  },
+  actions: {
+    addUserAct(context, user) {
+      context.commit("addUser", user);
+    },
+    authentication(context) {
+      context.commit("AUTHENTICATION");
+    },
+    change_loginid(context, payload) {
+      context.commit("CHANGE_LOGINID", payload);
+    },
+    save(context) {
+      context.commit("save");
+    },
+    save_users(context) {
+      if (!localStorage.getItem("vuex") == true || JSON.parse(localStorage["vuex"]).users.length == 0) {
         console.log("ainda não está no localstorage");
+        let aux = []
         let payload = {
           // PKx5elCuP-52eqXNW9oWPQ, meu token
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "PKx5elCuP-52eqXNW9oWPQ",
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: 1,
             name: "personNickname",
@@ -232,41 +251,21 @@ export default new Vuex.Store({
           url: "https:app.fakejson.com/q",
           data: payload,
           success: (resp => {
-            //console.log(code);
+            // console.log(resp);
             return resp;
           })(ans => {
-            console.log(ans);
-
-            for (let persona of ans) {
-              persona.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
-
-              state.users.push(persona);
-              console.log(persona);
+            for (let i = 0; i < ans.length; i++) {
+              ans[i].id = i + 1;
             }
-            console.log(state.users);
+            console.log(ans);
+            context.commit("save_users", ans);
           })
-        });
+        })
       } else {
-        state.users = JSON.parse(localStorage.getItem("vuex")).users;
+        // console.log(JSON.parse(localStorage["vuex"]).users);
+        context.commit("save_users", JSON.parse(localStorage["vuex"]).users);
       }
-    }
-  },
-  actions: {
-    addUserAct(context, user) {
-      context.commit("addUser", user);
     },
-    authentication(context) {
-      context.commit("AUTHENTICATION");
-    },
-    change_loginid(context, payload) {
-      context.commit("CHANGE_LOGINID", payload);
-    },
-    save(context) {
-      context.commit("save");
-    },
-    save_users(context) {
-      context.commit("save_users");
-    }
   },
   getters: {
     numberOfUsers: state => {

@@ -13,7 +13,7 @@
 import Navbar from "@/components/NavBar.vue";
 import NavbarAdmin from "@/components/Navbar2.vue";
 import Footer from "@/components/Footer.vue";
-import SearchThing from "@/components/searchThing.vue"
+import SearchThing from "@/components/searchThing.vue";
 export default {
   components: {
     Navbar,
@@ -29,6 +29,7 @@ export default {
   computed: {},
   created() {
     this.$store.dispatch("save_users");
+    console.log(this.$store.state.preenchido);
 
     if (this.$store.state.preenchido == false) {
       //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site
@@ -36,7 +37,6 @@ export default {
       console.log(this.$store.state.preenchido);
     }
 
-    // console.log("ata");
     console.log(this.$store.state.users);
     // window.addEventListener(
     //   "unload",
@@ -62,7 +62,4 @@ export default {
   padding: 0;
   display: inline-block;
 }
-
-
-
 </style>

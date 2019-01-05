@@ -1,7 +1,7 @@
 <template>
   <div id="searchBox">
     <div>
-      <button id="searchButton" class="btn btn-primary">
+      <button id="searchButton" class="btn btn-primary" v-on:click="search">
         <i class="fas fa-search"></i>
       </button>
     </div>
@@ -16,12 +16,27 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      showSearchBar: true
+      showSearchBar: true,
+      users: this.$store.state.users
     };
   },
   methods: {
-    ola() {
-      console.log("Ola  " + this.showSearchBar);
+    search() {
+      console.log(this.users);
+      JSON.parse(localStorage["vuex"]).users = JSON.stringify(this.users)
+      console.log(JSON.parse(localStorage["vuex"]).users);
+
+      // /*const {value: } = await*/ Swal({
+      //   title: 'oh pa mim',
+      //   html: '<ul><li v-for="(user, cont) in users" v-bind:key="user.id">{{cont}}<li></ul>',
+      //   focusConfirm: false
+
+      // })
+    }
+  },
+  computed: {
+    fillArray() {
+      this.users = this.$store.state.users;
     }
   }
 };
