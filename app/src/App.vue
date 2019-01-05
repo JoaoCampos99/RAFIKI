@@ -1,5 +1,5 @@
 <template>
-  <div id="app2" class="container-fluid">
+  <div id="app2" class="">
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
     <router-view/>
@@ -25,7 +25,7 @@ export default {
   },
   computed: {},
   created() {
-    this.$store.state.users = this.$store.getters.getUsers;
+    this.$store.dispatch("save_users");
 
     if(this.$store.state.preenchido == false) { //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site 
       this.$store.dispatch('save')

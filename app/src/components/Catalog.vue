@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="container"> -->
-  <div class="row" style="width: inherit">
+  <div class="row text-center">
     <div id="letabela" class="col-md-10">
       <table class="table table-striped" style="width: inherit">
         <thead>
@@ -24,10 +24,8 @@
     <div class="col-md-2" style="padding: 0 0 0 5">
       <h3>Para aqui vêm "Notas"</h3>
       <div class="fitText">
-        <ul style="padding: 0 0 0 5; padding-inline-start: 5px">
-          <li
-            style="margin-bottom: 20px; margin-bottom: 20px; "
-          >
+        <ul style="padding: 0 0 0 5; padding-inline-start: 20px">
+          <li style="margin-bottom: 20px; margin-bottom: 20px; ">
             <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h6>Ea fuga sed beatae eligendi? Nihil ipsa, illo, alias ab dolorem repellendus quis aut sed illum ullam modi facilis quo voluptatum. Esse!
           </li>
         </ul>

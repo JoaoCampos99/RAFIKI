@@ -200,28 +200,8 @@ export default new Vuex.Store({
     },
     save(state) {
       state.preenchido = true;
-    }
-  },
-  actions: {
-    addUserAct(context, user) {
-      context.commit("addUser", user);
     },
-    authentication(context) {
-      context.commit("AUTHENTICATION");
-    },
-    change_loginid(context, payload) {
-      context.commit("CHANGE_LOGINID", payload);
-    },
-    save(context) {
-      context.commit("save");
-    }
-  },
-  getters: {
-    numberOfUsers: state => {
-      return state.users.length;
-    },
-    getUsers: state => {
-      let users = []
+    save_users(state) {
       if (!localStorage.getItem("vuex") == true) {
         console.log("ainda não está no localstorage");
         let payload = {
@@ -258,19 +238,42 @@ export default new Vuex.Store({
             console.log(ans);
 
             for (let persona of ans) {
-              persona.id = users.length == 0 ? 1 : users[users.length - 1].id + 1
+              persona.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
 
-              users.push(persona);
+              state.users.push(persona);
               console.log(persona);
             }
-            console.log(users);
+            console.log(state.users);
           })
         });
-      }else{
-        users = JSON.parse(localStorage.getItem('vuex')).users;
+      } else {
+        state.users = JSON.parse(localStorage.getItem("vuex")).users;
       }
-
-      return users;
+    }
+  },
+  actions: {
+    addUserAct(context, user) {
+      context.commit("addUser", user);
+    },
+    authentication(context) {
+      context.commit("AUTHENTICATION");
+    },
+    change_loginid(context, payload) {
+      context.commit("CHANGE_LOGINID", payload);
+    },
+    save(context) {
+      context.commit("save");
+    },
+    save_users(context) {
+      context.commit("save_users");
+    }
+  },
+  getters: {
+    numberOfUsers: state => {
+      return state.users.length;
+    },
+    getUsers: state => {
+      return state.users;
     },
     getAuth: state => {
       return state.autenticated;
