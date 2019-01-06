@@ -33,12 +33,22 @@
               >
             </div>
             <div class="form-group">
-              <p href="#" class="btnForgetPwd" v-on:click="showfp = !showfp">Forgot Password?</p>
+              <p
+                href="#"
+                class="btnForgetPwd"
+                v-on:click="showfp = !showfp; emailfp = null"
+              >Forgot Password?</p>
               <div class="col-md-12" v-show="showfp">
                 <p class="form-text">Insere o teu e-mail e nós mandamos-te um manguito</p>
-                <input type="email" v-model="emailfp" class="form-control" placeholder="E-mail..." required>
+                <input
+                  type="email"
+                  v-model="emailfp"
+                  class="form-control"
+                  placeholder="E-mail..."
+                  required
+                >
                 <div class="col-md-12 text-right" style="margin-top: 1rem;">
-                  <button type="submit" class="btn btn-success" >Enviar</button>
+                  <button type="submit" class="btn btn-success">Enviar</button>
                 </div>
               </div>
             </div>
@@ -191,8 +201,27 @@ export default {
         });
       }
     },
-    submitfp(){
-      console.log(this.emailfp)
+    submitfp() {
+      console.log("E-mail Forgot Password - " + this.emailfp);
+      console.log(this.users);
+
+      //Ver se o email está na "base de dados"
+      let esquecido = this.users.find(user => user.email == this.emailfp);
+
+      if (esquecido != undefined) {
+        Swal({
+          // type: "success",
+          title: "Tranquilo",
+          animation: false,
+          customClass: "animated tada"
+        });
+      } else {
+        Swal(
+          "O teu e-mail não está registado ainda",
+          "Podes te registar na caixa vermelha e tá",
+          "error"
+        );
+      }
     }
   }
 };
