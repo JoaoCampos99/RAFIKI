@@ -210,12 +210,42 @@ export default {
       let esquecido = this.users.find(user => user.email == this.emailfp);
 
       if (esquecido != undefined) {
+        let user = {
+          user_name: esquecido.name,
+          user_pass: esquecido.password,
+          user_email: esquecido.email
+        };
+
         Swal({
-          type: "success",
-          title: "Tranquilo",
-          text: `Mandamos um mail para o ${this.emailfp} com a tua passe!!!`,
-          animation: false,
-          customClass: "animated tada"
+          title: "A enviar",
+          // showLoaderOnConfirm: true,
+          onBeforeOpen: () => {
+            Swal.showLoading();
+
+            emailjs.send("outlook", "template_n921A41V", user).then(
+              response => {
+                console.log("SUCCESS!", response.status, response.text);
+
+                Swal({
+                  type: "success",
+                  title: "Tranquilo",
+                  text: `Mandamos um mail para o ${
+                    this.emailfp
+                  } com a tua passe!!!`,
+                  animation: false,
+                  customClass: "animated tada"
+                });
+              },
+              error => {
+                console.log("Falhou.....!", JSON.parse(error.text));
+                Swal({
+                  type: "error",
+                  title: "Alguma coisa correu mal, \nTenta mais tarde.",
+                  text: `Erro: ${JSON.parse(error.text).error}`
+                });
+              }
+            );
+          }
         });
       } else {
         let focusReg = false;
@@ -230,9 +260,9 @@ export default {
             document.getElementById("inputReg").focus();
             return true;
           }
-        })
+        });
 
-        console.log(focusReg.preConfirm)
+        console.log(focusReg.preConfirm);
 
         if (focusReg) {
           console.log("ata");
