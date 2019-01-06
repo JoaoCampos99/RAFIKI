@@ -59,6 +59,7 @@
           <form>
             <div class="form-group">
               <input
+                id="inputReg"
                 type="text"
                 class="form-control"
                 placeholder="Your Username"
@@ -210,17 +211,33 @@ export default {
 
       if (esquecido != undefined) {
         Swal({
-          // type: "success",
+          type: "success",
           title: "Tranquilo",
+          text: `Mandamos um mail para o ${this.emailfp} com a tua passe!!!`,
           animation: false,
           customClass: "animated tada"
         });
       } else {
-        Swal(
-          "O teu e-mail não está registado ainda",
-          "Podes te registar na caixa vermelha e tá",
-          "error"
-        );
+        let focusReg = false;
+        focusReg = Swal({
+          title: "O teu e-mail não está registado ainda",
+          text: "Podes te registar na caixa vermelha e tá",
+          type: "error",
+          animation: false,
+          customClass: "animated tada",
+          confirmButtonText: "Registar-me",
+          preConfirm: resp => {
+            document.getElementById("inputReg").focus();
+            return true;
+          }
+        })
+
+        console.log(focusReg.preConfirm)
+
+        if (focusReg) {
+          console.log("ata");
+          document.getElementById("inputReg").focus();
+        }
       }
     }
   }
