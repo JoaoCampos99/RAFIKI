@@ -118,7 +118,7 @@ export default {
       newEmail: "",
       newPassword: "",
       newCPassword: "",
-      showfp: true,
+      showfp: false,
       emailfp: null
     };
   },
