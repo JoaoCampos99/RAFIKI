@@ -22,8 +22,8 @@
           <div class="user-front">
             <img v-bind:src="user.foto" class="img-fluid">
             <h3>{{user.name}}</h3>
-            <p>LEVEL {{user.level}}</p>
-            <p>RANK {{user.rank}}</p>
+            <p>LEVEL - {{user.level}}</p>
+            <p>RANK - {{user.rank}}</p>
           </div>
         </div>
       </div>

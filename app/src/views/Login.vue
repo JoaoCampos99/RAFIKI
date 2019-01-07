@@ -161,7 +161,7 @@ export default {
             password: this.newPassword,
             level: 0,
             exp: 0,
-            badges: [1, 2, 8],
+            badges: [], //Em testes para meter los de forma dinamica.
             rank: 0,
             desc: "Newbie",
             foto:

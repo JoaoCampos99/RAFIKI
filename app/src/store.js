@@ -6,6 +6,50 @@ Vue.use(Vuex);
 
 let $ = require("../node_modules/jquery/dist/jquery.js");
 
+class User {
+  constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) { //fazer nos getter's a atribuição de badges, level e rank
+    this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
+    this.name = nome;
+    this.password = pass;
+    this.email = mail;
+    this.exp = exp;
+    this.level = this.getLevel();
+    this.rank = this.getRank();
+    this.badges = this.getBadges();
+    this.desc = desc;
+    this.foto = foto;
+    this.follow = follow;
+    this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
+  }
+
+  getLevel() {
+    return Math.floor(this.exp / 100) + 1;
+  }
+
+  getRank() {
+    //Vai ter que se fazer um switch para dar os nomes aos ranks
+    let rank = Math.floor(this.level / 10);
+    let trueRank = null;
+
+    switch (rank) { //O calculo do rank deve estar mal....
+      case 0: trueRank = "A começar";
+        break;
+      case 1: trueRank = "grande";
+        break;
+      case 2: trueRank = "muito grande";
+        break;
+    }
+    console.log(trueRank)
+    console.log(rank)
+    return trueRank;
+  }
+
+  getBadges() {
+
+  }
+}
+
+
 export default new Vuex.Store({
   state: {
     autenticated: false,
@@ -31,7 +75,7 @@ export default new Vuex.Store({
         id: 1,
         name: "Nice, you're helpful!",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 100) {
             return true;
           } else return false;
         },
@@ -64,7 +108,7 @@ export default new Vuex.Store({
         id: 4,
         name: "You're like a guru!",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 300) {
             return true;
           } else return false;
         },
@@ -75,7 +119,7 @@ export default new Vuex.Store({
         id: 5,
         name: "Rafiki, is that you?",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 100) {
             return true;
           } else return false;
         },
@@ -98,7 +142,7 @@ export default new Vuex.Store({
         id: 7,
         name: "Keep climbing!",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 300) {
             return true;
           } else return false;
         },
@@ -109,7 +153,7 @@ export default new Vuex.Store({
         id: 8,
         name: "Leave them behind!",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 500) {
             return true;
           } else return false;
         },
@@ -120,7 +164,7 @@ export default new Vuex.Store({
         id: 9,
         name: "You're a beast!",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 600) {
             return true;
           } else return false;
         },
@@ -131,7 +175,7 @@ export default new Vuex.Store({
         id: 10,
         name: "Our Lord, our Rafiki",
         goal: user => {
-          if (user.exp >= 200) {
+          if (user.exp >= 700) {
             return true;
           } else return false;
         },
@@ -203,7 +247,12 @@ export default new Vuex.Store({
       state.preenchido = true;
     },
     save_users(state, arr) {
-      state.users = arr;
+      let aux = []
+      for (let user of arr) {
+        aux.push(new User(user.id, user.name, user.password, user.email,
+          user.exp, user.desc, user.foto, user.follow, user.skills));
+      }
+      state.users = aux;
     }
   },
   actions: {
@@ -222,7 +271,6 @@ export default new Vuex.Store({
     save_users(context) {
       if (!localStorage.getItem("vuex") == true || JSON.parse(localStorage["vuex"]).users.length == 0) {
         console.log("ainda não está no localstorage");
-        let aux = []
         let payload = {
           // PKx5elCuP-52eqXNW9oWPQ, meu token
           // I6EFQFoKLa1FFP453_jzQg , token pedro
@@ -234,9 +282,9 @@ export default new Vuex.Store({
             name: "personNickname",
             password: "personPassword",
             email: "internetEmail",
-            level: "numberInt",
             exp: "numberInt",
-            badges: "functionArray|3|numberInt",
+            level: 0,
+            badges: [], //Já não é preciso pedir badges para os utilizadores
             rank: "numberInt",
             desc: "stringLong",
             foto: "personAvatar",

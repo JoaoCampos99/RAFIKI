@@ -29,23 +29,11 @@ export default {
   computed: {},
   created() {
     this.$store.dispatch("save_users");
-    console.log(this.$store.state.preenchido);
 
     if (this.$store.state.preenchido == false) {
       //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site
       this.$store.dispatch("save");
-      console.log(this.$store.state.preenchido);
     }
-
-    console.log(this.$store.state.users);
-    // window.addEventListener(
-    //   "unload",
-    //   () =>
-    //     localStorage.setItem(
-    //       "users",
-    //       JSON.stringify(this.$store.state.users)
-    //     ) /*console.log(this.$store.state.users); alert('a')}*/
-    // );
   },
   updated() {
     this.logged = this.$store.getters.getAuth;
