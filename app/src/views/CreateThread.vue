@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
           <label for="inputContent">Describe your question</label>
-            <vue-editor></vue-editor>
+            <vue-editor v-model="content"></vue-editor>
         </div>
         <div class="form-group">
           <label for="inputTags">Related Tags</label>
@@ -36,15 +36,18 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+import { VueEditor,Quill} from "vue2-editor";
 export default {
   components: {
       VueEditor
    },
    data(){
      return{
-
+       content:""
      }
+   },
+   updated(){
+     console.log(this.content)
    }
 };
 </script>
