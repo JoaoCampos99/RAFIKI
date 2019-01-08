@@ -11,7 +11,7 @@
         <!--Descrição-->
         <p>{{thread.question}}</p>
         <p>
-          <a class="btn btn-primary">Read more</a>
+          <router-link :to="{name:'thread',params:{threadid:thread.id}}" :class="{'btn btn-primary':true}">Read More</router-link>
           <!--Depois alterar-->
         </p>
       </div>

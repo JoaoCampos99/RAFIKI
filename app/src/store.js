@@ -221,20 +221,19 @@ export default new Vuex.Store({
         users: [2, 3, 34, 33]
       }
     ],
-    threads: [
-      {
-        // id: 0,
-        // userId: 0,
-        // question: "",
-        //Title:"",
-        // tags: [],
-        // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-        // upvotes: 0,
-        // date: "xx/xx/xx",
-        // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-        // course: "",
-        // closeDate: "xx/xx/xx"
-      }
+    threads: [{
+      id:1,
+      userId: 1,
+      question: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
+      Title:"Como crio um component em vue.js?",
+      tags: ["javascript","vue.js"],
+      // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
+      upvotes: 4,
+      date: "xx/xx/xx",
+      // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+      course: "TSIW"
+      // closeDate: "xx/xx/xx"
+    },
     ],
     answers: [
       {

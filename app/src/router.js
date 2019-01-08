@@ -41,7 +41,7 @@ const router = new Router({
       component: Badges
     },
     {
-      path: "/thread",
+      path: "/thread/:threadid",
       name: "thread",
       component: Thread
     },
