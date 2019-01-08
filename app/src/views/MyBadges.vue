@@ -60,6 +60,71 @@
   </div>
 </template>
 <script>
+// class User {
+//   constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) {
+//     //fazer nos getter's a atribuição de badges, level e rank
+//     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
+//     this.name = nome;
+//     this.password = pass;
+//     this.email = mail;
+//     this.exp = exp;
+//     this.level = this.getLevel();
+//     this.rank = this.getRank();
+//     this.badges = this.getBadges();
+//     this.desc = desc;
+//     this.foto = foto;
+//     this.follow = follow;
+//     this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
+//   }
+
+//   getLevel() {
+//     return Math.floor(this.exp / 100) + 1;
+//   }
+
+//   getRank() {
+//     //Vai ter que se fazer um switch para dar os nomes aos ranks
+//     let rank = Math.floor(this.level / 10);
+//     let trueRank = null;
+
+//     switch (
+//       rank //O calculo do rank deve estar mal....
+//     ) {
+//       case 0:
+//         trueRank = "A começar";
+//         break;
+//       case 1:
+//         trueRank = "grande";
+//         break;
+//       case 2:
+//         trueRank = "muito grande";
+//         break;
+//     }
+//     console.log(trueRank);
+//     console.log(rank);
+//     return [rank, trueRank];
+//   }
+
+//   set badges(value){
+//     this.badges = this.getBadges()
+//   }
+
+//   getBadges() {
+//     let badges = []
+//     let thisUser = this.$store.getters.getUsers.find(us => us.id == this.id);
+//     console.log(thisUser)
+//     console.log('ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+//     for (let badge of this.$store.getters.getBadges) {
+//       if (badge.goal(thisUser)) {
+//         this.badges.push(badge.id);
+//       }
+//     }
+//     return badges;
+//   }
+
+//   d(){
+//     console.log(this)
+//   }
+// }
 export default {
   data() {
     return {
@@ -67,25 +132,28 @@ export default {
     };
   },
   created() {
-    console.log(this.$store.getters.getloginID);
+    // console.log(this.$store.getters.getloginID);
     let user = this.$store.getters.getUsers.filter(
       user => user.id == this.$store.getters.getloginID
     );
+
+    let auxUser = new this.$store.state.Userclass(user.id, user.name, user.password, user.email, user.exp, user.desc, user.foto, user.follow, user.skill)
+
+    auxUser.getBadges(this.$store.getters.getBadges, this.$store.getters.getUsers)
+    console.log(this.$store.state.Userclass);
     console.log(user[0]);
-    let allBadges = this.$store.getters.getBadges;
-    console.log(allBadges);
-    let badges = user[0].badges;
-    console.log(badges);
-    for (let i = 0; i < allBadges.length; i++) {
-      console.log(allBadges[i]);
-      for (let j = 0; j < badges.length; j++) {
-        if (allBadges[i].id == badges[j]) {
-          console.log("Deu");
-          this.myBadges.push(allBadges[i]);
-        }
-      }
-    }
-    console.log(this.myBadges)
+    // console.log(allBadges);
+    // console.log(badges);
+    // for (let i = 0; i < allBadges.length; i++) {
+    //   // console.log(allBadges[i]);
+    //   for (let j = 0; j < badges.length; j++) {
+    //     if (allBadges[i].id == badges[j]) {
+    //       console.log("Deu");
+    //       this.myBadges.push(allBadges[i]);
+    //     }
+    //   }
+    // }
+    // console.log(this.myBadges);
   }
 };
 </script>

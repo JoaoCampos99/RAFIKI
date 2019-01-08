@@ -9,8 +9,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="rank in ranks" v-bind:key="rank.id">
-          <th scope="row">{{rank.rank}}</th>
+        <tr v-for="(rank) in ranks" v-bind:key="rank.id">
+          <th scope="row">{{rank.rank[0] + 1}}</th>
           <td>{{rank.name}}</td>
           <td>{{rank.level}}</td>
         </tr>
@@ -33,22 +33,27 @@ export default {
       if (a.level < b.level) return 1;
       else return 0;
     });
+    console.log(this.users)
+
+    //Ordenar users ranking global
     for (let i = 0; i < this.users.length; i++) {
-      this.users[i].rank = i;
+      this.users[i].rank[0] = i;
     }
 
     let pos = this.getIndexByID();
     console.log(pos);
     let cont = 5;
-    if (pos === 0) {
-      console.log("Está em primeiro na ladder");
+    if (pos <= 1) {
+      console.log("TOP 5");
       for (let i = 0; i < cont; i++) {
         this.ranks.push(this.users[i]);
+        console.log('ata');
       }
-    } else if (pos >= 5) {
+    } else if (pos >= 0) {
       console.log("Está a meio ou no fim da ladder");
       for (let i = pos + 1 - cont; i < pos + 1; i++) {
         this.ranks.push(this.users[i]);
+        console.log('ata2');
       }
     }
   },

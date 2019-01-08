@@ -107,6 +107,61 @@
 <script>
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
 import "../../node_modules/sweetalert2/src/sweetalert2.scss";
+class User {
+  constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) {
+    //fazer nos getter's a atribuição de badges, level e rank
+    this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
+    this.name = nome;
+    this.password = pass;
+    this.email = mail;
+    this.exp = exp;
+    this.level = this.getLevel();
+    this.rank = this.getRank();
+    this.badges = this.getBadges();
+    this.desc = desc;
+    this.foto = foto;
+    this.follow = follow;
+    this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
+  }
+
+  getLevel() {
+    return Math.floor(this.exp / 100) + 1;
+  }
+
+  getRank() {
+    //Vai ter que se fazer um switch para dar os nomes aos ranks
+    let rank = Math.floor(this.level / 10);
+    let trueRank = null;
+
+    switch (
+      rank //O calculo do rank deve estar mal....
+    ) {
+      case 0:
+        trueRank = "A começar";
+        break;
+      case 1:
+        trueRank = "grande";
+        break;
+      case 2:
+        trueRank = "muito grande";
+        break;
+    }
+    console.log(trueRank);
+    console.log(rank);
+    return [rank, trueRank];
+  }
+
+  getBadges() {
+    let chupaasminhastolas = [];
+    let thisUser = this.users.find(us => us.id == this.id);
+    for (let badge of this.$store.getters.getBadges) {
+      if (badge.goal(thisUser)) {
+        this.badges.push(badge.id);
+      }
+    }
+    return chupaasminhastolas;
+  }
+}
 
 export default {
   data() {
@@ -154,20 +209,20 @@ export default {
         if (emailExists || usernameExists) {
           Swal("Já Existe alguém com essas credenciais");
         } else {
-          this.$store.dispatch("addUserAct", {
-            id: id,
-            name: this.newUsername,
-            email: this.newEmail,
-            password: this.newPassword,
-            level: 0,
-            exp: 0,
-            badges: [], //Em testes para meter los de forma dinamica.
-            rank: 0,
-            desc: "Newbie",
-            foto:
+          this.$store.dispatch(
+            "addUserAct",
+            new User(
+              id,
+              this.newUsername,
+              this.newPassword,
+              this.newEmail,
+              0,
+              "Newbie",
               "http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG",
-            follow: []
-          });
+              [],
+              "programador"
+            )
+          );
           Swal("Utilizador registado com sucesso");
           this.$store.dispatch("authentication");
           this.$store.dispatch("change_loginid", id);

@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 let $ = require("../node_modules/jquery/dist/jquery.js");
 
+
 class User {
   constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) { //fazer nos getter's a atribuição de badges, level e rank
     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
@@ -15,7 +16,7 @@ class User {
     this.exp = exp;
     this.level = this.getLevel();
     this.rank = this.getRank();
-    this.badges = this.getBadges();
+    this.badges = []
     this.desc = desc;
     this.foto = foto;
     this.follow = follow;
@@ -41,17 +42,39 @@ class User {
     }
     console.log(trueRank)
     console.log(rank)
-    return trueRank;
+    return [rank, trueRank];
   }
 
-  getBadges() {
+  // get badges() {
+  //   this.badges = this.getBadges()
+  // }
 
+  // set badges(value){
+  //   this.badges = value;
+  // }
+
+  getBadges(badgesArr, users) {
+    let badges = []
+    let thisUser = users.find(us => us.id == this.id);
+    console.log(thisUser);
+    console.log('ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    for (let badge of badgesArr) {
+      console.log(badge)
+      if (badge.goal(thisUser)) {
+        badges.push(badge.id);
+      }
+    }
+    return badges;
+  }
+
+  d() {
+    console.log(this)
   }
 }
 
-
 export default new Vuex.Store({
   state: {
+    Userclass: User,
     autenticated: false,
     loginid: 0,
     preenchido: false,
@@ -74,7 +97,7 @@ export default new Vuex.Store({
       {
         id: 1,
         name: "Nice, you're helpful!",
-        goal: user => {
+        goal: function (user) {
           if (user.exp >= 100) {
             return true;
           } else return false;
@@ -249,10 +272,12 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = []
       for (let user of arr) {
-        aux.push(new User(user.id, user.name, user.password, user.email,
-          user.exp, user.desc, user.foto, user.follow, user.skills));
+        let us = new User(user.id, user.name, user.password, user.email,
+          user.exp, user.desc, user.foto, user.follow, user.skills)
+        aux.push(us);
       }
       state.users = aux;
+      console.log(state.users)
     }
   },
   actions: {

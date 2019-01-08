@@ -23,13 +23,12 @@
             <img v-bind:src="user.foto" class="img-fluid">
             <h3>{{user.name}}</h3>
             <p>LEVEL - {{user.level}}</p>
-            <p>RANK - {{user.rank}}</p>
+            <p>RANK - {{user.rank[1]}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!--http://placehold.it/110x110/000000/fff?text=User-->
 </template>
 
 <script>

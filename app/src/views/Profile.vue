@@ -73,8 +73,8 @@ export default {
       return this.users.filter(user => user.id == id)[0];
     },
     getUserProgress(id) {
-      console.log(this.users.filter(user => user.id == id)[0].exp + "%");
-      return this.users.filter(user => user.id == id)[0].exp + "%";
+      console.log(this.users.filter(user => user.id == id)[0].exp%100 + "%");
+      return this.users.filter(user => user.id == id)[0].exp%100 + "%";
     }
   }
 };

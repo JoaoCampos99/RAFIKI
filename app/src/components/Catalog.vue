@@ -15,7 +15,7 @@
         <h6 class="card-subtitle mb-2 text-muted">{{user.email}}</h6>
         <p class="card-text">{{user.skills}}</p>
         <a href="#" class="card-link">{{user.id}}</a>
-        <a href="#" class="card-link">{{user.rank}}</a>
+        <a href="#" class="card-link">{{user.rank[1]}}</a>
       </div>
     </div>
   </div>
