@@ -10,10 +10,10 @@
         </div>
         <div class="form-group">
           <label for="inputContent">Describe your question</label>
-            <vue-editor v-model="content"></vue-editor>
+            <vue-editor v-model="content" :editorToolbar="customToolbar"  ></vue-editor>
         </div>
         <div class="form-group">
-          <label for="inputTags">Related Tags</label>
+          <label for="inputTags">Related Tags</label>npm 
           <input type="text"
             class="form-control" id="inputTags">
         </div>
@@ -39,15 +39,20 @@
 import { VueEditor,Quill} from "vue2-editor";
 export default {
   components: {
-      VueEditor
+      VueEditor,
    },
    data(){
      return{
-       content:""
+       content:"",
+        customToolbar: [
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['image', 'code-block']
+          ]
      }
    },
    updated(){
      console.log(this.content)
-   }
+   },
 };
 </script>
