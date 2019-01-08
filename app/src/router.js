@@ -93,7 +93,10 @@ const router = new Router({
     {
       path: "/createThread",
       name: "createThread",
-      component: CreateThread
+      component: CreateThread,
+      meta: {
+        needsAuth: true
+      }
     },
     {
       path: "/contactus",
@@ -119,6 +122,15 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next();
+  }
+  if (to.meta.needsAuth) {
+    console.log(idlogin);
+    if (idlogin != 0 && auth) {
+      next();
+    } else {
+      alert("Log in pls");
+      router.go(-1);
+    }
   }
 });
 export default router;
