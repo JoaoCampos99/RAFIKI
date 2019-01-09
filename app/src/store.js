@@ -229,7 +229,7 @@ export default new Vuex.Store({
     threads: [
       {
         id: 1,
-        userId: 1,
+        userid: 1,
         question:
           "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
         title: "Como crio um component em vue.js?",
