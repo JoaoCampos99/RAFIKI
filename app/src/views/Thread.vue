@@ -9,7 +9,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="news-title">
-                      <h2>{{thread.Title}}</h2>
+                      <h2>{{thread.title}}</h2>
                     </div>
                     <div class="news-cats">
                       <ul class="list-unstyled list-inline mb-1">
@@ -23,7 +23,7 @@
                         <li class="list-inline-item">
                           <i class="fa fa-folder-o text-danger"></i>
                           <a href="#">
-                            <small>4th July 2018</small>
+                            <small>{{thread.date}}</small>
                           </a>
                         </li>
                       </ul>
@@ -31,7 +31,7 @@
                     <hr>
 
                     <div class="news-content">
-                      <p>{{thread.question}}</p>
+                      <p v-html="thread.question"></p>
                     </div>
                     <hr>
                     <div class="news-footer">
@@ -48,9 +48,9 @@
                       <button
                         type="button"
                         class="btn btn-sm btn-secondary"
-                        v-for="(tag,index) in thread.tags"
-                        v-bind:key="index"
-                      >{{tag}}</button>
+                        v-for="(tag) in thread.tags"
+                        v-bind:key="tag.id"
+                      >{{tag.text}}</button>
                     </div>
                     <hr>
                     <div class="news-author">
