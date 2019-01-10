@@ -31,18 +31,9 @@ class User {
     //Vai ter que se fazer um switch para dar os nomes aos ranks
     let rank = Math.floor(this.level / 10);
     let trueRank = null;
-<<<<<<< HEAD
     console.log(this.level)
     switch (rank) { //O calculo do rank deve estar mal....
       case 0: trueRank = "A começar";
-=======
-
-    switch (
-      rank //O calculo do rank deve estar mal....
-    ) {
-      case 0:
-        trueRank = "A começar";
->>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         break;
       case 1:
         trueRank = "grande";
@@ -64,7 +55,6 @@ class User {
   //   this.badges = value;
   // }
 
-<<<<<<< HEAD
   getBadges(badgesArr, threadsArr) {
     let badges = []
     this.badges = [];
@@ -87,17 +77,6 @@ class User {
 
       if (gravar) {
         badges.push(badge.id)
-=======
-  getBadges(badgesArr, users) {
-    let badges = [];
-    let thisUser = users.find(us => us.id == this.id);
-    console.log(thisUser);
-    console.log("ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    for (let badge of badgesArr) {
-      console.log(badge);
-      if (badge.goal(thisUser)) {
-        badges.push(badge.id);
->>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
       }
     }
     console.log(this.badges)
