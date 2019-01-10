@@ -15,6 +15,7 @@ import MyThreads from "./views/MyThreads.vue";
 import MyGroups from "./views/MyGroups.vue";
 import MyBadges from "./views/MyBadges.vue";
 import MyRankings from "./views/MyRankings.vue";
+import EditProfile from "./views/EditProfile.vue";
 import Users from "./views/Users.vue";
 Vue.use(Router);
 
@@ -77,6 +78,11 @@ const router = new Router({
           path: "Rankings",
           name: "MyRankings",
           component: MyRankings
+        },
+        {
+          path: "editProfile",
+          name: "EditProfile",
+          component: EditProfile
         }
       ]
     },

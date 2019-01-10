@@ -41,7 +41,9 @@
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
       >Rankings</router-link>
     </div>-->
-    <ul class="nav nav-tabs" id="nav" style="margin-bottom:1em">
+    <div class="col-md-12 text-center" style="padding: 0px;">
+      
+    <ul class="nav nav-tabs text-center" id="nav" style="margin-bottom:1em">
       <li class="nav-item">
         <router-link :to="{name:'AboutMe'}" :class="{'nav-link':true}">About Me</router-link>
       </li>
@@ -57,7 +59,11 @@
       <li class="nav-item">
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
+      <li class="nav-item">
+        <router-link :to="{name:'EditProfile'}" :class="{'nav-link':true}">Edit Profile</router-link>
+      </li>
     </ul>
+      </div>
     <transition name="fade" mode="out-in">
       <router-view id="router-view"></router-view>
     </transition>
