@@ -1,8 +1,4 @@
 <template>
-
-    
-
-
 <!-- Form Name -->
 
 <!-- Text input-->
