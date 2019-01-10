@@ -56,6 +56,9 @@
       <li class="nav-item">
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
+            <li class="nav-item">
+        <router-link :to="{name:'EditProfile'}" :class="{'nav-link':true}">Edit Profile</router-link>
+      </li>
     </ul>
     <transition name="fade" mode="out-in">
       <router-view id="router-view"></router-view>
