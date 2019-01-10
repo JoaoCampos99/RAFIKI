@@ -2,12 +2,15 @@
   <div class="container">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
-        <img :src="getUser(this.$route.params.userid).foto" class="picture img-fluid">
+                <input @change="uploadImage" type="file" name="photo" accept="image/*">
+
+        <img :src="imageSrc" class="picture img-fluid">
+        <p v-html="imageSrc"></p>
       </div>
       <div class="col-md-8">
         <h1>{{getUser(this.$route.params.userid).name}}</h1>
         <span>Level:{{getUser(this.$route.params.userid).level}}</span>
-
+        
         <div class="progress">
           <div
             :style="{'width': getUserProgress(this.$route.params.userid)}"
@@ -65,16 +68,37 @@
 export default {
   data() {
     return {
-      users: this.$store.getters.getUsers
+      users: this.$store.getters.getUsers,
+      imageSrc: null
     };
+  },
+  created() {
+    this.imageSrc = this.getUser(this.$route.params.userid).foto;
   },
   methods: {
     getUser(id) {
       return this.users.filter(user => user.id == id)[0];
     },
     getUserProgress(id) {
-      console.log(this.users.filter(user => user.id == id)[0].exp%100 + "%");
-      return this.users.filter(user => user.id == id)[0].exp%100 + "%";
+      console.log(
+        (this.users.filter(user => user.id == id)[0].exp % 100) + "%"
+      );
+      return (this.users.filter(user => user.id == id)[0].exp % 100) + "%";
+    },
+    uploadImage() {
+      var file = document.querySelector("input[type=file]").files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        let data= e.target.result;
+        this.imageSrc=data
+        console.log(this.imageSrc)
+      };
+      reader.onerror = function(error) {
+        alert(error);
+      };
+      reader.readAsDataURL(file);
+      console.log(reader)
+      console.log(this.imageSrc)
     }
   }
 };
