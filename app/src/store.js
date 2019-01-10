@@ -109,15 +109,7 @@ export default new Vuex.Store({
       {
         id: 1,
         name: "Nice, you're helpful!",
-<<<<<<< HEAD
         goal: 10,
-=======
-        goal: function(user) {
-          if (user.exp >= 100) {
-            return true;
-          } else return false;
-        },
->>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         desc: "Give 10 answers",
         category: "help"
       },
@@ -248,18 +240,10 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
-<<<<<<< HEAD
       user.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
       let us = new User(user.id, user.name, user.password, user.email,
         user.exp, user.desc, user.foto, user.follow, user.skills)
       state.users.push(us);
-=======
-      user.id =
-        state.users.length == 0
-          ? 1
-          : state.users[state.users.length - 1].id + 1;
-      state.users.push(user);
->>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
     },
     UPDATE_TAGS(state, payload) {
       state.tags = payload;
@@ -289,22 +273,8 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
-<<<<<<< HEAD
         let us = new User(user.id, user.name, user.password, user.email,
           user.exp, user.desc, user.foto, user.follow, user.skills);
-=======
-        let us = new User(
-          user.id,
-          user.name,
-          user.password,
-          user.email,
-          user.exp,
-          user.desc,
-          user.foto,
-          user.follow,
-          user.skills
-        );
->>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         aux.push(us);
       }
       state.users = aux;
