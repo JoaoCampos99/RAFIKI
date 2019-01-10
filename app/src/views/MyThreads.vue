@@ -9,9 +9,12 @@
 
       <div class="span6">
         <!--Descrição-->
-        <p>{{thread.question}}</p>
+        <p v-html="thread.question"></p>
         <p>
-          <a class="btn btn-primary">Read more</a>
+          <router-link
+            :to="{name:'thread',params:{threadid:thread.id}}"
+            :class="{'btn btn-primary':true}"
+          >Read More</router-link>
           <!--Depois alterar-->
         </p>
       </div>
@@ -23,9 +26,9 @@
         |
         <i class="icon-tags"></i> Tags :
         <!--TAGS-->
-        <a v-for="tag in thread.tags" v-bind:key="tag">
+        <a v-for="tag in thread.tags" v-bind:key="tag.id">
           <!---->
-          <span class="label label-info">{{tag}}</span>
+          <span class="label label-info">{{tag.text}}</span>
         </a>
       </p>
     </div>
@@ -40,24 +43,48 @@ export default {
     };
   },
   created() {
+    //    // SO FUNCIONA DEPOIS DE DAR RELOAD
+    // window.addEventListener("load", function() {
+    //   let p = document.getElementById("removeImage");
+    //   console.log(p.childNodes);
+    //   for (let i = 0; i < p.childNodes.length; i++) {
+    //     //console.log(p.childNodes[i].lastChild);
+
+    //     //p.childNodes[i].remove(img);
+    //     if (p.childNodes[i].lastChild.currentSrc) {
+    //       console.log(p.childNodes[i].innerHTML);
+    //       p.childNodes[i].innerHTML = "";
+    //     }
+    //   }
+    // });
     let id = this.$store.getters.getloginID;
     this.mythreads = this.$store.getters.getThreads.filter(
       thread => thread.userid == id
     );
-    this.mythreads.push({
-      //Só para testar
-      id: 1,
-      userid: 807,
-      question: "How do i build a SPA?",
-      title: "Build a SPA",
-      tags: ["javascript", "vue-js"],
-      idgroup: "",
-      upvotes: 0,
-      date: "28/12/2018",
-      views: 0,
-      course: "TSIW",
-      closeDate: "xx/xx/xx"
+    this.mythreads = this.mythreads.map(thread => {
+      let newOBJ = {
+        closeDate: thread.closeDate,
+        course: thread.course,
+        date: thread.date,
+        id: thread.id,
+        idGroup: thread.idGroup,
+        question: this.removeImageTag(thread.question),
+        tags: thread.tags,
+        title: thread.title,
+        upvotes: thread.upvotes,
+        userid: thread.userid,
+        views: thread.views
+      };
+      return newOBJ;
     });
+    console.log(this.mythreads);
+  },
+  methods: {
+    removeImageTag(content) {
+      content = content.replace(/<img[^>]*>/g, "");
+      content = content.replace(/<br>/g, "");
+      return content;
+    }
   }
 };
 </script>

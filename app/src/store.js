@@ -6,9 +6,9 @@ Vue.use(Vuex);
 
 let $ = require("../node_modules/jquery/dist/jquery.js");
 
-
 class User {
-  constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) { //fazer nos getter's a atribuição de badges, level e rank
+  constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) {
+    //fazer nos getter's a atribuição de badges, level e rank
     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
     this.name = nome;
     this.password = pass;
@@ -16,7 +16,7 @@ class User {
     this.exp = exp;
     this.level = this.getLevel();
     this.rank = this.getRank();
-    this.badges = []
+    this.badges = [];
     this.desc = desc;
     this.foto = foto;
     this.follow = follow;
@@ -31,17 +31,28 @@ class User {
     //Vai ter que se fazer um switch para dar os nomes aos ranks
     let rank = Math.floor(this.level / 10);
     let trueRank = null;
+<<<<<<< HEAD
     console.log(this.level)
     switch (rank) { //O calculo do rank deve estar mal....
       case 0: trueRank = "A começar";
+=======
+
+    switch (
+      rank //O calculo do rank deve estar mal....
+    ) {
+      case 0:
+        trueRank = "A começar";
+>>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         break;
-      case 1: trueRank = "grande";
+      case 1:
+        trueRank = "grande";
         break;
-      case 2: trueRank = "muito grande";
+      case 2:
+        trueRank = "muito grande";
         break;
     }
-    console.log(trueRank)
-    console.log(rank)
+    console.log(trueRank);
+    console.log(rank);
     return [rank, trueRank];
   }
 
@@ -53,6 +64,7 @@ class User {
   //   this.badges = value;
   // }
 
+<<<<<<< HEAD
   getBadges(badgesArr, threadsArr) {
     let badges = []
     this.badges = [];
@@ -75,6 +87,17 @@ class User {
 
       if (gravar) {
         badges.push(badge.id)
+=======
+  getBadges(badgesArr, users) {
+    let badges = [];
+    let thisUser = users.find(us => us.id == this.id);
+    console.log(thisUser);
+    console.log("ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    for (let badge of badgesArr) {
+      console.log(badge);
+      if (badge.goal(thisUser)) {
+        badges.push(badge.id);
+>>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
       }
     }
     console.log(this.badges)
@@ -91,7 +114,7 @@ class User {
   }
 
   d() {
-    console.log(this)
+    console.log(this);
   }
 }
 
@@ -107,7 +130,15 @@ export default new Vuex.Store({
       {
         id: 1,
         name: "Nice, you're helpful!",
+<<<<<<< HEAD
         goal: 10,
+=======
+        goal: function(user) {
+          if (user.exp >= 100) {
+            return true;
+          } else return false;
+        },
+>>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         desc: "Give 10 answers",
         category: "help"
       },
@@ -193,17 +224,28 @@ export default new Vuex.Store({
     ],
     threads: [
       {
-        // id: 0,
-        // userId: 0,
-        // question: "",
-        //Title:"",
-        // tags: [],
+        id: 1,
+        userid: 1,
+        question:
+          "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
+        title: "Como crio um component em vue.js?",
+        tags: ["javascript", "vue.js"],
         // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-        // upvotes: 0,
-        // date: "xx/xx/xx",
+        upvotes: 4,
+        date: "xx/xx/xx",
         // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-        // course: "",
+        course: "TSIW"
         // closeDate: "xx/xx/xx"
+      }
+    ],
+    tags: [
+      {
+        id: 1,
+        text: "vue.js"
+      },
+      {
+        id: 2,
+        text: "javascript"
       }
     ],
     answers: [
@@ -216,7 +258,7 @@ export default new Vuex.Store({
         date: "xx/xx/xx"
       }
     ],
-    coments: {
+    comments: {
       id: 0,
       idAnswer: 0,
       idUser: 0,
@@ -227,10 +269,21 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
+<<<<<<< HEAD
       user.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
       let us = new User(user.id, user.name, user.password, user.email,
         user.exp, user.desc, user.foto, user.follow, user.skills)
       state.users.push(us);
+=======
+      user.id =
+        state.users.length == 0
+          ? 1
+          : state.users[state.users.length - 1].id + 1;
+      state.users.push(user);
+>>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
+    },
+    UPDATE_TAGS(state, payload) {
+      state.tags = payload;
     },
     AUTHENTICATION(state) {
       state.autenticated = !state.autenticated;
@@ -238,14 +291,41 @@ export default new Vuex.Store({
     CHANGE_LOGINID(state, payload) {
       state.loginid = payload;
     },
+    ADD_THREAD(state, payload) {
+      if (state.threads.length != 0) {
+        state.threads.sort(function(a, b) {
+          if (a.id > b.id) return 1;
+          if (a.id < b.id) return -1;
+        });
+        payload.id = state.threads[state.threads.length - 1].id + 1;
+        console.log(payload.id);
+      } else {
+        payload.id = 1;
+      }
+      state.threads.push(payload);
+    },
     save(state) {
       state.preenchido = true;
     },
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
+<<<<<<< HEAD
         let us = new User(user.id, user.name, user.password, user.email,
           user.exp, user.desc, user.foto, user.follow, user.skills);
+=======
+        let us = new User(
+          user.id,
+          user.name,
+          user.password,
+          user.email,
+          user.exp,
+          user.desc,
+          user.foto,
+          user.follow,
+          user.skills
+        );
+>>>>>>> 84ae213ea6af0dcafbe9c1461c12eb79d60d4990
         aux.push(us);
       }
       state.users = aux;
@@ -256,6 +336,9 @@ export default new Vuex.Store({
     addUserAct(context, user) {
       context.commit("addUser", user);
     },
+    update_tags(context, payload) {
+      context.commit("UPDATE_TAGS", payload);
+    },
     authentication(context) {
       context.commit("AUTHENTICATION");
     },
@@ -265,8 +348,14 @@ export default new Vuex.Store({
     save(context) {
       context.commit("save");
     },
+    add_thread(context, payload) {
+      context.commit("ADD_THREAD", payload);
+    },
     save_users(context) {
-      if (!localStorage.getItem("vuex") == true || JSON.parse(localStorage["vuex"]).users.length == 0) {
+      if (
+        !localStorage.getItem("vuex") == true ||
+        JSON.parse(localStorage["vuex"]).users.length == 0
+      ) {
         console.log("ainda não está no localstorage");
         let payload = {
           // PKx5elCuP-52eqXNW9oWPQ, meu token
@@ -305,12 +394,12 @@ export default new Vuex.Store({
             console.log(ans);
             context.commit("save_users", ans);
           })
-        })
+        });
       } else {
         // console.log(JSON.parse(localStorage["vuex"]).users);
         context.commit("save_users", JSON.parse(localStorage["vuex"]).users);
       }
-    },
+    }
   },
   getters: {
     numberOfUsers: state => {
