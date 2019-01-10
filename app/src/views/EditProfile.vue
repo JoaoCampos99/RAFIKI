@@ -37,16 +37,19 @@
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Course</label>  
-  <div class="col-md-8">
+  <label class="col-md-6 control-label" for="textinput">Course</label>  
+  <div class="col-md-6">
   <input id="textinput" name="textinput" placeholder="" class="form-control input-md" required="" type="text">
-    
+  </div>
+  <label class="col-md-2 control-label" for="yearinput">Year</label>
+    <div class="col-md-2">
+  <input id="yearinput" name="yearinput" placeholder="" class="form-control input-md" required="" type="number">
   </div>
 </div>
 
 <!-- Textarea -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="textarea">About Me</label>
+  <label class="col-md-4 control-label" for="textarea">Bio:</label>
   <div class="col-md-8">                     
     <textarea class="form-control" id="textarea" name="textarea"></textarea>
   </div>
