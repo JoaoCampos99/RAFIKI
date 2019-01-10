@@ -3,9 +3,8 @@
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
                 <input @change="uploadImage" type="file" name="photo" accept="image/*">
-
         <img :src="imageSrc" class="picture img-fluid">
-        <p v-html="imageSrc"></p>
+        <div id="fileDisplayArea"></div>
       </div>
       <div class="col-md-8">
         <h1>{{getUser(this.$route.params.userid).name}}</h1>
@@ -41,9 +40,7 @@
         :class="{'list-group-item list-group-item-action':true, 'nav-link':true, 'col-md-6':true}"
       >Rankings</router-link>
     </div>-->
-    <div class="col-md-12 text-center" style="padding: 0px;">
-      
-    <ul class="nav nav-tabs text-center" id="nav" style="margin-bottom:1em">
+    <ul class="nav nav-tabs" id="nav" style="margin-bottom:1em">
       <li class="nav-item">
         <router-link :to="{name:'AboutMe'}" :class="{'nav-link':true}">About Me</router-link>
       </li>
@@ -59,11 +56,7 @@
       <li class="nav-item">
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
-      <li class="nav-item">
-        <router-link :to="{name:'EditProfile'}" :class="{'nav-link':true}">Edit Profile</router-link>
-      </li>
     </ul>
-      </div>
     <transition name="fade" mode="out-in">
       <router-view id="router-view"></router-view>
     </transition>
@@ -75,11 +68,16 @@ export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      imageSrc: null
+      imageSrc: ""
     };
   },
   created() {
     this.imageSrc = this.getUser(this.$route.params.userid).foto;
+  },
+  update(){
+   let reader= this.uploadImage()
+   console.log(reader)
+   console.log(this.imageSrc)
   },
   methods: {
     getUser(id) {
@@ -94,17 +92,20 @@ export default {
     uploadImage() {
       var file = document.querySelector("input[type=file]").files[0];
       var reader = new FileReader();
+      var fileDisplayArea = document.getElementById('fileDisplayArea');
       reader.onload = function(e) {
         let data= e.target.result;
-        this.imageSrc=data
-        console.log(this.imageSrc)
+    fileDisplayArea.innerHTML = "";
+
+					var img = new Image();
+					img.src = reader.result;
+
+					fileDisplayArea.appendChild(img);
       };
       reader.onerror = function(error) {
         alert(error);
       };
       reader.readAsDataURL(file);
-      console.log(reader)
-      console.log(this.imageSrc)
     }
   }
 };
