@@ -2,10 +2,7 @@
   <div class="container">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
-        <input @change="uploadImage" type="file" name="photo" accept="image/*">
         <img :src="imageSrc" class="picture img-fluid">
-        <div id="fileDisplayArea" v-show="false"></div>
-        <p v-html="imageSrc"></p>
       </div>
       <div class="col-md-8">
         <h1>{{getUser(this.$route.params.userid).name}}</h1>
@@ -57,7 +54,7 @@
       <li class="nav-item">
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
-            <li class="nav-item">
+      <li class="nav-item">
         <router-link :to="{name:'EditProfile'}" :class="{'nav-link':true}">Edit Profile</router-link>
       </li>
     </ul>
@@ -72,15 +69,11 @@ export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      imageSrc: "",
-      newImageSrc:"",
+      imageSrc: ""
     };
   },
   created() {
     this.imageSrc = this.getUser(this.$route.params.userid).foto;
-  },
-  updated() {
-    console.log(this.newImageSrc)
   },
   methods: {
     getUser(id) {
@@ -92,29 +85,10 @@ export default {
       );
       return (this.users.filter(user => user.id == id)[0].exp % 100) + "%";
     },
-     removeImageTag(content) {
+    removeImageTag(content) {
       content = content.replace(/<img[^>]*>/g, "");
       content = content.replace(/<br>/g, "");
       return content;
-    },
-    uploadImage() {
-      var file = document.querySelector("input[type=file]").files[0];
-      var reader = new FileReader();
-      var fileDisplayArea = document.getElementById("fileDisplayArea");
-      reader.onload = function(e) {
-        let data = e.target.result;
-        fileDisplayArea.innerHTML = "";
-
-        var img = new Image();
-        img.src = reader.result;
-        fileDisplayArea.appendChild(img);
-      };
-      reader.onerror = function(error) {
-        alert(error);
-      };
-      reader.readAsDataURL(file);
-      console.log(fileDisplayArea.innerHTML)
-      this.imageSrc=fileDisplayArea.innerHTML
     }
   }
 };
