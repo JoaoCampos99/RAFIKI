@@ -262,7 +262,7 @@ export default new Vuex.Store({
         date: "xx/xx/xx"
       }
     ],
-    coments: {
+    comments: {
       id: 0,
       idAnswer: 0,
       idUser: 0,
