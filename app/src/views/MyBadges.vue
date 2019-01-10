@@ -135,13 +135,35 @@ export default {
     // console.log(this.$store.getters.getloginID);
     let user = this.$store.getters.getUsers.filter(
       user => user.id == this.$store.getters.getloginID
+    )[0];
+
+    let auxUser = new this.$store.state.Userclass(
+      user.id,
+      user.name,
+      user.password,
+      user.email,
+      user.exp,
+      user.desc,
+      user.foto,
+      user.follow,
+      user.skill
     );
 
-    let auxUser = new this.$store.state.Userclass(user.id, user.name, user.password, user.email, user.exp, user.desc, user.foto, user.follow, user.skill)
-
-    auxUser.getBadges(this.$store.getters.getBadges, this.$store.getters.getUsers)
     console.log(this.$store.state.Userclass);
-    console.log(user[0]);
+    console.log(user);
+
+    auxUser.badges = auxUser.getBadges(this.$store.getters.getBadges, this.$store.getters.getThreads);
+    console.log(auxUser);
+
+    // this.myBadges = auxUser.badges.filter();
+
+    for (let i of auxUser.badges) {
+      for (let badge of this.$store.state.badges) {
+        if (i == badge.id) this.myBadges.push(badge);
+      }
+    }
+    console.log(this.myBadges);
+
     // console.log(allBadges);
     // console.log(badges);
     // for (let i = 0; i < allBadges.length; i++) {

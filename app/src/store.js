@@ -31,7 +31,7 @@ class User {
     //Vai ter que se fazer um switch para dar os nomes aos ranks
     let rank = Math.floor(this.level / 10);
     let trueRank = null;
-
+    console.log(this.level)
     switch (rank) { //O calculo do rank deve estar mal....
       case 0: trueRank = "A começar";
         break;
@@ -53,18 +53,41 @@ class User {
   //   this.badges = value;
   // }
 
-  getBadges(badgesArr, users) {
+  getBadges(badgesArr, threadsArr) {
     let badges = []
-    let thisUser = users.find(us => us.id == this.id);
-    console.log(thisUser);
-    console.log('ataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    this.badges = [];
+    console.log(threadsArr)
+    let tr = this.getThreads(this.userId, threadsArr); //Isto depois vai substituir a batota
+    let batota = 20;
     for (let badge of badgesArr) {
-      console.log(badge)
-      if (badge.goal(thisUser)) {
-        badges.push(badge.id);
+      let gravar = false;
+
+      console.log(badge);
+      if (badge.goal <= this.exp && badge.category == "rank") {
+        gravar = true;
+      }
+
+      if (badge.category == "help") {
+        if (badge.goal <= batota) {
+          gravar = true;
+        }
+      }
+
+      if (gravar) {
+        badges.push(badge.id)
       }
     }
+    console.log(this.badges)
+    console.log(this.exp)
     return badges;
+  }
+
+  getThreads(userId, threadsArr) {
+    let threads = []
+    for (let thread of threadsArr) {
+      if (thread.userId == userId) threads.push(thread)
+    }
+    return threads;
   }
 
   d() {
@@ -78,74 +101,41 @@ export default new Vuex.Store({
     autenticated: false,
     loginid: 0,
     preenchido: false,
-    users: [
-      // {
-      // id: 0,
-      // name: "",
-      // mail: "",
-      // level: 1,
-      // exp: 0,
-      // badges: [1],
-      // rank: "",
-      // desc: "",
-      // photo: "",
-      // follow: [] // Array que vai ter os id's dos threads que o utilizador segue
-      // }
-    ],
+    users: [],
     badges: [
       //helpful awards
       {
         id: 1,
         name: "Nice, you're helpful!",
-        goal: function (user) {
-          if (user.exp >= 100) {
-            return true;
-          } else return false;
-        },
+        goal: 10,
         desc: "Give 10 answers",
         category: "help"
       },
       {
         id: 2,
         name: "Damn! You know alot!",
-        goal: user => {
-          if (user.exp >= 200) {
-            return true;
-          } else return false;
-        },
+        goal: 20,
         desc: "Give 20 answers",
         category: "help"
       },
       {
         id: 3,
         name: "We don't deserve you!",
-        goal: user => {
-          if (user.exp >= 200) {
-            return true;
-          } else return false;
-        },
+        goal: 30,
         desc: "Give 30 answers",
         category: "help"
       },
       {
         id: 4,
         name: "You're like a guru!",
-        goal: user => {
-          if (user.exp >= 300) {
-            return true;
-          } else return false;
-        },
+        goal: 40,
         desc: "Give 40 answers",
         category: "help"
       },
       {
         id: 5,
         name: "Rafiki, is that you?",
-        goal: user => {
-          if (user.exp >= 100) {
-            return true;
-          } else return false;
-        },
+        goal: 100,
         desc: "Give 50 answers",
         category: "help"
       },
@@ -153,62 +143,42 @@ export default new Vuex.Store({
       {
         id: 6,
         name: "THE BEST 100",
-        goal: user => {
-          if (user.exp >= 200) {
-            return true;
-          } else return false;
-        },
+        goal: 200,
         desc: "Reach TOP 100",
         category: "rank"
       },
       {
         id: 7,
         name: "Keep climbing!",
-        goal: user => {
-          if (user.exp >= 300) {
-            return true;
-          } else return false;
-        },
+        goal: 300,
         desc: "Reach TOP 60",
         category: "rank"
       },
       {
         id: 8,
         name: "Leave them behind!",
-        goal: user => {
-          if (user.exp >= 500) {
-            return true;
-          } else return false;
-        },
+        goal: 400,
         desc: "Reach TOP 50",
         category: "rank"
       },
       {
         id: 9,
         name: "You're a beast!",
-        goal: user => {
-          if (user.exp >= 600) {
-            return true;
-          } else return false;
-        },
+        goal: 500,
         desc: "Reach TOP 5",
         category: "rank"
       },
       {
         id: 10,
         name: "Our Lord, our Rafiki",
-        goal: user => {
-          if (user.exp >= 700) {
-            return true;
-          } else return false;
-        },
+        goal: 600,
         desc: "Reach 1st place",
         category: "rank"
       },
       {
         id: 11,
         name: "10 Clicks!!! És grande",
-        goal: clicks => (clicks == 10 ? true : false),
+        goal: 10,
         desc: "10 clicks on Rafiki",
         category: "hardwork" //Pode mudar de nome, mas devia ser uma categoria diferente
       }
@@ -258,7 +228,9 @@ export default new Vuex.Store({
   mutations: {
     addUser(state, user) {
       user.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
-      state.users.push(user);
+      let us = new User(user.id, user.name, user.password, user.email,
+        user.exp, user.desc, user.foto, user.follow, user.skills)
+      state.users.push(us);
     },
     AUTHENTICATION(state) {
       state.autenticated = !state.autenticated;
@@ -270,14 +242,14 @@ export default new Vuex.Store({
       state.preenchido = true;
     },
     save_users(state, arr) {
-      let aux = []
+      let aux = [];
       for (let user of arr) {
         let us = new User(user.id, user.name, user.password, user.email,
-          user.exp, user.desc, user.foto, user.follow, user.skills)
+          user.exp, user.desc, user.foto, user.follow, user.skills);
         aux.push(us);
       }
       state.users = aux;
-      console.log(state.users)
+      console.log(state.users);
     }
   },
   actions: {
