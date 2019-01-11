@@ -10,7 +10,7 @@
       </div>
       <div v-else>
         <button
-          class="delete-profile-image btnChange"
+          class="delete-profile-image"
           color="secondary"
           icon="delete"
           @click="removeImage"
@@ -29,7 +29,6 @@
               class="form-control input-md"
               required
               type="text"
-              v-model="newName"
             >
           </div>
         </div>
@@ -43,8 +42,7 @@
               placeholder
               class="form-control input-md"
               required
-              type="password"
-              v-model="newPw"
+              type="text"
             >
           </div>
         </div>
@@ -58,8 +56,7 @@
               placeholder
               class="form-control input-md"
               required
-              type="password"
-              v-model="newCPw"
+              type="text"
             >
           </div>
         </div>
@@ -94,14 +91,14 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Bio:</label>
           <div class="col-md-8">
-            <textarea class="form-control" id="textarea" name="textarea" v-model="newDesc"></textarea>
+            <textarea class="form-control" id="textarea" name="textarea"></textarea>
           </div>
         </div>
 
-        <!-- Button -->
+        <!-- Button (Double) -->
         <div class="form-group">
           <div class="col-md-8">
-            <input type="button" class="btnSubmit btn-info" value="Save" @click="changeThings">
+            <button id="btnSave" name="btnSave" class="btn btn-success">Save</button>
           </div>
         </div>
       </form>
@@ -109,24 +106,18 @@
   </div>
 </template>
 <script>
-import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
-
 export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      userImage: "",
-      newName: "",
-      newPw: "",
-      newCPw: "",
-      newDesc: ""
+      userImage: ""
     };
   },
   created() {
     this.userImage = this.getUser(this.$route.params.userid).foto;
   },
   updated() {
-    //console.log(this.userImage);
+    console.log(this.userImage);
   },
   methods: {
     getUser(id) {
