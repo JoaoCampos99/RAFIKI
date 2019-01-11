@@ -29,6 +29,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newName"
             >
           </div>
         </div>
@@ -43,6 +44,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newPW"
             >
           </div>
         </div>
@@ -57,6 +59,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newCPW"
             >
           </div>
         </div>
@@ -72,6 +75,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newCourse"
             >
           </div>
           <label class="col-md-2 control-label" for="yearinput">Year</label>
@@ -83,6 +87,7 @@
               class="form-control input-md"
               required
               type="number"
+              v-model="newYear"
             >
           </div>
         </div>
@@ -91,7 +96,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Bio:</label>
           <div class="col-md-8">
-            <textarea class="form-control" id="textarea" name="textarea"></textarea>
+            <textarea class="form-control" id="textarea" name="textarea" v-model="newDesc"></textarea>
           </div>
         </div>
 
@@ -110,11 +115,28 @@ export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      userImage: ""
+      userImage: "",
+      newDesc:"",
+      newPW:"",
+      newYear:"",
+      newCourse:"",
+      newEmail:"",
+      newName:"",
+
     };
   },
   created() {
     this.userImage = this.getUser(this.$route.params.userid).foto;
+    this.newDesc = this.getUser(this.$route.params.userid).desc;
+    this.newPW = this.getUser(this.$route.params.userid).password;
+    //this.newYear = this.getUser(this.$route.params.userid).year;
+    this.newEmail = this.getUser(this.$route.params.userid).email;
+    //this.newCourse = this.getUser(this.$route.params.userid).course;
+    this.newName = this.getUser(this.$route.params.userid).name;
+    
+    
+    
+
   },
   updated() {
     console.log(this.userImage);
