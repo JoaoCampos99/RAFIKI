@@ -94,9 +94,6 @@ const router = new Router({
       path: "/viewProfile/:visiteduserid",
       name: "viewprofile",
       component: ViewProfile,
-      meta: {
-        requiresAuth: true
-      },
       children: [
         {
           path: "about",
