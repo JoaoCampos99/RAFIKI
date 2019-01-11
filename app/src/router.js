@@ -21,8 +21,6 @@ import ViewProfile from "./views/ViewProfile.vue";
 import About from "./views/About.vue";
 import UserThreads from "./views/UserThreads.vue";
 import UserBadges from "./views/UserBadges.vue";
-import UserRankings from "./views/UserRankings.vue";
-
 Vue.use(Router);
 
 const router = new Router({
