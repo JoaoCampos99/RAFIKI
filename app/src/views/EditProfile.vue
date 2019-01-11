@@ -115,14 +115,11 @@ export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      user: {
-        userImage:"",
-        newName:"",
-        newPw:"",
-        newCPw:"",
-        newDesc:"",
-      }
-   
+      userImage: "",
+      newName: "",
+      newPw: "",
+      newCPw: "",
+      newDesc: ""
     };
   },
   created() {
@@ -153,8 +150,7 @@ export default {
     },
     removeImage: function(e) {
       this.userImage = "";
-    },
-
+    }
   }
 };
 </script>
@@ -171,5 +167,4 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-
 </style>
