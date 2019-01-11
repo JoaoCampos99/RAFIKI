@@ -29,6 +29,9 @@ export default {
   computed: {},
   created() {
     this.$store.dispatch("save_users");
+    this.$store.dispatch("save_threads");
+    this.$store.dispatch("save_answers");
+    this.$store.dispatch("save_comments");
 
     if (this.$store.state.preenchido == false) {
       //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site

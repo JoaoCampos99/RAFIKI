@@ -1,11 +1,23 @@
 <template>
   <div id="searchBox">
-    <div class="cont">
-      <button id="searchButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" v-on:click="openDialog">
+    <div class="cont btn-group dropup">
+      <button id="searchButton" type="button" class="btn btn-primary" data-toggle="dropdown">
         <i class="fas fa-search"></i>
       </button>
-    </div>
+      <div class="dropdown-menu">
+        <div class="dropdown-item botoesSearchThing">
+          <div v-on:click="cTid">
+            Create Thread
+          </div>
+        </div>
+        <div class="dropdown-divider"></div>
 
+        <div class="dropdown-item botoesSearchThing">
+          <a href data-toggle="modal" data-target="#exampleModal" v-on:click="openDialog">Search</a>
+        </div>
+      </div>
+    </div>
+    <!--  -->
     <!-- Modal -->
     <dialog>
       <h1>ola</h1>
@@ -22,12 +34,23 @@ export default {
   data() {
     return {
       showSearchBar: true,
-      users: this.$store.state.users
+      users: this.$store.state.users,
+      loginID: this.$store.getters.getloginID
     };
+  },
+  created(){
+    console.log('alalalalal - ' + this.loginID)
   },
   methods: {
     openDialog() {
       console.log(this.users);
+    },
+    cTid() {
+      console.log("este e o id" + this.loginID);
+      this.$router.push({
+        name: "createThread",
+        params: { userId: this.loginID }
+      });
     }
   },
   computed: {
@@ -75,5 +98,10 @@ export default {
   to {
     background-color: rgb(66, 66, 104);
   }
+}
+
+.botoesSearchThing {
+  padding: 0px;
+  margin: 0px;
 }
 </style>

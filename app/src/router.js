@@ -91,7 +91,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: "/createThread",
+      path: "/createThread/:userId",
       name: "createThread",
       component: CreateThread,
       meta: {

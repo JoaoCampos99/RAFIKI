@@ -20,89 +20,97 @@
                           </a>
                         </li>
 
-		                                     <li class="list-inline-item">
-		                                            <i class="fa fa-folder-o text-danger"></i>
-    		                                        <a href="#"><small>{{thread.date}}</small></a>
-		                                    </li>
-		                                  
-		                                    
-		                                    
-		                                    
-		                                </ul>
-		                            </div>
-		                            <hr>
-		                            
-		                            <div class="news-content">
-		                                <p v-html="thread.question"></p>
-		                                
-		                                
-		                            </div>
-		                            <hr>
-		                            <div class="news-footer">
-		                                <div class="news-likes">
-		                                     <button type="button" class="btn btn-outline-secondary"><i class="fa fa-thumbs-o-up text-success"></i> <span class="badge ">Upvotes {{thread.upvotes}}</span></button>
-		                                </div>
-		                            </div>
-		                            <hr>
-		                            <div class="news-tags">
-		                                <h5>Tags</h5>
-		                                <button type="button" class="btn btn-sm btn-secondary" v-for="tag in thread.tags" v-bind:key="tag.id">
-                                          {{tag.text}}
-                                        </button>
-		                            </div>
-		                            <hr>
-		                            <div class="news-author">
-		                                <div class="row">
-                                            <div class="col-md-auto">
-                                                    <a href="#" title=""> <img v-bind:src="user.foto" alt="Author image" class="rounded-circle" style="width:100px"></a>
-                                            </div>
-                                            <div class="col">
-                                                <div class="auth-title">
-                                                    <h4 class="author h4"><a href="/author/biswajit/">{{user.name}}</a></h4>
-                                                    <ul class="list-unstyled list-inline">
-                                                        <li class="list-inline-item"> Rank: {{user.rank}}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    
-		</div>
-		<div class="col-md-3">
-		    <div class="row mb-2">
-		      <div class="col-md-12">
-		          <div class="card">
-		             <div class="row">
-        		      <div class="col-md-12">
-        		          <div class="card">
-        		            <div class="card-body">
-        		                <h5>Related</h5>
-        		            </div>
-        		           </div>
-        		      </div>
-        		     </div>
-		             <div class="list-group">
-                      <a href="#" class="list-group-item list-group-item-action active">First item</a>
-                      <a href="#" class="list-group-item list-group-item-action">Second item</a>
-                      <a href="#" class="list-group-item list-group-item-action">Third item</a>
-                    </div> 
-		           </div>
-		      </div>
-		     </div>
-		    
-	     </div>
-		
-	</div>
-  
-</div>
+                        <li class="list-inline-item">
+                          <i class="fa fa-folder-o text-danger"></i>
+                          <a href="#">
+                            <small>{{thread.date}}</small>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <hr>
 
-
+                    <div class="news-content">
+                      <p v-html="thread.question"></p>
+                    </div>
+                    <hr>
+                    <div class="news-footer">
+                      <div class="news-likes">
+                        <button type="button" class="btn btn-outline-secondary">
+                          <i class="fa fa-thumbs-o-up text-success"></i>
+                          <span class="badge">Upvotes {{thread.upvotes}}</span>
+                        </button>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="news-tags">
+                      <h5>Tags</h5>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-secondary"
+                        v-for="(tag, cont) in thread.tags"
+                        v-bind:key="cont"
+                      >{{tag}}</button>
+                    </div>
+                    <hr>
+                    <div class="news-author">
+                      <div class="row">
+                        <div class="col-md-auto">
+                          <a href="#" title>
+                            <img
+                              v-bind:src="user.foto"
+                              alt="Author image"
+                              class="rounded-circle"
+                              style="width:100px"
+                            >
+                          </a>
+                        </div>
+                        <div class="col">
+                          <div class="auth-title">
+                            <h4 class="author h4">
+                              <a href="/author/biswajit/">{{user.name}}</a>
+                            </h4>
+                            <ul class="list-unstyled list-inline">
+                              <li class="list-inline-item">Rank: {{user.rank}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h1>Ola</h1>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="row mb-2">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5>Related</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">First item</a>
+                <a href="#" class="list-group-item list-group-item-action">Second item</a>
+                <a href="#" class="list-group-item list-group-item-action">Third item</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -132,11 +140,10 @@ export default {
 </script>
 
 <style>
-
-img{width:100%;}
-.card-inner{
-    margin-left: 4rem;
+img {
+  width: 100%;
 }
-
-
+.card-inner {
+  margin-left: 4rem;
+}
 </style>
