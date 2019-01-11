@@ -17,9 +17,6 @@
           <router-link :to="{ name: 'faq' }" :class="{ 'nav-link': true }">FAQ</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'thread' }" :class="{ 'nav-link': true }">Thread</router-link>
-        </li>
-        <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
         </li>
         <li class="nav-item">

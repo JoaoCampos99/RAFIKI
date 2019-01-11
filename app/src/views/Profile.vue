@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
-        <img :src="getUser(this.$route.params.userid).foto" class="picture img-fluid">
+        <img :src="imageSrc" class="picture img-fluid">
       </div>
       <div class="col-md-8">
         <h1>{{getUser(this.$route.params.userid).name}}</h1>
@@ -54,6 +54,9 @@
       <li class="nav-item">
         <router-link :to="{name:'MyRankings'}" :class="{'nav-link':true}">My Ranking</router-link>
       </li>
+      <li class="nav-item">
+        <router-link :to="{name:'EditProfile'}" :class="{'nav-link':true}">Edit Profile</router-link>
+      </li>
     </ul>
     <transition name="fade" mode="out-in">
       <router-view id="router-view"></router-view>
@@ -65,16 +68,27 @@
 export default {
   data() {
     return {
-      users: this.$store.getters.getUsers
+      users: this.$store.getters.getUsers,
+      imageSrc: ""
     };
+  },
+  created() {
+    this.imageSrc = this.getUser(this.$route.params.userid).foto;
   },
   methods: {
     getUser(id) {
       return this.users.filter(user => user.id == id)[0];
     },
     getUserProgress(id) {
-      console.log(this.users.filter(user => user.id == id)[0].exp%100 + "%");
-      return this.users.filter(user => user.id == id)[0].exp%100 + "%";
+      console.log(
+        (this.users.filter(user => user.id == id)[0].exp % 100) + "%"
+      );
+      return (this.users.filter(user => user.id == id)[0].exp % 100) + "%";
+    },
+    removeImageTag(content) {
+      content = content.replace(/<img[^>]*>/g, "");
+      content = content.replace(/<br>/g, "");
+      return content;
     }
   }
 };

@@ -22,9 +22,6 @@
           <router-link :to="{ name: 'faq' }" :class="{ 'nav-link': true }">FAQ</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'thread' }" :class="{ 'nav-link': true }">Thread</router-link>
-        </li>
-        <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
         </li>
         <li class="nav-item">
@@ -32,11 +29,11 @@
         </li>
         <li class="nav-item">
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
-        </li> 
+        </li>
       </ul>
       <!-- <div class="navbar-brand">
         <img src="../assets/logoR.png" class="d-inline-block align-top img-fluid" alt="">
-      </div> -->
+      </div>-->
     </div>
   </nav>
 </template>
@@ -45,7 +42,7 @@
 .navi {
   padding: 10px;
 }
-nav{
+nav {
   margin-bottom: 2rem;
 }
 </style>
