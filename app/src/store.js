@@ -263,7 +263,9 @@ export default new Vuex.Store({
         user.desc,
         user.foto,
         user.follow,
-        user.skills
+        user.skills,
+        user.year,
+        user.course
       );
       state.users.push(us);
     },
