@@ -26,9 +26,9 @@
         |
         <i class="icon-tags"></i> Tags :
         <!--TAGS-->
-        <a v-for="(tag, cont) in thread.tags" v-bind:key="cont">
+        <a v-for="tag in thread.tags" v-bind:key="tag.id">
           <!---->
-          <span class="label label-info">{{tag}}</span>
+          <span class="label label-info">{{tag.text}}</span>
         </a>
       </p>
     </div>
@@ -61,7 +61,7 @@ export default {
     this.mythreads = this.$store.getters.getThreads.filter(
       thread => thread.userid == id
     );
-    console.log(this.mythreads)
+    console.log(this.mythreads);
     this.mythreads = this.mythreads.map(thread => {
       let newOBJ = {
         closeDate: thread.closeDate,
