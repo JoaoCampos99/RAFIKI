@@ -10,7 +10,7 @@
       </div>
       <div v-else>
         <button
-          class="delete-profile-image"
+          class="delete-profile-image btnChange"
           color="secondary"
           icon="delete"
           @click="removeImage"
@@ -29,6 +29,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newName"
             >
           </div>
         </div>
@@ -42,7 +43,8 @@
               placeholder
               class="form-control input-md"
               required
-              type="text"
+              type="password"
+              v-model="newPw"
             >
           </div>
         </div>
@@ -56,7 +58,8 @@
               placeholder
               class="form-control input-md"
               required
-              type="text"
+              type="password"
+              v-model="newCPw"
             >
           </div>
         </div>
@@ -91,14 +94,14 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Bio:</label>
           <div class="col-md-8">
-            <textarea class="form-control" id="textarea" name="textarea"></textarea>
+            <textarea class="form-control" id="textarea" name="textarea" v-model="newDesc"></textarea>
           </div>
         </div>
 
-        <!-- Button (Double) -->
+        <!-- Button -->
         <div class="form-group">
           <div class="col-md-8">
-            <button id="btnSave" name="btnSave" class="btn btn-success">Save</button>
+            <input type="button" class="btnSubmit btn-info" value="Save" @click="changeThings">
           </div>
         </div>
       </form>
@@ -106,18 +109,27 @@
   </div>
 </template>
 <script>
+import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
+
 export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      userImage: ""
+      user: {
+        userImage:"",
+        newName:"",
+        newPw:"",
+        newCPw:"",
+        newDesc:"",
+      }
+   
     };
   },
   created() {
     this.userImage = this.getUser(this.$route.params.userid).foto;
   },
   updated() {
-    console.log(this.userImage);
+    //console.log(this.userImage);
   },
   methods: {
     getUser(id) {
@@ -141,7 +153,8 @@ export default {
     },
     removeImage: function(e) {
       this.userImage = "";
-    }
+    },
+
   }
 };
 </script>
@@ -158,4 +171,5 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
+
 </style>
