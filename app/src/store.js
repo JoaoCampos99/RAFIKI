@@ -304,7 +304,9 @@ export default new Vuex.Store({
           user.desc,
           user.foto,
           user.follow,
-          user.skills
+          user.skills,
+          user.year,
+          user.course
         );
         aux.push(us);
       }
@@ -322,16 +324,6 @@ export default new Vuex.Store({
     save_comments(state, arr) {
       console.log(arr);
       state.comments = arr;
-    },
-    UPDATE_USER(state, newUser) {
-      let index = this.users.findIndex(user => user.id == newUser.id);
-      state.users[index].email = newUser.email;
-      state.users[index].name = newUser.name;
-      state.users[index].password = newUser.password;
-      state.users[index].course = newUser.course;
-      state.users[index].year = newUser.year;
-      state.users[index].bio = newUser.bio;
-      state.users[index].foto = newUser.foto;
     }
   },
   actions: {
