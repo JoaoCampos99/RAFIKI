@@ -93,7 +93,7 @@ const router = new Router({
       ]
     },
     {
-      path: "/viewProfile/:userid",
+      path: "/viewProfile/:visiteduserid",
       name: "viewprofile",
       component: ViewProfile,
       meta: {
@@ -114,11 +114,6 @@ const router = new Router({
           path: "userBadges",
           name: "UserBadges",
           component: UserBadges
-        },
-        {
-          path: "userRankings",
-          name: "UserRankings",
-          component: UserRankings
         }
       ]
     },
