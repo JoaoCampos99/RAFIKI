@@ -220,7 +220,9 @@ export default {
               "Newbie",
               "http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG",
               [],
-              "programador"
+              "programador",
+              "",
+              ""
             )
           );
           Swal("Utilizador registado com sucesso");

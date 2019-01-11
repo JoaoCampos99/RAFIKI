@@ -17,6 +17,12 @@ import MyBadges from "./views/MyBadges.vue";
 import MyRankings from "./views/MyRankings.vue";
 import EditProfile from "./views/EditProfile.vue";
 import Users from "./views/Users.vue";
+import ViewProfile from "./views/ViewProfile.vue";
+import About from "./views/About.vue";
+import UserThreads from "./views/UserThreads.vue";
+import UserBadges from "./views/UserBadges.vue";
+import UserRankings from "./views/UserRankings.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -83,6 +89,36 @@ const router = new Router({
           path: "editProfile",
           name: "EditProfile",
           component: EditProfile
+        }
+      ]
+    },
+    {
+      path: "/viewProfile/:userid",
+      name: "viewprofile",
+      component: ViewProfile,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: "about",
+          name: "About",
+          component: About
+        },
+        {
+          path: "userThreads",
+          name: "UserThreads",
+          component: UserThreads
+        },
+        {
+          path: "userBadges",
+          name: "UserBadges",
+          component: UserBadges
+        },
+        {
+          path: "userRankings",
+          name: "UserRankings",
+          component: UserRankings
         }
       ]
     },

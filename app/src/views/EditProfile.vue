@@ -29,6 +29,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newName"
             >
           </div>
         </div>
@@ -43,6 +44,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newPW"
             >
           </div>
         </div>
@@ -57,6 +59,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newCPW"
             >
           </div>
         </div>
@@ -72,6 +75,7 @@
               class="form-control input-md"
               required
               type="text"
+              v-model="newCourse"
             >
           </div>
           <label class="col-md-2 control-label" for="yearinput">Year</label>
@@ -83,6 +87,7 @@
               class="form-control input-md"
               required
               type="number"
+              v-model="newYear"
             >
           </div>
         </div>
@@ -91,14 +96,19 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="textarea">Bio:</label>
           <div class="col-md-8">
-            <textarea class="form-control" id="textarea" name="textarea"></textarea>
+            <textarea class="form-control" id="textarea" name="textarea" v-model="newDesc"></textarea>
           </div>
         </div>
 
         <!-- Button (Double) -->
         <div class="form-group">
           <div class="col-md-8">
-            <button id="btnSave" name="btnSave" class="btn btn-success">Save</button>
+            <button
+              id="btnSave"
+              name="btnSave"
+              class="btn btn-success"
+              @click.prevent="saveProfile"
+            >Save</button>
           </div>
         </div>
       </form>
@@ -110,11 +120,27 @@ export default {
   data() {
     return {
       users: this.$store.getters.getUsers,
-      userImage: ""
+      userImage: "",
+      newDesc: "",
+      newPW: "",
+      newCPW: "",
+      newYear: "",
+      newCourse: "",
+      newEmail: "",
+      newName: "",
+      user: {}
     };
   },
   created() {
-    this.userImage = this.getUser(this.$route.params.userid).foto;
+    this.user = this.getUser(this.$route.params.userid);
+    this.userImage = this.user.foto;
+    this.newDesc = this.user.desc;
+    this.newPW = this.user.password;
+    this.newYear = this.user.year;
+    this.newEmail = this.user.email;
+    this.newCourse = this.user.course;
+    this.newName = this.user.name;
+    console.log(this.user);
   },
   updated() {
     console.log(this.userImage);
@@ -141,6 +167,20 @@ export default {
     },
     removeImage: function(e) {
       this.userImage = "";
+    },
+    saveProfile() {
+      if (this.newPW === this.newCPW) {
+        this.user.name = this.newName;
+        this.user.email = this.newEmail;
+        this.user.password = this.newCPW;
+        this.user.desc = this.newDesc;
+        this.user.year = this.newYear;
+        this.user.course = this.newCourse;
+        this.user.foto = this.userImage;
+        console.log(this.user);
+        this.$store.dispatch("update_user", this.user);
+        location.reload();
+      }
     }
   }
 };

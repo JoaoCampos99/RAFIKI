@@ -7,7 +7,19 @@ Vue.use(Vuex);
 let $ = require("../node_modules/jquery/dist/jquery.js");
 
 class User {
-  constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) {
+  constructor(
+    id,
+    nome,
+    pass,
+    mail,
+    exp,
+    desc,
+    foto,
+    follow,
+    skill,
+    year,
+    course
+  ) {
     //fazer nos getter's a atribuição de badges, level e rank
     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
     this.name = nome;
@@ -21,6 +33,8 @@ class User {
     this.foto = foto;
     this.follow = follow;
     this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
+    this.year = year;
+    this.course = course;
   }
 
   getLevel() {
@@ -31,9 +45,12 @@ class User {
     //Vai ter que se fazer um switch para dar os nomes aos ranks
     let rank = Math.floor(this.level / 10);
     let trueRank = null;
-    console.log(this.level)
-    switch (rank) { //O calculo do rank deve estar mal....
-      case 0: trueRank = "A começar";
+    console.log(this.level);
+    switch (
+      rank //O calculo do rank deve estar mal....
+    ) {
+      case 0:
+        trueRank = "A começar";
         break;
       case 1:
         trueRank = "grande";
@@ -47,9 +64,9 @@ class User {
     return [rank, trueRank];
   }
   getBadges(badgesArr, threadsArr) {
-    let badges = []
+    let badges = [];
     this.badges = [];
-    console.log(threadsArr)
+    console.log(threadsArr);
     let tr = this.getThreads(this.userId, threadsArr); //Isto depois vai substituir a batota
     let batota = 20;
     for (let badge of badgesArr) {
@@ -67,18 +84,18 @@ class User {
       }
 
       if (gravar) {
-        badges.push(badge.id)
+        badges.push(badge.id);
       }
     }
-    console.log(this.badges)
-    console.log(this.exp)
+    console.log(this.badges);
+    console.log(this.exp);
     return badges;
   }
 
   getThreads(userId, threadsArr) {
-    let threads = []
+    let threads = [];
     for (let thread of threadsArr) {
-      if (thread.userId == userId) threads.push(thread)
+      if (thread.userId == userId) threads.push(thread);
     }
     return threads;
   }
@@ -220,20 +237,36 @@ export default new Vuex.Store({
       //   date: "xx/xx/xx"
       // }
     ],
-    comments: [{
-      // id: 0,
-      // idAnswer: 0,
-      // idUser: 0,
-      // text: "",
-      // upvotes: 0
-    }]
+    comments: [
+      {
+        // id: 0,
+        // idAnswer: 0,
+        // idUser: 0,
+        // text: "",
+        // upvotes: 0
+      }
+    ]
   },
   plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
-      user.id = state.users.length == 0 ? 1 : state.users[state.users.length - 1].id + 1
-      let us = new User(user.id, user.name, user.password, user.email,
-        user.exp, user.desc, user.foto, user.follow, user.skills)
+      user.id =
+        state.users.length == 0
+          ? 1
+          : state.users[state.users.length - 1].id + 1;
+      let us = new User(
+        user.id,
+        user.name,
+        user.password,
+        user.email,
+        user.exp,
+        user.desc,
+        user.foto,
+        user.follow,
+        user.skills,
+        user.year,
+        user.course
+      );
       state.users.push(us);
     },
     UPDATE_TAGS(state, payload) {
@@ -247,7 +280,7 @@ export default new Vuex.Store({
     },
     ADD_THREAD(state, payload) {
       if (state.threads.length != 0) {
-        state.threads.sort(function (a, b) {
+        state.threads.sort(function(a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
         });
@@ -264,8 +297,19 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
-        let us = new User(user.id, user.name, user.password, user.email,
-          user.exp, user.desc, user.foto, user.follow, user.skills);
+        let us = new User(
+          user.id,
+          user.name,
+          user.password,
+          user.email,
+          user.exp,
+          user.desc,
+          user.foto,
+          user.follow,
+          user.skills,
+          user.year,
+          user.course
+        );
         aux.push(us);
       }
       state.users = aux;
@@ -280,11 +324,24 @@ export default new Vuex.Store({
       state.answers = arr;
     },
     save_comments(state, arr) {
-      console.log(arr)
+      console.log(arr);
       state.comments = arr;
+    },
+    UPDATE_USER(state, newUser) {
+      let index = state.users.findIndex(user => user.id == newUser.id);
+      state.users[index].email = newUser.email;
+      state.users[index].name = newUser.name;
+      state.users[index].password = newUser.password;
+      state.users[index].course = newUser.course;
+      state.users[index].year = newUser.year;
+      state.users[index].bio = newUser.bio;
+      state.users[index].foto = newUser.foto;
     }
   },
   actions: {
+    update_user(context, newUser) {
+      context.commit("UPDATE_USER", newUser);
+    },
     addUserAct(context, user) {
       context.commit("addUser", user);
     },
@@ -388,7 +445,10 @@ export default new Vuex.Store({
           })
         });
       } else {
-        context.commit("save_threads", JSON.parse(localStorage["vuex"]).threads);
+        context.commit(
+          "save_threads",
+          JSON.parse(localStorage["vuex"]).threads
+        );
       }
     },
     save_answers(context) {
@@ -424,7 +484,10 @@ export default new Vuex.Store({
           })
         });
       } else {
-        context.commit("save_answers", JSON.parse(localStorage["vuex"]).answers);
+        context.commit(
+          "save_answers",
+          JSON.parse(localStorage["vuex"]).answers
+        );
       }
     },
     save_comments(context) {
@@ -453,11 +516,12 @@ export default new Vuex.Store({
             console.log(ans);
             context.commit("save_comments", ans);
           })
-        })
-      }
-      else {
-        context.commit("save_comments",
-          JSON.parse(localStorage["vuex"]).comments);
+        });
+      } else {
+        context.commit(
+          "save_comments",
+          JSON.parse(localStorage["vuex"]).comments
+        );
       }
     }
   },
