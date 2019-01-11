@@ -328,7 +328,7 @@ export default new Vuex.Store({
       state.comments = arr;
     },
     UPDATE_USER(state, newUser) {
-      let index = this.users.findIndex(user => user.id == newUser.id);
+      let index = state.users.findIndex(user => user.id == newUser.id);
       state.users[index].email = newUser.email;
       state.users[index].name = newUser.name;
       state.users[index].password = newUser.password;

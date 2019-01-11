@@ -103,7 +103,12 @@
         <!-- Button (Double) -->
         <div class="form-group">
           <div class="col-md-8">
-            <button id="btnSave" name="btnSave" class="btn btn-success">Save</button>
+            <button
+              id="btnSave"
+              name="btnSave"
+              class="btn btn-success"
+              @click.prevent="saveProfile"
+            >Save</button>
           </div>
         </div>
       </form>
@@ -116,27 +121,26 @@ export default {
     return {
       users: this.$store.getters.getUsers,
       userImage: "",
-      newDesc:"",
-      newPW:"",
-      newYear:"",
-      newCourse:"",
-      newEmail:"",
-      newName:"",
-
+      newDesc: "",
+      newPW: "",
+      newCPW: "",
+      newYear: "",
+      newCourse: "",
+      newEmail: "",
+      newName: "",
+      user: {}
     };
   },
   created() {
-    this.userImage = this.getUser(this.$route.params.userid).foto;
-    this.newDesc = this.getUser(this.$route.params.userid).desc;
-    this.newPW = this.getUser(this.$route.params.userid).password;
-    //this.newYear = this.getUser(this.$route.params.userid).year;
-    this.newEmail = this.getUser(this.$route.params.userid).email;
-    //this.newCourse = this.getUser(this.$route.params.userid).course;
-    this.newName = this.getUser(this.$route.params.userid).name;
-    
-    
-    
-
+    this.user = this.getUser(this.$route.params.userid);
+    this.userImage = this.user.foto;
+    this.newDesc = this.user.desc;
+    this.newPW = this.user.password;
+    this.newYear = this.user.year;
+    this.newEmail = this.user.email;
+    this.newCourse = this.user.course;
+    this.newName = this.user.name;
+    console.log(this.user);
   },
   updated() {
     console.log(this.userImage);
@@ -163,6 +167,20 @@ export default {
     },
     removeImage: function(e) {
       this.userImage = "";
+    },
+    saveProfile() {
+      if (this.newPW === this.newCPW) {
+        this.user.name = this.newName;
+        this.user.email = this.newEmail;
+        this.user.password = this.newCPW;
+        this.user.desc = this.newDesc;
+        this.user.year = this.newYear;
+        this.user.course = this.newCourse;
+        this.user.foto = this.userImage;
+        console.log(this.user);
+        this.$store.dispatch("update_user", this.user);
+        location.reload();
+      }
     }
   }
 };
