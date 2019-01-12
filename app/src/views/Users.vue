@@ -26,7 +26,8 @@
         <div class="user-show">
           <div class="user-front">
             <img v-bind:src="user.foto" class="img-fluid">
-            <h3>{{user.name}}</h3>
+            <router-link v-bind:to="{name: 'viewprofile', params: {visiteduserid: user.id}}"
+            class="userName">{{user.name}}</router-link>
             <p>LEVEL - {{user.level}}</p>
             <p>RANK - {{user.rank[1]}}</p>
           </div>
@@ -114,9 +115,12 @@ export default {
   width: 90px;
 }
 
-.user-show h3 {
-  font-size: 20px;
+.userName {
+  font-size: 15px;
   font-weight: 700;
+  font-style: none;
+  text-align: center;
+  color: black;
 }
 
 .user-show p {

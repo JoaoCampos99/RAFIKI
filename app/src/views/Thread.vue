@@ -68,7 +68,7 @@
                         <div class="col">
                           <div class="auth-title">
                             <h4 class="author h4">
-                              <a href="/author/biswajit/">{{user.name}}</a>
+                              <router-link v-bind:to="{name: 'viewprofile', params: {visiteduserid: user.id}}">{{user.name}}</router-link>
                             </h4>
                             <ul class="list-unstyled list-inline">
                               <li class="list-inline-item">Rank: {{user.rank}}</li>
