@@ -17,7 +17,12 @@
     <br>
     <br>
     <div class="row">
-      <div class="col-lg-3" v-for="(user) in filterUsers()" v-bind:key="user.id">
+      <div
+        class="col-lg-3"
+        v-for="(user) in filterUsers()"
+        v-bind:key="user.id"
+        @click="goToUserProfile(user.id)"
+      >
         <div class="user-show">
           <div class="user-front">
             <img v-bind:src="user.foto" class="img-fluid">
@@ -44,19 +49,46 @@ export default {
       // console.log(this.$store.state.users)
       // console.log(this.userSearch)
       // // this.users = this.$store.state.users;
-      let cenas = []
+      let cenas = [];
       cenas = this.$store.state.users.filter(user => {
         // user = user.name
         if (this.userSearch == "") {
           return true;
         }
-        
+
         if (this.userSearch != "") {
-          return user.name.toUpperCase().includes(this.userSearch.toUpperCase());
+          return user.name
+            .toUpperCase()
+            .includes(this.userSearch.toUpperCase());
         }
       });
       // console.log(cenas)
       return cenas;
+    },
+    goToUserProfile(userid) {
+      if (
+        this.$store.getters.getAuth &&
+        this.$store.getters.getloginID != userid
+      ) {
+        this.$router.push({
+          name: "About",
+          params: {
+            visiteduserid: userid
+          }
+        });
+      } else if (
+        this.$store.getters.getAuth &&
+        this.$store.getters.getloginID == userid
+      ) {
+        this.$router.push({
+          name: "AboutMe",
+          params: {
+            userid: userid
+          }
+        });
+      } else {
+        alert("Log In Please");
+      }
     }
   }
 };

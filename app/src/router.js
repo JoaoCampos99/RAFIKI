@@ -21,8 +21,6 @@ import ViewProfile from "./views/ViewProfile.vue";
 import About from "./views/About.vue";
 import UserThreads from "./views/UserThreads.vue";
 import UserBadges from "./views/UserBadges.vue";
-import UserRankings from "./views/UserRankings.vue";
-
 Vue.use(Router);
 
 const router = new Router({
@@ -93,12 +91,9 @@ const router = new Router({
       ]
     },
     {
-      path: "/viewProfile/:userid",
+      path: "/viewProfile/:visiteduserid",
       name: "viewprofile",
       component: ViewProfile,
-      meta: {
-        requiresAuth: true
-      },
       children: [
         {
           path: "about",
@@ -114,11 +109,6 @@ const router = new Router({
           path: "userBadges",
           name: "UserBadges",
           component: UserBadges
-        },
-        {
-          path: "userRankings",
-          name: "UserRankings",
-          component: UserRankings
         }
       ]
     },
