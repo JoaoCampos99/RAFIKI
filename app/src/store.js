@@ -461,10 +461,10 @@ export default new Vuex.Store({
           token: "8NqHTT2oovurU8SOUFhuSg",
           data: {
             id: 0,
-            idThread: "numberInt|1, 10",
+            idThread: "numberInt|1,10",
             answer: "stringShort",
-            idUser: "numberInt|1, 10",
-            upvotes: "numberInt|1, 100",
+            idUser: "numberInt|1,10",
+            upvotes: "numberInt|1,100",
             date: "dateTime|ISOdate",
             _repeat: 1
           }
@@ -500,10 +500,11 @@ export default new Vuex.Store({
           token: "PKx5elCuP-52eqXNW9oWPQ",
           data: {
             id: 0,
-            idAnswer: 0,
-            idUser: 0,
-            text: "",
-            upvotes: 0
+            idAnswer: "numberInt|1,10",
+            idUser: "numberInt|1,10",
+            text: "stringShort",
+            upvotes: 0,
+            _repeat: 1
           }
         };
         $.ajax({
@@ -544,6 +545,8 @@ export default new Vuex.Store({
     },
     getThreads: state => {
       return state.threads;
-    }
+    },
+    getAnswers: state => state.answers,
+    getComments: state => state.comments
   }
 });
