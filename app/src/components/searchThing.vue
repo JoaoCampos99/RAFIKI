@@ -61,8 +61,14 @@
                   <i v-else class="fas fa-user"></i>
                 </div>
                 <div class="desc">
-                  <h6 v-if="res.name == undefined">{{res.title}}</h6>
-                  <router-link v-else>{{res.name}}</router-link>
+                  <router-link
+                    v-if="res.name == undefined"
+                    v-bind:to="{name: 'thread', params: {threadid: res.id}}"
+                  >{{res.title}}</router-link>
+                  <router-link
+                    v-else
+                    v-bind:to="{name: 'viewprofile', params: {visiteduserid: res.id}}"
+                  >{{res.name}}</router-link>
                 </div>
               </div>
             </div>
