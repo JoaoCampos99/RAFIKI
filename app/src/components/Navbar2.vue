@@ -28,6 +28,9 @@
         <li class="nav-item" @click="profile">
           <a class="nav-link">Profile</a>
         </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'office' }" :class="{ 'nav-link': true }">Office</router-link>
+        </li>
       </ul>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

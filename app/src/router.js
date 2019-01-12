@@ -21,6 +21,7 @@ import ViewProfile from "./views/ViewProfile.vue";
 import About from "./views/About.vue";
 import UserThreads from "./views/UserThreads.vue";
 import UserBadges from "./views/UserBadges.vue";
+import Office from "./views/Office.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -134,6 +135,11 @@ const router = new Router({
       path: "/contactus",
       name: "contactus",
       component: ContactUs
+    },
+    {
+      path:"/office",
+      name: "office",
+      component: Office
     }
   ]
 });
