@@ -30,6 +30,9 @@
         <li class="nav-item">
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
         </li>
+                <li class="nav-item">
+          <router-link :to="{ name: 'tags' }" :class="{ 'nav-link': true }">Tags</router-link>
+        </li>
       </ul>
       <!-- <div class="navbar-brand">
         <img src="../assets/logoR.png" class="d-inline-block align-top img-fluid" alt="">

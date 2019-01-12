@@ -25,6 +25,9 @@
         <li class="nav-item">
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
         </li>
+                <li class="nav-item">
+          <router-link :to="{ name: 'tags' }" :class="{ 'nav-link': true }">Tags</router-link>
+        </li>
         <li class="nav-item" @click="profile">
           <a class="nav-link">Profile</a>
         </li>

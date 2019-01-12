@@ -22,6 +22,7 @@ import About from "./views/About.vue";
 import UserThreads from "./views/UserThreads.vue";
 import UserBadges from "./views/UserBadges.vue";
 import Office from "./views/Office.vue";
+import Tags from "./views/Tags.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -140,6 +141,11 @@ const router = new Router({
       path:"/office",
       name: "office",
       component: Office
+    },
+    {
+      path:"/tags",
+      name: "tags",
+      component: Tags
     }
   ]
 });
