@@ -419,6 +419,7 @@ export default new Vuex.Store({
           data: {
             id: 1,
             userid: "numberInt|1,10",
+            title: "stringWords",
             question: "<p>Mamaaaaaaaaaas</p>",
             tags: "functionArray|2|stringWords|1,2",
             idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral

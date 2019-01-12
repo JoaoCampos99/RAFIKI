@@ -43,11 +43,11 @@
             <div class="col-md-12">
               <div class="searchbar">
                 <input
+                  id="search"
                   type="text"
                   class="search_input form-control"
                   placeholder="Search..."
                   v-model="searchText"
-                  v-on:input="theSearch"
                 >
                 <a class="search_icon">
                   <i class="fas fa-search"></i>
@@ -57,38 +57,42 @@
             <div class="row containerDropdowns">
               <div v-for="(res, cont) in theSearch" v-bind:key="cont" class="col-md-12 dropdowns">
                 <div class="userImg text-center">
-                  <i class="fas fa-user"></i>
+                  <i v-if="res.name == undefined" class="fas fa-atom"></i>
+                  <i v-else class="fas fa-user"></i>
                 </div>
                 <div class="desc">
-                  <h6>{{res.name}}</h6>
+                  <h6 v-if="res.name == undefined">{{res.title}}</h6>
+                  <router-link v-else>{{res.name}}</router-link>
                 </div>
               </div>
             </div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <div v-if="cont>10" class="col-md-12 midlePagination">
+              <nav aria-label="Page navigation example" class>
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
           <hr class="devilhr">
           <div class="modal-footer">
@@ -113,7 +117,8 @@ export default {
       users: this.$store.state.users,
       threads: this.$store.state.threads,
       loginID: this.$store.getters.getloginID,
-      searchText: null
+      searchText: null,
+      cont: 0
     };
   },
   created() {
@@ -123,7 +128,7 @@ export default {
     openDialog() {
       // let dialog = document.getElementById('dialogSearch')
       // dialog.show()
-      console.log(this.users);
+      // console.log(this.users);
     },
     cTid() {
       console.log("este e o id" + this.loginID);
@@ -131,6 +136,12 @@ export default {
         name: "createThread",
         params: { userId: this.loginID }
       });
+    },
+    trimTitle(title) {
+      let index1 = title.indexOf(">");
+      let index2 = title.indexOf("<", index1);
+
+      return title.substring(index1 + 1, index2);
     }
   },
   computed: {
@@ -138,19 +149,44 @@ export default {
       this.users = this.$store.state.users;
     },
     theSearch() {
-      console.log("ata");
-      console.log(this.users);
-      let aux;
+      // console.log("ata");
+      // console.log(this.users);
+      // if (document.getElementById("search") != null)
+      //   this.searchText = document.getElementById("search").value;
+
+      let aux = [];
       // console.log(this.)
       if (this.searchText != null) {
         aux = this.users.filter(user =>
           user.name.toUpperCase().includes(this.searchText.toUpperCase())
         );
+
+        // console.log(aux)
+        let auxThreads = [];
+        // console.log(this.threads)
+        auxThreads = this.threads.filter(thread =>
+          thread.title.toUpperCase().includes(this.searchText.toUpperCase())
+        );
+
+        if (auxThreads.length > 0) {
+          for (let thread of auxThreads) {
+            // console.log(auxThreads)
+            if (thread.title[0] == "<") {
+              thread.title = this.trimTitle(thread.title);
+            }
+            aux.push(thread);
+          }
+        }
       }
 
       if (this.searchText == "") {
         aux = [];
       }
+
+      this.cont = aux.length;
+
+      // console.log(aux)
+      // console.log(this.cont)
       return aux;
     }
   }
@@ -328,5 +364,10 @@ div.desc {
   width: 80%;
   display: inline-block !important;
   padding-left: 5px;
+}
+div.midlePagination {
+  padding: 0% 10%;
+  display: inline-block;
+  text-align: center;
 }
 </style>
