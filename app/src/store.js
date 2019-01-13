@@ -208,7 +208,7 @@ export default new Vuex.Store({
         question:
           "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
         title: "Como crio um component em vue.js?",
-        tags: ["javascript", "vue.js"],
+        tags: [],
         // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
         upvotes: 4,
         date: "xx/xx/xx",
