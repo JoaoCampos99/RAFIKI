@@ -75,6 +75,13 @@ export default {
       threads: this.$store.state.threads
     };
   },
+  created() {
+    if (this.$store.state.searchTag != "") {
+      this.searchBy = "Tag";
+      this.tag = this.$store.state.searchTag;
+      this.tags.push(this.tag);
+    }
+  },
   updated() {
     if (this.searchBy == "All") {
       this.tags.length = 0;
@@ -91,6 +98,9 @@ export default {
     }
     console.log(this.tag);
     console.log(this.keyword);
+  },
+  beforeDestroy() {
+    this.$store.dispatch("search_tag", "");
   },
   computed: {
     filteredItems() {

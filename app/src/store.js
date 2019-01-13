@@ -111,6 +111,7 @@ export default new Vuex.Store({
     autenticated: false,
     loginid: 0,
     preenchido: false,
+    searchTag: "",
     users: [],
     badges: [
       //helpful awards
@@ -336,11 +337,17 @@ export default new Vuex.Store({
       state.users[index].year = newUser.year;
       state.users[index].bio = newUser.bio;
       state.users[index].foto = newUser.foto;
+    },
+    SEARCH_TAG(state, tag) {
+      state.searchTag = tag;
     }
   },
   actions: {
     update_user(context, newUser) {
       context.commit("UPDATE_USER", newUser);
+    },
+    search_tag(context, tag) {
+      context.commit("SEARCH_TAG", tag);
     },
     addUserAct(context, user) {
       context.commit("addUser", user);
