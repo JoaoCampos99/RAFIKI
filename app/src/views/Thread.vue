@@ -25,7 +25,8 @@
                           <a href="#">
                             <small>{{thread.date}}</small>
                             <p></p>
-                            <small>Thread id = {{thread.id}}</small> <!-- Isto e o <p> de cima vão sair, é só para ver o id da thread -->
+                            <small>Thread id = {{thread.id}}</small>
+                            <!-- Isto e o <p> de cima vão sair, é só para ver o id da thread -->
                           </a>
                         </li>
                       </ul>
@@ -93,10 +94,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
-                  <img
-                    v-bind:src="userFoto(ans.idUser)"
-                    class="img img-rounded img-fluid"
-                  >
+                  <img v-bind:src="userFoto(ans.idUser)" class="img img-rounded img-fluid">
                   <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
                 </div>
                 <div class="col-md-10">
@@ -123,8 +121,12 @@
                   </p>
                 </div>
               </div>
-              <div class="card card-inner" v-for="com in comments" v-bind:key="com.id"
-              v-if="com.idAnswer == ans.id">
+              <div
+                class="card card-inner"
+                v-for="com in comments"
+                v-bind:key="com.id"
+                v-if="com.idAnswer == ans.id"
+              >
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-2">
@@ -217,10 +219,15 @@ export default {
     console.log("OLAAAA");
     console.log(this.thread);
     console.log(this.user);
+    if (!this.$store.getters.getAuth) {
+      localStorage.setItem("setLastThread", threadid);
+    }
   },
   computed: {
     threadAns() {
-      this.thisAnswers = this.answers.filter(ans => ans.idThread == this.thread.id);
+      this.thisAnswers = this.answers.filter(
+        ans => ans.idThread == this.thread.id
+      );
       return this.thisAnswers;
     },
     ansComments() {
@@ -230,17 +237,17 @@ export default {
             return true;
           }
         }
-        console.log(this.thisComments)
+        console.log(this.thisComments);
         return false;
       });
     }
   },
   methods: {
     userFoto(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
     },
-     userNome(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name
+    userNome(iduser) {
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
     }
   }
 };
