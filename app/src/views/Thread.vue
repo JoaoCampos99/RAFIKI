@@ -140,6 +140,7 @@
                   </p>
                 </div>
               </div>
+<<<<<<< HEAD
               <div v-bind:class="className(ans.id)">
                 <div
                   class="card card-inner"
@@ -174,6 +175,35 @@
                           </a>
                         </p>
                       </div>
+=======
+              <div
+                class="card card-inner"
+                v-for="com in comments"
+                v-bind:key="com.id"
+                v-if="com.idAnswer == ans.id"
+              >
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src class="img img-rounded img-fluid">
+                      <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
+                    </div>
+                    <div class="col-md-10">
+                      <p>
+                        <a href>
+                          <strong>{{userNome(com.idUser)}}</strong>
+                        </a>
+                      </p>
+                      <p>{{com.text}}</p>
+                      <p>
+                        <a class="float-right btn btn-outline-primary ml-2">
+                          <i class="fa fa-reply"></i>
+                        </a>
+                        <a class="float-right btn text-white btn-success ml-2">
+                          <i class="fas fa-thumbs-up"></i>
+                        </a>
+                      </p>
+>>>>>>> d32148e8125c39422c854b326633cf198c6eddeb
                     </div>
                   </div>
                 </div>
@@ -265,6 +295,9 @@ export default {
     console.log("OLAAAA");
     console.log(this.thread);
     console.log(this.user);
+    if (!this.$store.getters.getAuth) {
+      localStorage.setItem("setLastThread", threadid);
+    }
   },
   computed: {
     threadAns() {
@@ -288,6 +321,7 @@ export default {
   methods: {
     userFoto(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
+<<<<<<< HEAD
     },
     userNome(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
@@ -315,6 +349,11 @@ export default {
     },
     className(id) {
       return { id: true };
+=======
+    },
+    userNome(iduser) {
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
+>>>>>>> d32148e8125c39422c854b326633cf198c6eddeb
     }
   }
 };
