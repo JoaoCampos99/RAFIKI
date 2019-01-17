@@ -25,7 +25,8 @@
                           <a href="#">
                             <small>{{thread.date}}</small>
                             <p></p>
-                            <small>Thread id = {{thread.id}}</small> <!-- Isto e o <p> de cima vão sair, é só para ver o id da thread -->
+                            <small>Thread id = {{thread.id}}</small>
+                            <!-- Isto e o <p> de cima vão sair, é só para ver o id da thread -->
                           </a>
                         </li>
                       </ul>
@@ -52,7 +53,7 @@
                         class="btn btn-sm btn-secondary"
                         v-for="(tag, cont) in thread.tags"
                         v-bind:key="cont"
-                      >{{tag}}</button>
+                      >{{tag.text}}</button>
                     </div>
                     <hr>
                     <div class="news-author">
@@ -76,6 +77,16 @@
                             </h4>
                             <ul class="list-unstyled list-inline">
                               <li class="list-inline-item">Rank: {{user.rank}}</li>
+                              <li class="list-inline-item">
+                                <a
+                                  class="float-right btn text-white btn-success ml-2"
+                                  v-on:click="upvoteThread(thread.id)"
+                                >
+                                  <i
+                                    class="fas fa-thumbs-up"
+                                  > | {{thread.upvotes == 0 ? '' : thread.upvotes}}</i>
+                                </a>
+                              </li>
                             </ul>
                           </div>
                         </div>
@@ -93,10 +104,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
-                  <img
-                    v-bind:src="userFoto(ans.idUser)"
-                    class="img img-rounded img-fluid"
-                  >
+                  <img v-bind:src="userFoto(ans.idUser)" class="img img-rounded img-fluid">
                   <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
                 </div>
                 <div class="col-md-10">
@@ -111,45 +119,83 @@
                   <div class="clearfix"></div>
                   <p>{{ans.answer}}</p>
                   <p>
-                    <a class="float-right btn btn-outline-primary ml-2">
+                    <a
+                      class="float-right btn btn-outline-primary ml-2"
+                      v-on:click="answerToThread(ans.id)"
+                    >
                       <i class="fa fa-reply"></i>
                     </a>
-                    <a class="float-right btn text-white btn-success ml-2">
-                      <i class="fas fa-thumbs-up"></i>
+                    <a
+                      class="float-right btn text-white btn-success ml-2"
+                      v-on:click="upvoteAns(ans.id)"
+                    >
+                      <i class="fas fa-thumbs-up">| {{ans.upvotes == 0 ? '' : ans.upvotes}}</i>
                     </a>
-                    <a class="float-right btn text-white btn-danger">
+                    <a
+                      class="float-right btn text-white btn-danger"
+                      v-on:click="hideComments(ans.id)"
+                    >
                       <i class="fas fa-caret-up"></i>
                     </a>
                   </p>
                 </div>
               </div>
-              <div class="card card-inner" v-for="com in comments" v-bind:key="com.id"
-              v-if="com.idAnswer == ans.id">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-2">
-                      <img src class="img img-rounded img-fluid">
-                      <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
-                    </div>
-                    <div class="col-md-10">
-                      <p>
-                        <a href>
-                          <strong>{{userNome(com.idUser)}}</strong>
-                        </a>
-                      </p>
-                      <p>{{com.text}}</p>
-                      <p>
-                        <a class="float-right btn btn-outline-primary ml-2">
-                          <i class="fa fa-reply"></i>
-                        </a>
-                        <a class="float-right btn text-white btn-success ml-2">
-                          <i class="fas fa-thumbs-up"></i>
-                        </a>
-                      </p>
+              <div v-bind:class="className(ans.id)">
+                <div
+                  class="card card-inner"
+                  v-for="com in comments"
+                  v-bind:key="com.id"
+                  v-if="com.idAnswer == ans.id"
+                >
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <img src class="img img-rounded img-fluid">
+                        <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
+                      </div>
+                      <div class="col-md-10">
+                        <p>
+                          <a href>
+                            <strong>{{userNome(com.idUser)}}</strong>
+                          </a>
+                        </p>
+                        <p>{{com.text}}</p>
+                        <p>
+                          <!-- <a class="float-right btn btn-outline-primary ml-2">
+                            <i class="fa fa-reply"></i>
+                          </a>-->
+                          <a
+                            class="float-right btn text-white btn-success ml-2"
+                            v-on:click="upvoteComment(com.id)"
+                          >
+                            <i
+                              class="fas fa-thumbs-up"
+                            >| {{com.upvotes == 0 ? '' : parseInt(com.upvotes)}}</i>
+                          </a>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" v-show="showAnswerDiv">
+          <div class="col-md-12 text-left">
+            <h4>Responder</h4>
+            <textarea
+              name
+              id="resposta"
+              cols="30"
+              rows="10"
+              style="width: inherit"
+              placeholder="Escreve aqui a tua resposta"
+              v-model="textoResposta"
+            ></textarea>
+
+            <div class="text-right" style="margin-bottom: 15px;">
+              <button class="btn btn-outline-success" v-on:click="adicionarResposta">Responder</button>
             </div>
           </div>
         </div>
@@ -203,7 +249,9 @@ export default {
       answers: this.$store.getters.getAnswers,
       comments: this.$store.getters.getComments,
       thisAnswers: [],
-      thisComments: []
+      thisComments: [],
+      textoResposta: "",
+      showAnswerDiv: this.$store.getters.getAuth
     };
   },
   created() {
@@ -220,7 +268,9 @@ export default {
   },
   computed: {
     threadAns() {
-      this.thisAnswers = this.answers.filter(ans => ans.idThread == this.thread.id);
+      this.thisAnswers = this.answers.filter(
+        ans => ans.idThread == this.thread.id
+      );
       return this.thisAnswers;
     },
     ansComments() {
@@ -230,17 +280,41 @@ export default {
             return true;
           }
         }
-        console.log(this.thisComments)
+        console.log(this.thisComments);
         return false;
       });
     }
   },
   methods: {
     userFoto(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
     },
-     userNome(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name
+    userNome(iduser) {
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
+    },
+    adicionarResposta() {
+      console.log(this.textoResposta);
+    },
+    upvoteAns(id) {
+      console.log(id);
+      for (let ans of this.answers) {
+        if (ans.id == id) {
+          ans.upvotes++;
+          console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
+        }
+      } //Falta fazer update à store
+    },
+    upvoteComment(id) {
+      console.log(id);
+    },
+    answerToThread(id) {
+        // for(let com of this.comments)
+    },
+    upvoteThread() {
+      this.thread.upvotes++;
+    },
+    className(id) {
+      return { id: true };
     }
   }
 };

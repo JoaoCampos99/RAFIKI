@@ -47,7 +47,7 @@ class User {
     let trueRank = null;
     console.log(this.level);
     switch (
-      rank //O calculo do rank deve estar mal....
+    rank //O calculo do rank deve estar mal....
     ) {
       case 0:
         trueRank = "A começar";
@@ -105,9 +105,26 @@ class User {
   }
 }
 
+class Answer {
+  constructor(id, idThread, ans, idUser) {
+    this.id = id
+    this.idThread = idThread
+    this.answer = ans
+    this.idUser = idUser
+    this.upvotes = 0
+  }
+}
+// id: 0,
+//   idThread: 0,
+//   answer: "",
+//   idUser: 0,
+//   upvotes: 0,
+//   date: "xx/xx/xx"
+// }
 export default new Vuex.Store({
   state: {
     Userclass: User,
+    // AnswerClass: 
     autenticated: false,
     loginid: 0,
     preenchido: false,
@@ -281,7 +298,7 @@ export default new Vuex.Store({
     },
     ADD_THREAD(state, payload) {
       if (state.threads.length != 0) {
-        state.threads.sort(function(a, b) {
+        state.threads.sort(function (a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
         });
@@ -378,7 +395,10 @@ export default new Vuex.Store({
           // I6EFQFoKLa1FFP453_jzQg , token pedro
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
-          token: "PKx5elCuP-52eqXNW9oWPQ",
+          //Mn4xigS5bbMoHf8DRqmiHA
+          /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
+          se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 1,
             name: "personNickname",
@@ -392,6 +412,7 @@ export default new Vuex.Store({
             foto: "personAvatar",
             follow: "functionArray|3|numberInt",
             skills: "personSkill",
+            upvotes: [],
             _repeat: 1
           }
         };
@@ -422,13 +443,13 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 1,
             userid: "numberInt|1,10",
             title: "stringWords",
             question: "<p>Mamaaaaaaaaaas</p>",
-            tags: "functionArray|2|stringWords|1,2",
+            tags: [], //"functionArray|2|stringWords|1,2",
             idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
             upvotes: "numberInt|1,100",
             date: "dateTime|ISOdate",
@@ -465,7 +486,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "8NqHTT2oovurU8SOUFhuSg",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -504,7 +525,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "PKx5elCuP-52eqXNW9oWPQ",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",

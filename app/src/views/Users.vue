@@ -26,8 +26,7 @@
         <div class="user-show">
           <div class="user-front">
             <img v-bind:src="user.foto" class="img-fluid">
-            <router-link v-bind:to="{name: 'viewprofile', params: {visiteduserid: user.id}}"
-            class="userName">{{user.name}}</router-link>
+            <a class="userName">{{user.name}}</a>
             <p>LEVEL - {{user.level}}</p>
             <p>RANK - {{user.rank[1]}}</p>
           </div>
