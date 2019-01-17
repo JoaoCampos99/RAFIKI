@@ -18,7 +18,7 @@
             >{{thread.title}}</a>
           </div>
         </div>
-        <h3>Related Topics</h3>
+        <h3 style="padding: 0 0 0 5; padding-inline-start: 20px">Topics For You</h3>
         <related></related>
       </div>
     </div>
