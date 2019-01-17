@@ -321,7 +321,6 @@ export default {
   methods: {
     userFoto(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
-<<<<<<< HEAD
     },
     userNome(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
@@ -349,11 +348,6 @@ export default {
     },
     className(id) {
       return { id: true };
-=======
-    },
-    userNome(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
->>>>>>> d32148e8125c39422c854b326633cf198c6eddeb
     }
   }
 };
