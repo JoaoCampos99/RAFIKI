@@ -35,6 +35,7 @@ class User {
     this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
     this.year = year;
     this.course = course;
+    this.upvotes = []
   }
 
   getLevel() {
@@ -105,6 +106,32 @@ class User {
   }
 }
 
+// id: 1,
+//             userid: "numberInt|1,10",
+//             title: "stringWords",
+//             question: "<p>Mamaaaaaaaaaas</p>",
+//             tags: [], //"functionArray|2|stringWords|1,2",
+//             idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
+//             upvotes: "numberInt|1,100",
+//             date: "dateTime|ISOdate",
+//             views: "numberInt|1,20", // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+//             course: "stringCharacters|3,4",
+//             closeDate: null,
+class Thread {
+  constructor(id, userid, title, question, idGroup, course) {
+    this.id = id
+    this.userid = userid
+    this.title = title
+    this.question = question
+    this.tags = []
+    this.idGroup = idGroup
+    this.upvotes = []
+    this.date = new Date().toISOString().split('T')[0]
+    this.views = 0
+    this.course = course
+    this.closeDate = null
+  }
+}
 class Answer {
   constructor(id, idThread, ans, idUser) {
     this.id = id
@@ -125,6 +152,7 @@ export default new Vuex.Store({
   state: {
     Userclass: User,
     // AnswerClass: 
+    ThreadClass: Thread,
     autenticated: false,
     loginid: 0,
     preenchido: false,
@@ -228,7 +256,7 @@ export default new Vuex.Store({
         title: "Como crio um component em vue.js?",
         tags: [],
         // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-        upvotes: 4,
+        upvotes: [],
         date: "xx/xx/xx",
         // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
         course: "TSIW"
@@ -335,7 +363,19 @@ export default new Vuex.Store({
     },
     save_threads(state, arr) {
       console.log(arr);
-      state.threads = arr;
+      let aux = []
+      for (let thread of arr) {
+        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null)
+
+        th.tags.push({
+          id: th.tags.length == 0 ? 1 : th.tags[th.tags.length - 1].id + 1,
+          text: th.title.split(' ')[0]
+        })
+
+        aux.push(th)
+      }
+      state.threads = aux;
+      console.log(state.threads)
     },
     save_answers(state, arr) {
       console.log(arr);
