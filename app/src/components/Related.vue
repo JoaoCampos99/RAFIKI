@@ -78,6 +78,16 @@ export default {
         console.log(this.relatedTags);
       }
     }
+  },
+  methods: {
+    goToThread(id) {
+      this.$router.push({
+        name: "thread",
+        params: {
+          threadid: id
+        }
+      });
+    }
   }
 };
 </script>
