@@ -436,9 +436,10 @@ export default new Vuex.Store({
           // k_x0qyzrU3rzj9Y2qfzQSA, mais um meu
           // 8NqHTT2oovurU8SOUFhuSg, jonas
           //Mn4xigS5bbMoHf8DRqmiHA
+          //S7swes5kWKmU6fHC-PcvXA joao gmail
           /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
           se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "S7swes5kWKmU6fHC-PcvXA",
           data: {
             id: 1,
             name: "personNickname",
@@ -483,7 +484,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "S7swes5kWKmU6fHC-PcvXA",
           data: {
             id: 1,
             userid: "numberInt|1,10",
@@ -526,7 +527,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "S7swes5kWKmU6fHC-PcvXA",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -565,7 +566,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "S7swes5kWKmU6fHC-PcvXA",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",
