@@ -1,7 +1,10 @@
 <template>
   <div class="fitText">
-    <p>asdas</p>
-    <div style="padding: 0 0 0 5; padding-inline-start: 20px" class="list-group">
+    <div
+      style="padding: 0 0 0 5; padding-inline-start: 20px"
+      class="list-group"
+      v-if="relatedThreads.length>0"
+    >
       <a
         style="width:100%"
         class="list-group-item"
@@ -9,6 +12,9 @@
         v-bind:key="thread.id"
         @click="goToThread(thread.id)"
       >{{thread.title}}</a>
+    </div>
+    <div v-else>
+      <a style="width:100%" class="list-group-item">No Topics at the moment</a>
     </div>
   </div>
 </template>
@@ -26,13 +32,33 @@ export default {
     console.log(threadid);
     if (threadid) {
       let userid = this.$store.getters.getloginID;
-      console.log(userid);
       //SE tiver loggado
       if (userid != 0) {
         this.relatedTags = this.$store.getters.getThreads.filter(
           thread => thread.userid == userid
-        )[0].tags;
-        console.log(this.relatedTags);
+        );
+        this.relatedTags = this.relatedTags.map(thread => {
+          let newObj = {
+            tags: thread.tags
+          };
+          return newObj;
+        });
+        console.log("Todas as threads:" + this.$store.getters.getThreads);
+        this.relatedThreads = this.$store.getters.getThreads.filter(thread => {
+          let tagExists = false;
+          for (let i = 0; i < this.relatedTags.length; i++) {
+            console.log(this.relatedTags[i].tags[0].text);
+            if (
+              thread.tags.find(
+                tag => tag.text == this.relatedTags[i].tags[0].text
+              )
+            ) {
+              tagExists = true;
+              console.log("Entra?");
+            }
+          }
+          return tagExists;
+        });
       } else {
         //Senao tiver loggado
         this.relatedTags = this.$store.getters.getThreads.filter(
@@ -43,14 +69,24 @@ export default {
           for (let i = 0; i < this.relatedTags.length; i++) {
             console.log(this.relatedTags[i]);
             console.log(thread.tags);
-            // if (thread.tags.find(tag=>tag.) {
-            //   tagExists = true;
-            // }
+            if (thread.tags.find(tag => tag.text == this.relatedTags[i].text)) {
+              tagExists = true;
+            }
           }
           return tagExists;
         });
         console.log(this.relatedTags);
       }
+    }
+  },
+  methods: {
+    goToThread(id) {
+      this.$router.push({
+        name: "thread",
+        params: {
+          threadid: id
+        }
+      });
     }
   }
 };

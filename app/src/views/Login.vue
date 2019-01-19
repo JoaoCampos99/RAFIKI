@@ -117,7 +117,7 @@ class User {
     this.exp = exp;
     this.level = this.getLevel();
     this.rank = this.getRank();
-    this.badges = this.getBadges();
+    // this.badges = this.getBadges();
     this.desc = desc;
     this.foto = foto;
     this.follow = follow;
@@ -151,16 +151,16 @@ class User {
     return [rank, trueRank];
   }
 
-  getBadges() {
-    let chupaasminhastolas = [];
-    let thisUser = this.users.find(us => us.id == this.id);
-    for (let badge of this.$store.getters.getBadges) {
-      if (badge.goal(thisUser)) {
-        this.badges.push(badge.id);
-      }
-    }
-    return chupaasminhastolas;
-  }
+  // getBadges() {
+  //   let chupaasminhastolas = [];
+  //   let thisUser = this.users.find(us => us.id == this.id);
+  //   for (let badge of this.$store.getters.getBadges) {
+  //     if (badge.goal(thisUser)) {
+  //       this.badges.push(badge.id);
+  //     }
+  //   }
+  //   return chupaasminhastolas;
+  // }
 }
 
 export default {
