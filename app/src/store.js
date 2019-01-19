@@ -429,9 +429,50 @@ export default new Vuex.Store({
       let index = state.users.findIndex(us => us.id == up.userid);
       console.log(state.users[index]);
       state.users[index].upvotes.push(up.up);
-    }
+    },
+    DELETE_USER(state, id){
+      let index= state.users.findIndex(user => user.id ==id)
+      state.users.splice(index,1)
+    },
+    DELETE_BADGE(state, id){
+      let index= state.badges.findIndex(badge => badge.id ==id)
+      state.badges.splice(index,1)
+    },
+    DELETE_THREAD(state, id){
+      let index= state.threads.findIndex(thread => thread.id ==id)
+      state.threads.splice(index,1)
+    },
+    DELETE_TAG(state, id){
+      let index= state.tags.findIndex(tag => tag.id ==id)
+      state.tags.splice(index,1)
+    },
+
+    
+
   },
   actions: {
+    // OFFICE
+    delete_user(context, id)
+    {
+      context.commit("DELETE_USER",id)
+    },
+
+    delete_badge(context, id)
+    {
+      context.commit("DELETE_BADGE",id)
+    },
+
+    delete_thread(context, id)
+    {
+      context.commit("DELETE_THREAD",id)
+    },
+
+    delete_tag(context, id)
+    {
+      context.commit("DELETE_TAG",id)
+    },
+
+
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);

@@ -29,7 +29,7 @@
             <td>{{user.rank}}</td>
             <td>{{user.level}}</td>
             <td>{{user.course}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm"> X </button> </td>
+            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.id)"> X </button> </td>
           </tr>
         </tbody>
       </table>
@@ -62,7 +62,7 @@
             <td>{{badge.name}}</td>
             <td>{{badge.desc}}</td>
             <td>{{badge.category}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm"> X </button> </td>
+            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteBadge(badge.id)"> X </button> </td>
           </tr>
         </tbody>
       </table>
@@ -93,7 +93,7 @@
             <td>{{thread.title}}</td>
             <td>{{thread.date}}</td>
             <td></td>
-            <td><button type="button" class="btn btn-danger btn-sm"> X </button> </td>
+            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)" > X </button> </td>
           </tr>
         </tbody>
       </table>
@@ -121,7 +121,8 @@
             v-bind:key="tag.id">
             <td>{{tag.id}}</td>
             <td>{{tag.text}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm"> X </button> </td>
+            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteTag(tag.id)"> X </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -132,13 +133,31 @@
 export default {
   data() {
     return {
-
     };
   },
   created() {
     
   },
   methods: {
+    deleteUser(id) {
+      console.log(id)
+      this.$store.dispatch("delete_user",id)
+    },
+
+    deleteBadge(id) {
+      this.$store.dispatch("delete_badge",id)
+    },
+
+    deleteThread(id) {
+    this.$store.dispatch("delete_thread",id)
+    },
+
+    deleteTag(id) {
+    this.$store.dispatch("delete_tag",id)
+    },
+
+    
+
     
   }
 };
