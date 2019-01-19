@@ -155,13 +155,7 @@ export default {
       this.users = this.$store.state.users;
     },
     theSearch() {
-      // console.log("ata");
-      // console.log(this.users);
-      // if (document.getElementById("search") != null)
-      //   this.searchText = document.getElementById("search").value;
-
       let aux = [];
-      // console.log(this.)
       if (this.searchText != null) {
         aux = this.users.filter(user =>
           user.name.toUpperCase().includes(this.searchText.toUpperCase())

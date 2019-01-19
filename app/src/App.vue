@@ -2,8 +2,8 @@
   <div id="app2" class>
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
-    <router-view/>
     <SearchThing/>
+    <router-view/>
     <Footer/>
   </div>
 </template>

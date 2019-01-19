@@ -100,7 +100,7 @@
         </div>
         <div>
           <!-- Respostas e Comentários -->
-          <div class="card" v-for="ans in threadAns" v-bind:key="ans.id">
+          <div class="card" v-for="(ans, cont) in threadAns" v-bind:key="cont">
             <div class="card-body">
               <div class="row">
                 <div class="col-md-2">
@@ -252,7 +252,8 @@ export default {
       thisAnswers: [],
       thisComments: [],
       textoResposta: "",
-      showAnswerDiv: this.$store.getters.getAuth
+      showAnswerDiv: this.$store.getters.getAuth,
+      loginUser: null
     };
   },
   created() {
@@ -268,6 +269,12 @@ export default {
     console.log(this.user);
     if (!this.$store.getters.getAuth) {
       localStorage.setItem("setLastThread", threadid);
+    }
+
+    if (this.$store.getters.getAuth) {
+      this.loginUser = this.$store.getters.getUsers.filter(
+        us => us.id == this.$store.getters.getloginID
+      )[0];
     }
   },
   computed: {
@@ -297,7 +304,35 @@ export default {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;
     },
     adicionarResposta() {
+      //Adicionar experiencia ao user
       console.log(this.textoResposta);
+      let nivelAtual = this.loginUser.getLevel();
+      if (this.textoResposta != "") {
+        console.log(this.$store.getters.getloginID);
+        let answer = {
+          id:
+            this.answers.length > 0
+              ? this.answers[this.answers.length - 1].id + 1
+              : 1,
+          idThread: this.thread.id,
+          idUser: this.$store.getters.getloginID,
+          ans: this.textoResposta,
+          upvotes: 0
+        };
+        this.$store.dispatch("add_answer", answer);
+        console.log(this.textoResposta);
+        let nivelDepois = this.loginUser.getLevel();
+        if (nivelAtual != nivelDepois) {
+          Swal({
+            title: "Boa, Ganhaste mais um Badge",
+            type: "success",
+            text: "Acede ao teu perfil para o veres!!!",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 1500
+          });
+        }
+      }
     },
     upvoteAns(id) {
       // console.log(this.user);
@@ -308,7 +343,7 @@ export default {
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (ups.idanswer != undefined) {
-              if (ups.idthread == this.thread.id && this.idanswer != id)
+              if (ups.idthread == this.thread.id && this.idanswer == id)
                 guardar = false;
             }
           }
@@ -319,23 +354,30 @@ export default {
         if (guardar) {
           let up = {
             // Isto vai ser o que vai para o array dos upvotes do user
-            iduser: this.user.id,
+            iduser: this.$store.getters.getloginID,
             idthread: this.thread.id,
             idanswer: id,
             idcomment: null
           };
 
+          let nivelAtual = this.loginUser.getLevel();
+          console.log(nivelAtual);
           this.$store.dispatch("add_upvote_user", {
-            userid: this.user.id,
+            userid: this.$store.getters.getloginID,
             up: up
           });
           this.$store.dispatch("add_upvote_answer", id);
-          // for (let ans of this.answers) {
-          //   if (ans.id == id) {
-          //     ans.upvotes++;
-          //     console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
-          //   }
-          // } //Falta fazer update à store
+          let nivelDepois = this.loginUser.getLevel();
+          if (nivelAtual != nivelDepois) {
+            Swal({
+              title: "Boa, Ganhaste mais um Badge",
+              type: "success",
+              text: "Acede ao teu perfil para o veres!!!",
+              showConfirmButton: false,
+              position: "top-end",
+              timer: 1500
+            });
+          }
         } else {
           Swal("Ja inseriste", "Ja deste upvote", "error");
         }
@@ -343,7 +385,8 @@ export default {
         Swal({
           text: "Tens que entrar na tua conta!!!",
           type: "error",
-          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+          footer:
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
         });
       }
     },
@@ -377,12 +420,28 @@ export default {
             idanswer: ansid,
             idcomment: id
           };
+          let nivelAtual = this.loginUser.getLevel();
 
           this.$store.dispatch("add_upvote_comment", id);
           this.$store.dispatch("add_upvote_user", {
             up: up,
-            userid: this.user.id
+            userid: this.$store.getters.getloginID
           });
+
+          let nivelDepois = this.loginUser.getLevel();
+          if (
+            nivelAtual != nivelDepois &&
+            this.$store.getters.getBadges.length <= nivelDepois
+          ) {
+            Swal({
+              title: "Boa, Ganhaste mais um Badge",
+              type: "success",
+              text: "Acede ao teu perfil para o veres!!!",
+              showConfirmButton: false,
+              position: "top-end",
+              timer: 1500
+            });
+          }
         } else {
           Swal("Ja inseriste");
         }
@@ -390,15 +449,10 @@ export default {
         Swal({
           text: "Tens que entrar na tua conta!!!",
           type: "error",
-          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+          footer:
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
         });
       }
-    },
-    answerToThread(id) {
-      // for(let com of this.comments)
-      // let up = {
-      //   idthread: this.thread.id,
-      // }
     },
     upvoteThread() {
       let guardar = true;
@@ -419,12 +473,26 @@ export default {
             idcomment: null
           };
 
+          let nivelAtual = this.loginUser.getLevel();
+
           console.log(this.user.upvotes);
           this.$store.dispatch("add_upvote_thread", this.thread.id);
           this.$store.dispatch("add_upvote_user", {
             userid: this.user.id,
             up: up
           });
+
+          let nivelDepois = this.loginUser.getLevel();
+          if (nivelAtual != nivelDepois) {
+            Swal({
+              title: "Boa, Ganhaste mais um Badge",
+              type: "success",
+              text: "Acede ao teu perfil para o veres!!!",
+              showConfirmButton: false,
+              position: "top-end",
+              timer: 1500
+            });
+          }
         } else {
           Swal("Ja inseriste");
         }
@@ -432,7 +500,8 @@ export default {
         Swal({
           text: "Tens que entrar na tua conta!!!",
           type: "error",
-          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+          footer:
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
         });
       }
     },

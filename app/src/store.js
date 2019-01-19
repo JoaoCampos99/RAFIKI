@@ -134,25 +134,19 @@ class Thread {
   }
 }
 class Answer {
-  constructor(id, idThread, ans, idUser) {
-    this.id = id
-    this.idThread = idThread
-    this.answer = ans
-    this.idUser = idUser
-    this.upvotes = 0
+  constructor(id, idThread, ans, idUser, upvotes) {
+    this.id = id;
+    this.idThread = idThread;
+    this.answer = ans;
+    this.idUser = idUser;
+    this.upvotes = upvotes;
+    this.date = new Date().toISOString().split('T')[0];
   }
 }
-// id: 0,
-//   idThread: 0,
-//   answer: "",
-//   idUser: 0,
-//   upvotes: 0,
-//   date: "xx/xx/xx"
-// }
+
 export default new Vuex.Store({
   state: {
     Userclass: User,
-    // AnswerClass: 
     ThreadClass: Thread,
     autenticated: false,
     loginid: 0,
@@ -350,6 +344,7 @@ export default new Vuex.Store({
       let aux = [];
       for (let user of arr) {
         console.log(user)
+        let ups = user.upvotes == undefined ? [] : user.upvotes
         let us = new User(
           user.id,
           user.name,
@@ -362,7 +357,7 @@ export default new Vuex.Store({
           user.skills,
           user.year,
           user.course,
-          user.upvotes
+          ups
         );
         aux.push(us);
       }
@@ -383,14 +378,23 @@ export default new Vuex.Store({
         aux.push(th)
       }
       state.threads = aux;
-      console.log(state.threads)
     },
     save_answers(state, arr) {
-      console.log(arr);
-      state.answers = arr;
+      let aux = []
+      for (let ans of arr) {
+        let as = new Answer(ans.id, ans.idThread, ans.answer, ans.idUser, ans.upvotes);
+        as.id = arr.length > 0 ? arr[arr.length - 1].id + 1 : 1;
+        aux.push(as)
+      }
+
+      state.answers = aux;
+    },
+    add_answer(state, answer) {
+      state.answers.push(answer);
+      let index = state.users.findIndex(us => us.id == answer.idUser);
+      state.users[index].exp += 20;
     },
     save_comments(state, arr) {
-      console.log(arr);
       state.comments = arr;
     },
     UPDATE_USER(state, newUser) {
@@ -416,22 +420,21 @@ export default new Vuex.Store({
       state.comments.filter(com => com.id == id)[0].upvotes++;
     },
     add_upvote_user(state, up) {
-      // state.users.filter(us => {
-      //   if(us.id == up.userid) {
-      //     // console.log(us.upvotes);
-      //     return true;
-      //   }
-      //   else return false;
-      // })[0].upvotes = [] 
-
-      console.log('ata');
+      console.log("ata");
+      let addExp = 10
 
       let index = state.users.findIndex(us => us.id == up.userid);
-      console.log(state.users[index]);
+      console.log(state.users[index].exp);
       state.users[index].upvotes.push(up.up);
+      state.users[index].exp += addExp;
+      console.log(state.users[index].exp);
     }
   },
   actions: {
+    add_answer(context, ans){
+      let answ = new Answer(ans.id, ans.idThread, ans.ans, ans.idUser, ans.upvotes);
+      context.commit("add_answer", answ);
+    },
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);
