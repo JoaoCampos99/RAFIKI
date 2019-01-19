@@ -327,6 +327,7 @@ export default new Vuex.Store({
       state.loginid = payload;
     },
     ADD_THREAD(state, payload) {
+      let aux = state.threads
       if (state.threads.length != 0) {
         state.threads.sort(function (a, b) {
           if (a.id > b.id) return 1;
@@ -337,7 +338,10 @@ export default new Vuex.Store({
       } else {
         payload.id = 1;
       }
-      state.threads.push(payload);
+
+      aux.push(payload)
+      console.log(aux)
+      state.threads = aux;
     },
     save(state) {
       state.preenchido = true;
@@ -481,7 +485,7 @@ export default new Vuex.Store({
           //S7swes5kWKmU6fHC-PcvXA joao gmail
           /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
           se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
-          token: "S7swes5kWKmU6fHC-PcvXA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 1,
             name: "personNickname",
@@ -525,8 +529,9 @@ export default new Vuex.Store({
         !localStorage.getItem("vuex") == true ||
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
+        console.log('ataatatataatatatatataatata')
         let payload = {
-          token: "S7swes5kWKmU6fHC-PcvXA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 1,
             userid: "numberInt|1,10",
@@ -569,7 +574,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "S7swes5kWKmU6fHC-PcvXA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -608,7 +613,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "S7swes5kWKmU6fHC-PcvXA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",

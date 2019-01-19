@@ -46,7 +46,7 @@ export default {
       if (a.views > b.views) return 1;
       else return 0;
     });
-    this.viewedThreads.length = 5;
+    // this.viewedThreads.length = 5;
   },
   methods: {
     goToThread(id) {
