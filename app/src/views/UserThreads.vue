@@ -1,5 +1,6 @@
 <template>
   <div class="span8">
+    <div class="wrapper" v-if="mythreads.length > 0">
     <div v-for="thread in mythreads" v-bind:key="thread.id">
       <h4>
         <strong>
@@ -31,6 +32,10 @@
           <span class="label label-info">{{tag.text}}</span>
         </a>
       </p>
+    </div>
+    </div>
+    <div v-else class="wrapper">
+      <h1 class="text-center">Não tem Tags</h1>
     </div>
   </div>
 </template>
