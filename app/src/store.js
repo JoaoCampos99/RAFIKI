@@ -312,7 +312,8 @@ export default new Vuex.Store({
         user.follow,
         user.skills,
         user.year,
-        user.course
+        user.course,
+        []
       );
       state.users.push(us);
     },
@@ -344,6 +345,7 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
+        console.log(user)
         let us = new User(
           user.id,
           user.name,

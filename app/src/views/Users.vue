@@ -66,32 +66,35 @@ export default {
       return cenas;
     },
     goToUserProfile(userid) {
-      if (
-        this.$store.getters.getAuth &&
-        this.$store.getters.getloginID != userid
-      ) {
-        this.$router.push({
-          name: "About",
-          params: {
-            visiteduserid: userid
-          }
-        });
-      } else if (
-        this.$store.getters.getAuth &&
-        this.$store.getters.getloginID == userid
-      ) {
-        this.$router.push({
-          name: "AboutMe",
-          params: {
-            userid: userid
-          }
-        });
-      } else {
-        alert("Log In Please");
-      }
+      // if (
+      //   this.$store.getters.getAuth &&
+      //   this.$store.getters.getloginID != userid
+      // ) {
+      this.$router.push({
+        name: "About",
+        params: {
+          visiteduserid: userid
+        }
+      });
     }
   }
 };
+// } else if (
+//   this.$store.getters.getAuth &&
+//   this.$store.getters.getloginID == userid
+// ) {
+//   this.$router.push({
+//     name: "AboutMe",
+//     params: {
+//       userid: userid
+//     }
+//   });
+// } else {
+//   alert("Log In Please");
+// }
+// }
+
+// };
 </script>
 
 <style>
@@ -134,5 +137,9 @@ export default {
   background: #ffffff;
   padding: 15px;
   bottom: 0px;
+}
+
+.user-front {
+  cursor: pointer;
 }
 </style>

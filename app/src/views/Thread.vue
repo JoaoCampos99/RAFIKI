@@ -300,7 +300,7 @@ export default {
       console.log(this.textoResposta);
     },
     upvoteAns(id) {
-      console.log(this.user);
+      // console.log(this.user);
 
       let guardar = true;
 
@@ -314,29 +314,37 @@ export default {
           }
         }
       }
-      if (guardar) {
-        let up = {
-          // Isto vai ser o que vai para o array dos upvotes do user
-          iduser: this.user.id,
-          idthread: this.thread.id,
-          idanswer: id,
-          idcomment: null
-        };
 
-        console.log();
-        this.$store.dispatch("add_upvote_user", {
-          userid: this.user.id,
-          up: up
-        });
-        this.$store.dispatch("add_upvote_answer", id);
-        // for (let ans of this.answers) {
-        //   if (ans.id == id) {
-        //     ans.upvotes++;
-        //     console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
-        //   }
-        // } //Falta fazer update à store
+      if (this.$store.getters.getAuth) {
+        if (guardar) {
+          let up = {
+            // Isto vai ser o que vai para o array dos upvotes do user
+            iduser: this.user.id,
+            idthread: this.thread.id,
+            idanswer: id,
+            idcomment: null
+          };
+
+          this.$store.dispatch("add_upvote_user", {
+            userid: this.user.id,
+            up: up
+          });
+          this.$store.dispatch("add_upvote_answer", id);
+          // for (let ans of this.answers) {
+          //   if (ans.id == id) {
+          //     ans.upvotes++;
+          //     console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
+          //   }
+          // } //Falta fazer update à store
+        } else {
+          Swal("Ja inseriste", "Ja deste upvote", "error");
+        }
       } else {
-        Swal("Ja inseriste");
+        Swal({
+          text: "Tens que entrar na tua conta!!!",
+          type: "error",
+          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+        });
       }
     },
     upvoteComment(id, ansid) {
@@ -348,9 +356,9 @@ export default {
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (ups.idcomment != undefined && ups.idanswer != undefined) {
-              console.log(us.upvotes);
-              console.log(ups.idthread, ups.idanswer, ups.idcomment);
-              console.log(this.thread.id, ansid, id)
+              // console.log(us.upvotes);
+              // console.log(ups.idthread, ups.idanswer, ups.idcomment);
+              // console.log(this.thread.id, ansid, id);
               if (
                 ups.idthread == this.thread.id &&
                 ups.idanswer == ansid &&
@@ -362,21 +370,28 @@ export default {
           }
         }
       }
+      if (this.$store.getters.getAuth) {
+        if (guardar) {
+          let up = {
+            idthread: this.thread.id,
+            idanswer: ansid,
+            idcomment: id
+          };
 
-      if (guardar) {
-        let up = {
-          idthread: this.thread.id,
-          idanswer: ansid,
-          idcomment: id
-        };
-
-        this.$store.dispatch("add_upvote_comment", id);
-        this.$store.dispatch("add_upvote_user", {
-          up: up,
-          userid: this.user.id
-        });
+          this.$store.dispatch("add_upvote_comment", id);
+          this.$store.dispatch("add_upvote_user", {
+            up: up,
+            userid: this.user.id
+          });
+        } else {
+          Swal("Ja inseriste");
+        }
       } else {
-        Swal("Ja inseriste");
+        Swal({
+          text: "Tens que entrar na tua conta!!!",
+          type: "error",
+          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+        });
       }
     },
     answerToThread(id) {
@@ -396,22 +411,29 @@ export default {
           }
         }
       }
+      if (this.$store.getters.getAuth) {
+        if (guardar) {
+          let up = {
+            idthread: this.thread.id,
+            idAnswer: null,
+            idcomment: null
+          };
 
-      if (guardar) {
-        let up = {
-          idthread: this.thread.id,
-          idAnswer: null,
-          idcomment: null
-        };
-
-        console.log(this.user.upvotes);
-        this.$store.dispatch("add_upvote_thread", this.thread.id);
-        this.$store.dispatch("add_upvote_user", {
-          userid: this.user.id,
-          up: up
-        });
+          console.log(this.user.upvotes);
+          this.$store.dispatch("add_upvote_thread", this.thread.id);
+          this.$store.dispatch("add_upvote_user", {
+            userid: this.user.id,
+            up: up
+          });
+        } else {
+          Swal("Ja inseriste");
+        }
       } else {
-        Swal("Ja inseriste");
+        Swal({
+          text: "Tens que entrar na tua conta!!!",
+          type: "error",
+          footer: '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+        });
       }
     },
     className(id) {
