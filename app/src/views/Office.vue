@@ -40,6 +40,9 @@
         <br>
         <h2>Badges</h2>
         <hr>
+        <button type="button" class="btn btn-success btn-lg" @click="openDialog">  Create Badge </button>
+        <br>
+          <br>
       </div>
     </div>
     <div class="table-responsive">
@@ -62,11 +65,60 @@
             <td>{{badge.name}}</td>
             <td>{{badge.desc}}</td>
             <td>{{badge.category}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteBadge(badge.id)"> X </button> </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteBadge(badge.id)"> X </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <dialog id="idDialog" ref="myDialog">
+         <form method="dialog">
+              <p><label for="nameinput">Name: </label>
+              <input
+              id="nameinput"
+              name="nameinput"
+              placeholder
+              class="form-control input-md"
+              required
+              type="text"
+              v-model="badgeName"
+              > </p>
+
+              <p><label for="nameinput">Goal: </label>
+              <input
+              id="goalinput"
+              name="goalinput"
+              placeholder
+              class="form-control input-md"
+              required
+              type="number"
+              v-model="badgeGoal"
+              > </p>
+              <p><label for="nameinput">Description: </label>
+              <input
+              id="descinput"
+              name="descinput"
+              placeholder
+              class="form-control input-md"
+              required
+              type="text"
+              v-model="badgeDesc"
+              > </p>
+              <p><label>Category:
+                   <select v-model="badgeCat">
+                      <option></option>
+                      <option>help</option>
+                      <option>rank</option>
+                      <option>usage</option>
+                   </select>
+              </label></p>
+              <menu>
+                  <button @click="closeDialog">Cancel</button>
+                  <button @click="createBadge">Confirm</button>
+              </menu>
+          </form>
+    </dialog>
     <!-- THREADS -->
     <div class="row">
       <div class="col-md-12">
@@ -133,6 +185,13 @@
 export default {
   data() {
     return {
+      badges: this.$store.getters.getBadges,
+      badgeId:"",
+      badgeName:"",
+      badgeGoal:"",
+      badgeDesc:"",
+      badgeCat:"",
+      dialog:"",
     };
   },
   created() {
@@ -155,8 +214,41 @@ export default {
     deleteTag(id) {
     this.$store.dispatch("delete_tag",id)
     },
-
     
+    openDialog() {
+       console.log("ola")
+       this.$refs.myDialog.showModal()
+    },
+
+    closeDialog(){
+      this.$refs.myDialog.closeModal()
+    },
+
+    getLastID() {
+      let maior;
+      if (this.badges.length != 0) {
+        this.badges.sort(function(a, b) {
+          if (a.id > b.id) return 1;
+          if (a.id < b.id) return -1;
+        })
+        maior = this.badges[this.badges.length - 1].id;
+        console.log(maior);
+        return maior;
+      } else {
+        return 0;
+      }
+    },
+
+    createBadge(){
+      this.badgeId = this.getLastID() + 1;
+      this.$store.dispatch("add_badge",{
+        id: this.badgeId,
+        name: this.badgeName,
+        goal: this.badgeGoal,
+        desc: this.badgeDesc,
+        category: this.badgeCat
+      });
+    }
 
     
   }

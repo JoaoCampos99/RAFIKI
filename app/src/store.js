@@ -447,6 +447,13 @@ export default new Vuex.Store({
       state.tags.splice(index,1)
     },
 
+    ADD_BADGE(state, payload) {
+      let aux = state.badges
+      aux.push(payload)
+      console.log(aux)
+      state.badges = aux;
+    }
+
     
 
   },
@@ -472,6 +479,10 @@ export default new Vuex.Store({
       context.commit("DELETE_TAG",id)
     },
 
+    add_badge(context, payload)
+    {
+      context.commit("ADD_BADGE", payload);
+    },
 
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_upvote_thread(context, id) {
