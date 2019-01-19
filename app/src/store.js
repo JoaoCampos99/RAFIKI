@@ -18,7 +18,8 @@ class User {
     follow,
     skill,
     year,
-    course
+    course,
+    upvotes
   ) {
     //fazer nos getter's a atribuição de badges, level e rank
     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
@@ -35,7 +36,7 @@ class User {
     this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
     this.year = year;
     this.course = course;
-    this.upvotes = []
+    this.upvotes = upvotes;
   }
 
   getLevel() {
@@ -118,14 +119,14 @@ class User {
 //             course: "stringCharacters|3,4",
 //             closeDate: null,
 class Thread {
-  constructor(id, userid, title, question, idGroup, course) {
+  constructor(id, userid, title, question, idGroup, course, upvotes) {
     this.id = id
     this.userid = userid
     this.title = title
     this.question = question
     this.tags = []
     this.idGroup = idGroup
-    this.upvotes = []
+    this.upvotes = upvotes;
     this.date = new Date().toISOString().split('T')[0]
     this.views = 0
     this.course = course
@@ -354,7 +355,8 @@ export default new Vuex.Store({
           user.follow,
           user.skills,
           user.year,
-          user.course
+          user.course,
+          user.upvotes
         );
         aux.push(us);
       }
@@ -365,7 +367,7 @@ export default new Vuex.Store({
       console.log(arr);
       let aux = []
       for (let thread of arr) {
-        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null)
+        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes)
 
         th.tags.push({
           id: th.tags.length == 0 ? 1 : th.tags[th.tags.length - 1].id + 1,
@@ -397,9 +399,46 @@ export default new Vuex.Store({
     },
     SEARCH_TAG(state, tag) {
       state.searchTag = tag;
+    },
+    add_upvote_thread(state, id) {
+      state.threads.filter(th => th.id == id)[0].upvotes++;
+    },
+    add_upvote_answer(state, id) { //É o id da answer
+      state.answers.filter(ans => ans.id == id)[0].upvotes++;
+    },
+    add_upvote_comment(state, id) {
+      state.comments.filter(com => com.id == id)[0].upvotes++;
+    },
+    add_upvote_user(state, up) {
+      // state.users.filter(us => {
+      //   if(us.id == up.userid) {
+      //     // console.log(us.upvotes);
+      //     return true;
+      //   }
+      //   else return false;
+      // })[0].upvotes = [] 
+
+      console.log('ata');
+
+      let index = state.users.findIndex(us => us.id == up.userid);
+      console.log(state.users[index]);
+      state.users[index].upvotes.push(up.up);
     }
   },
   actions: {
+    /* 3 actions e 3 mutations para (threads, answers, comments) */
+    add_upvote_thread(context, id) {
+      context.commit("add_upvote_thread", id);
+    },
+    add_upvote_answer(context, id) {
+      context.commit("add_upvote_answer", id);
+    },
+    add_upvote_comment(context, id) {
+      context.commit("add_upvote_comment", id);
+    },
+    add_upvote_user(context, up) {
+      context.commit("add_upvote_user", up);
+    },
     update_user(context, newUser) {
       context.commit("UPDATE_USER", newUser);
     },
@@ -408,6 +447,7 @@ export default new Vuex.Store({
     },
     addUserAct(context, user) {
       context.commit("addUser", user);
+      return true;
     },
     update_tags(context, payload) {
       context.commit("UPDATE_TAGS", payload);

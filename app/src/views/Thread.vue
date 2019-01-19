@@ -84,7 +84,7 @@
                                 >
                                   <i
                                     class="fas fa-thumbs-up"
-                                  > | {{thread.upvotes == 0 ? '' : thread.upvotes}}</i>
+                                  >| {{thread.upvotes == 0 ? '' : thread.upvotes}}</i>
                                 </a>
                               </li>
                             </ul>
@@ -166,7 +166,7 @@
                           </a>-->
                           <a
                             class="float-right btn text-white btn-success ml-2"
-                            v-on:click="upvoteComment(com.id)"
+                            v-on:click="upvoteComment(com.id, ans.id)"
                           >
                             <i
                               class="fas fa-thumbs-up"
@@ -240,7 +240,8 @@
 <script>
 window.addEventListener("click", contarClicks);
 function contarClicks(nClicks) {}
-
+import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
+import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
@@ -299,22 +300,119 @@ export default {
       console.log(this.textoResposta);
     },
     upvoteAns(id) {
-      console.log(id);
-      for (let ans of this.answers) {
-        if (ans.id == id) {
-          ans.upvotes++;
-          console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
+      console.log(this.user);
+
+      let guardar = true;
+
+      for (let us of this.$store.getters.getUsers) {
+        if (us.upvotes.length > 0) {
+          for (let ups of us.upvotes) {
+            if (ups.idanswer != undefined) {
+              if (ups.idthread == this.thread.id && this.idanswer != id)
+                guardar = false;
+            }
+          }
         }
-      } //Falta fazer update à store
+      }
+      if (guardar) {
+        let up = {
+          // Isto vai ser o que vai para o array dos upvotes do user
+          iduser: this.user.id,
+          idthread: this.thread.id,
+          idanswer: id,
+          idcomment: null
+        };
+
+        console.log();
+        this.$store.dispatch("add_upvote_user", {
+          userid: this.user.id,
+          up: up
+        });
+        this.$store.dispatch("add_upvote_answer", id);
+        // for (let ans of this.answers) {
+        //   if (ans.id == id) {
+        //     ans.upvotes++;
+        //     console.log(`Answer (${id}) upvotes = ${ans.upvotes}`);
+        //   }
+        // } //Falta fazer update à store
+      } else {
+        Swal("Ja inseriste");
+      }
     },
-    upvoteComment(id) {
-      console.log(id);
+    upvoteComment(id, ansid) {
+      //Fazer o upvote, este é só para comentários
+
+      let guardar = true;
+
+      for (let us of this.$store.getters.getUsers) {
+        if (us.upvotes.length > 0) {
+          for (let ups of us.upvotes) {
+            if (ups.idcomment != undefined && ups.idanswer != undefined) {
+              console.log(us.upvotes);
+              console.log(ups.idthread, ups.idanswer, ups.idcomment);
+              console.log(this.thread.id, ansid, id)
+              if (
+                ups.idthread == this.thread.id &&
+                ups.idanswer == ansid &&
+                ups.idcomment == id
+              ) {
+                guardar = false;
+              }
+            }
+          }
+        }
+      }
+
+      if (guardar) {
+        let up = {
+          idthread: this.thread.id,
+          idanswer: ansid,
+          idcomment: id
+        };
+
+        this.$store.dispatch("add_upvote_comment", id);
+        this.$store.dispatch("add_upvote_user", {
+          up: up,
+          userid: this.user.id
+        });
+      } else {
+        Swal("Ja inseriste");
+      }
     },
     answerToThread(id) {
-        // for(let com of this.comments)
+      // for(let com of this.comments)
+      // let up = {
+      //   idthread: this.thread.id,
+      // }
     },
     upvoteThread() {
-      this.thread.upvotes++;
+      let guardar = true;
+
+      console.log(this.$store.getters.getUsers);
+      for (let us of this.$store.getters.getUsers) {
+        if (us.upvotes.length > 0) {
+          for (let ups of us.upvotes) {
+            if (ups.idthread == this.thread.id) guardar = false;
+          }
+        }
+      }
+
+      if (guardar) {
+        let up = {
+          idthread: this.thread.id,
+          idAnswer: null,
+          idcomment: null
+        };
+
+        console.log(this.user.upvotes);
+        this.$store.dispatch("add_upvote_thread", this.thread.id);
+        this.$store.dispatch("add_upvote_user", {
+          userid: this.user.id,
+          up: up
+        });
+      } else {
+        Swal("Ja inseriste");
+      }
     },
     className(id) {
       return { id: true };
