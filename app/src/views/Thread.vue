@@ -335,8 +335,6 @@ export default {
       }
     },
     upvoteAns(id) {
-      // console.log(this.user);
-
       let guardar = true;
 
       for (let us of this.$store.getters.getUsers) {
