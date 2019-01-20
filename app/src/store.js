@@ -426,15 +426,61 @@ export default new Vuex.Store({
       let index = state.users.findIndex(us => us.id == up.userid);
       console.log(state.users[index].exp);
       state.users[index].upvotes.push(up.up);
-      state.users[index].exp += addExp;
-      console.log(state.users[index].exp);
+    },
+    DELETE_USER(state, id){
+      let index= state.users.findIndex(user => user.id ==id)
+      state.users.splice(index,1)
+    },
+    DELETE_BADGE(state, id){
+      let index= state.badges.findIndex(badge => badge.id ==id)
+      state.badges.splice(index,1)
+    },
+    DELETE_THREAD(state, id){
+      let index= state.threads.findIndex(thread => thread.id ==id)
+      state.threads.splice(index,1)
+    },
+    DELETE_TAG(state, id){
+      let index= state.tags.findIndex(tag => tag.id ==id)
+      state.tags.splice(index,1)
+    },
+
+    ADD_BADGE(state, payload) {
+      let aux = state.badges
+      aux.push(payload)
+      console.log(aux)
+      state.badges = aux;
     }
+
+    
+
   },
   actions: {
-    add_answer(context, ans){
-      let answ = new Answer(ans.id, ans.idThread, ans.ans, ans.idUser, ans.upvotes);
-      context.commit("add_answer", answ);
+    // OFFICE
+    delete_user(context, id)
+    {
+      context.commit("DELETE_USER",id)
     },
+
+    delete_badge(context, id)
+    {
+      context.commit("DELETE_BADGE",id)
+    },
+
+    delete_thread(context, id)
+    {
+      context.commit("DELETE_THREAD",id)
+    },
+
+    delete_tag(context, id)
+    {
+      context.commit("DELETE_TAG",id)
+    },
+
+    add_badge(context, payload)
+    {
+      context.commit("ADD_BADGE", payload);
+    },
+
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);
