@@ -76,7 +76,10 @@
                               >{{user.name}}</router-link>
                             </h4>
                             <ul class="list-unstyled list-inline">
-                              <li class="list-inline-item">Rank: {{user.rank}}</li>
+                              <li class="list-inline-item">
+                                Rank:
+                                <span class="rank">{{user.rank[1]}}</span>
+                              </li>
                               <li class="list-inline-item">
                                 <a
                                   class="float-right btn text-white btn-success ml-2"
@@ -98,6 +101,7 @@
             </div>
           </div>
         </div>
+        <hr class="devilhr">
         <div>
           <!-- Respostas e Comentários -->
           <div class="card" v-for="(ans, cont) in threadAns" v-bind:key="cont">
@@ -121,7 +125,7 @@
                   <p>
                     <a
                       class="float-right btn btn-outline-primary ml-2"
-                      v-on:click="answerToThread(ans.id)"
+                      v-on:click="commentAnswer(ans.id)"
                     >
                       <i class="fa fa-reply"></i>
                     </a>
@@ -132,10 +136,13 @@
                       <i class="fas fa-thumbs-up">| {{ans.upvotes == 0 ? '' : ans.upvotes}}</i>
                     </a>
                     <a
+                      v-bind:id="ans.id"
                       class="float-right btn text-white btn-danger"
-                      v-on:click="hideComments(ans.id)"
+                      v-on:click="hideComments($event, ans.id)"
                     >
-                      <i class="fas fa-caret-up"></i>
+                      <i class="fas fa-caret-up">|</i>
+                      <i class="fas fa-sort-down"></i>
+                      <!-- <i v-bind:id="ans.id" v-bind:class="arrowCommentDirection"></i> -->
                     </a>
                   </p>
                 </div>
@@ -223,6 +230,20 @@
         </div>
       </div>
     </div>
+    <dialog id="idDialog" ref="myDialogcomment">
+      <form method="dialog" v-on:submit="comentar">
+        <h4>
+          Responder a
+          <span
+            style="font-weight: bold; font-family: verdana; color: rgb(255, 65, 99);"
+          >{{user.name}}</span>
+        </h4>
+        <textarea placeholder="Carrega Amélia..." name id="comentario" v-model="commentToAnswer"></textarea>
+        <div class="col-md-12 text-right">
+          <button class="btn btn-outline-success bg-dark" type="submit">Responder</button>
+        </div>
+      </form>
+    </dialog>
   </div>
 </template>
    <!-- <span class="float-right">
@@ -253,7 +274,10 @@ export default {
       thisComments: [],
       textoResposta: "",
       showAnswerDiv: this.$store.getters.getAuth,
-      loginUser: null
+      loginUser: null,
+      arrowCommentDirection: "fas fa-sort-down",
+      open: false,
+      commentToAnswer: ""
     };
   },
   created() {
@@ -297,6 +321,32 @@ export default {
     }
   },
   methods: {
+    hideComments(evt, ansid) {
+      console.log(evt.target.id, ansid);
+      // let idMudar = evt.target.id;
+      // open = !open;
+      // if (idMudar == ansid) {
+      //   if (open) {
+      //     this.arrowCommentDirection = "fas fa-caret-up";
+      //   } else this.arrowCommentDirection = "fas fa-sort-down";
+      // }
+    },
+    commentAnswer(ansid) {
+      if (this.$store.getters.getAuth) {
+        this.$refs.myDialogcomment.showModal();
+      } else {
+        Swal({
+          text: "Tens que entrar na tua conta!!!",
+          type: "error",
+          footer:
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+        });
+      }
+    },
+    comentar() {
+      console.log(this.commentToAnswer);
+      this.commentToAnswer = "";
+    },
     userFoto(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
     },
@@ -316,13 +366,16 @@ export default {
               : 1,
           idThread: this.thread.id,
           idUser: this.$store.getters.getloginID,
-          ans: this.textoResposta,
+          answer: this.textoResposta,
           upvotes: 0
         };
         this.$store.dispatch("add_answer", answer);
         console.log(this.textoResposta);
         let nivelDepois = this.loginUser.getLevel();
-        if (nivelAtual != nivelDepois) {
+        if (
+          nivelAtual != nivelDepois &&
+          nivelDepois <= this.$store.getters.getBadges.length
+        ) {
           Swal({
             title: "Boa, Ganhaste mais um Badge",
             type: "success",
@@ -366,7 +419,10 @@ export default {
           });
           this.$store.dispatch("add_upvote_answer", id);
           let nivelDepois = this.loginUser.getLevel();
-          if (nivelAtual != nivelDepois) {
+          if (
+            nivelAtual != nivelDepois &&
+            nivelDepois <= this.$store.getters.getBadges.length
+          ) {
             Swal({
               title: "Boa, Ganhaste mais um Badge",
               type: "success",
@@ -516,5 +572,20 @@ img {
 }
 .card-inner {
   margin-left: 4rem;
+}
+.rank {
+  font-weight: bold;
+}
+.rank:hover {
+  color: red;
+}
+a:hover {
+  color: blue;
+  text-decoration: none !important;
+}
+#comentario {
+  width: 100%;
+  height: 15rem;
+  resize: none;
 }
 </style>

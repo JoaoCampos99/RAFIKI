@@ -26,7 +26,7 @@
             v-bind:key="user.id">
             <td><img v-bind:src="user.foto" class="img-fluid pic"></td>
             <td>{{user.name}}</td>
-            <td>{{user.rank}}</td>
+            <td>{{user.rank.toString().replace(',', ' - ')}}</td>
             <td>{{user.level}}</td>
             <td>{{user.course}}</td>
             <td><button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.id)"> X </button> </td>

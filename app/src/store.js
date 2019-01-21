@@ -321,7 +321,7 @@ export default new Vuex.Store({
       state.loginid = payload;
     },
     ADD_THREAD(state, payload) {
-      let aux = state.threads
+      let aux = state.threads;
       if (state.threads.length != 0) {
         state.threads.sort(function (a, b) {
           if (a.id > b.id) return 1;
@@ -383,7 +383,6 @@ export default new Vuex.Store({
       let aux = []
       for (let ans of arr) {
         let as = new Answer(ans.id, ans.idThread, ans.answer, ans.idUser, ans.upvotes);
-        as.id = arr.length > 0 ? arr[arr.length - 1].id + 1 : 1;
         aux.push(as)
       }
 
@@ -424,63 +423,61 @@ export default new Vuex.Store({
       let addExp = 10
 
       let index = state.users.findIndex(us => us.id == up.userid);
+      state.users[index].exp += addExp;
       console.log(state.users[index].exp);
       state.users[index].upvotes.push(up.up);
     },
-    DELETE_USER(state, id){
-      let index= state.users.findIndex(user => user.id ==id)
-      state.users.splice(index,1)
+    DELETE_USER(state, id) {
+      let index = state.users.findIndex(user => user.id == id)
+      state.users.splice(index, 1);
     },
-    DELETE_BADGE(state, id){
-      let index= state.badges.findIndex(badge => badge.id ==id)
-      state.badges.splice(index,1)
+    DELETE_BADGE(state, id) {
+      let index = state.badges.findIndex(badge => badge.id == id)
+      state.badges.splice(index, 1);
     },
-    DELETE_THREAD(state, id){
-      let index= state.threads.findIndex(thread => thread.id ==id)
-      state.threads.splice(index,1)
+    DELETE_THREAD(state, id) {
+      let index = state.threads.findIndex(thread => thread.id == id)
+      state.threads.splice(index, 1);
     },
-    DELETE_TAG(state, id){
-      let index= state.tags.findIndex(tag => tag.id ==id)
-      state.tags.splice(index,1)
+    DELETE_TAG(state, id) {
+      let index = state.tags.findIndex(tag => tag.id == id)
+      state.tags.splice(index, 1);
     },
 
     ADD_BADGE(state, payload) {
-      let aux = state.badges
+      let aux = state.badges;
       aux.push(payload)
       console.log(aux)
       state.badges = aux;
     }
 
-    
+
 
   },
   actions: {
     // OFFICE
-    delete_user(context, id)
-    {
-      context.commit("DELETE_USER",id)
+    delete_user(context, id) {
+      context.commit("DELETE_USER", id)
     },
 
-    delete_badge(context, id)
-    {
-      context.commit("DELETE_BADGE",id)
+    delete_badge(context, id) {
+      context.commit("DELETE_BADGE", id)
     },
 
-    delete_thread(context, id)
-    {
-      context.commit("DELETE_THREAD",id)
+    delete_thread(context, id) {
+      context.commit("DELETE_THREAD", id)
     },
 
-    delete_tag(context, id)
-    {
-      context.commit("DELETE_TAG",id)
+    delete_tag(context, id) {
+      context.commit("DELETE_TAG", id)
     },
 
-    add_badge(context, payload)
-    {
+    add_badge(context, payload) {
       context.commit("ADD_BADGE", payload);
     },
-
+    add_answer(context, answer) {
+      context.commit('add_answer', answer)
+    },
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);
