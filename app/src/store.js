@@ -37,6 +37,7 @@ class User {
     this.year = year;
     this.course = course;
     this.upvotes = upvotes;
+    this.notifications = []
   }
 
   getLevel() {
@@ -144,6 +145,17 @@ class Answer {
   }
 }
 
+class Notificacion {
+  constructor(id, idthread, idUserFirst, text) {
+    this.id = id
+    this.idThread = idthread
+    this.idUserFirst = idUserFirst
+    this.text = text
+
+    this.data = new Date().toISOString().split('T')[0]
+    this.visto = false;
+  }
+}
 export default new Vuex.Store({
   state: {
     Userclass: User,
@@ -456,17 +468,27 @@ export default new Vuex.Store({
       let index = state.users.findIndex(us => us.id == com.idUser)
       state.users[index].exp += 20;
     },
-    add_user_follow(state, obj){
+    add_user_follow(state, obj) {
       state.users[obj.index].follow.push(obj.threadid)
     },
-    CLOSE_THREAD(state,id){
+    CLOSE_THREAD(state, id) {
       let index = state.threads.findIndex(thread => thread.id == id)
-      state.threads[index].closeDate= new Date().toISOString().split('T')[0]
+      state.threads[index].closeDate = new Date().toISOString().split('T')[0]
+    },
+    /* Notificações */
+    add_notification(state, obj) {
+      let index = state.users.findIndex(us => us.id == obj.idUser);
+      state.users[index].notificacions.push(obj.notification);
     }
   },
   actions: {
+    /* Notificações */
+    add_notification(context, obj) {
+      let newNotification = new Notificacion(obj.id, obj.idThread, obj.idUserFirst, obj.text)
+      context.commit("add_notificacion", { idUser: obj.idUser, notification: newNotification });
+    },
     // OFFICE
-    close_thread(context, id){
+    close_thread(context, id) {
       context.commit("CLOSE_THREAD", id)
     },
     delete_user(context, id) {

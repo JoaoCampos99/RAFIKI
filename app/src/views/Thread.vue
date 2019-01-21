@@ -350,7 +350,7 @@ export default {
         let passou = true;
 
         for (let fol of us.follow) {
-          console.log(fol, this.thread.id)
+          // console.log(fol, this.thread.id)
           if (fol == this.thread.id) passou = true;
           else passou = false;
         }
@@ -676,6 +676,27 @@ export default {
             '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
         });
       }
+    },
+    addNotificacionToStore(iduser, /* parametros para a notificação */userFirst, texto){
+      //Fazer o id da notificação aqui... tenho os users e tenho....
+      let usernotilength = this.$store.getters.getUsers.filter(us => us.id == iduser)[0].notifications.length
+      let idnoti = 1
+      if(usernotilength > 0){
+        idnoti = this.$store.getters.getUsers.filter(us => us.id == iduser)[0].notifications[usernotilength-1].id +1;
+      }
+      let noti = {
+        id: idnoti,
+        idThread: this.thread.id,
+        idUserFirst: userFirst,
+        text: texto
+      }
+
+      let obj = {
+        idUser: iduser,
+        notification: noti
+      }
+
+      this.$store.dispatch("add_notification", obj)
     }
   }
 };

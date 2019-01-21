@@ -32,7 +32,11 @@
           <a class="nav-link">Profile</a>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'office' }" :class="{ 'nav-link': true }" v-if="loginID==1">Office</router-link>
+          <router-link
+            :to="{ name: 'office' }"
+            :class="{ 'nav-link': true }"
+            v-if="loginID==1"
+          >Office</router-link>
         </li>
       </ul>
     </div>
@@ -60,6 +64,7 @@
             <div id="drops" class="dropdown-menu">
               <a href class="dropdown-item">oaoakodk</a>
               <a href class="dropdown-item">BOas</a>
+              <span class="vermais text-right" v-on:click="verMais()">Ver Mais</span>
             </div>
           </div>
         </li>
@@ -100,6 +105,9 @@ export default {
     profile() {
       console.log("este e o id" + this.loginID);
       this.$router.push({ name: "AboutMe", params: { userid: this.loginID } });
+    },
+    verMais() {
+      console.log(this.loginUser);
     }
   }
 };
@@ -116,6 +124,18 @@ div#drops > a.dropdown-item {
   background-color: orange !important;
   border-radius: 20px;
   margin-bottom: 10px;
+  border-top-right-radius: 3px;
+}
+span.vermais {
+  color: blue;
+  font-weight: bold;
+  background-color: rgb(228, 119, 119);
+  border-radius: 10px;
+  border-top-right-radius: 2px;
+  cursor: pointer;
+  margin: 0px 5px;
+  padding: 0px 5px;
+  background-blend-mode: screen;
 }
 </style>
 
