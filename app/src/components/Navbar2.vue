@@ -32,7 +32,7 @@
           <a class="nav-link">Profile</a>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'office' }" :class="{ 'nav-link': true }">Office</router-link>
+          <router-link :to="{ name: 'office' }" :class="{ 'nav-link': true }" v-if="loginID==1">Office</router-link>
         </li>
       </ul>
     </div>
