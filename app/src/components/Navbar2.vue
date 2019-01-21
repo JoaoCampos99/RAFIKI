@@ -68,7 +68,7 @@ export default {
     },
     profile() {
       console.log("este e o id" + this.loginID);
-      this.$router.push({ name: "profile", params: { userid: this.loginID } });
+      this.$router.push({ name: "AboutMe", params: { userid: this.loginID } });
     }
   }
 };

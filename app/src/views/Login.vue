@@ -227,6 +227,16 @@ export default {
     },
     login() {
       console.log(this.users);
+      // let id = this.users.filter(user => {
+      //   if (
+      //     user.email == this.inputEmail &&
+      //     user.password == this.inputPassword
+      //   ) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // })[0].id;
       let id = this.users.filter(user => {
         if (
           user.email == this.inputEmail &&
@@ -234,17 +244,19 @@ export default {
         ) {
           return true;
         } else {
-          return 0;
+          return false;
         }
-      })[0].id;
+      })
       console.log(id);
-      if (id) {
+      if (id.length>0) {
         this.$store.dispatch("authentication");
-        this.$store.dispatch("change_loginid", id);
+        this.$store.dispatch("change_loginid", id[0].id);
         this.$router.push({
           name: "AboutMe",
-          params: { userid: id }
+          params: { userid: id[0].id }
         });
+      }else{
+        Swal("Credenciais Erradas")
       }
     },
     submitfp() {
