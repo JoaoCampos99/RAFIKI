@@ -124,10 +124,11 @@
                   <p>{{ans.answer}}</p>
                   <p>
                     <a
+                      v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
                       v-on:click="commentAnswer(ans.id)"
                     >
-                      <i class="fa fa-reply"></i>
+                      <i class="fa fa-reply" v-bind:id="ans.id"></i>
                     </a>
                     <a
                       class="float-right btn text-white btn-success ml-2"
@@ -231,7 +232,7 @@
       </div>
     </div>
     <dialog id="idDialog" ref="myDialogcomment">
-      <form method="dialog" v-on:submit="comentar">
+      <form method="dialog" v-on:submit="comentar()">
         <h4>
           Responder a
           <span
@@ -277,7 +278,8 @@ export default {
       loginUser: null,
       arrowCommentDirection: "fas fa-sort-down",
       open: false,
-      commentToAnswer: ""
+      commentToAnswer: "",
+      ansIdToComment: 0
     };
   },
   created() {
@@ -334,6 +336,7 @@ export default {
     commentAnswer(ansid) {
       if (this.$store.getters.getAuth) {
         this.$refs.myDialogcomment.showModal();
+        this.ansIdToComment = ansid;
       } else {
         Swal({
           text: "Tens que entrar na tua conta!!!",
@@ -344,7 +347,40 @@ export default {
       }
     },
     comentar() {
-      console.log(this.commentToAnswer);
+      console.log(this.commentToAnswer.toString());
+      //id(tenho), idAnswer(this.ansIdToComment), idUser(tenho), text(tenho), upvotes(tenho)
+      if (this.commentToAnswer != "") {
+        let comentarios = this.$store.getters.getComments;
+        let nivelAtual = this.loginUser.getLevel();
+        let comment = {
+          id:
+            comentarios.length == 0
+              ? 1
+              : comentarios[comentarios.length - 1].id + 1,
+          idAnswer: this.ansIdToComment,
+          idUser: this.loginUser.id,
+          text: this.commentToAnswer,
+          upvotes: 0
+        };
+        this.$store.dispatch("add_comment", comment);
+        let nivelDepois = this.loginUser.getLevel();
+
+        if (
+          nivelAtual != nivelDepois &&
+          nivelDepois <= this.$store.getters.getBadges.length
+        ) {
+          Swal({
+            title: "Boa, Ganhaste mais um Badge",
+            type: "success",
+            text: "Acede ao teu perfil para o veres!!!",
+            showConfirmButton: false,
+            position: "top-end",
+            timer: 1500
+          });
+        }
+      } else {
+        Swal("Não escreveste nada", "Atao mas", "question");
+      }
       this.commentToAnswer = "";
     },
     userFoto(iduser) {
@@ -395,14 +431,13 @@ export default {
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (ups.idanswer != undefined) {
-              console.log(ups)
+              console.log(ups);
               if (
                 ups.idthread == this.thread.id &&
                 ups.idanswer == id &&
                 ups.idcomment == null
               )
-
-              guardar = false;
+                guardar = false;
             }
           }
         }
@@ -549,7 +584,10 @@ export default {
           });
 
           let nivelDepois = this.loginUser.getLevel();
-          if (nivelAtual != nivelDepois) {
+          if (
+            nivelAtual != nivelDepois &&
+            nivelDepois <= this.$store.getters.getBadges.length
+          ) {
             Swal({
               title: "Boa, Ganhaste mais um Badge",
               type: "success",

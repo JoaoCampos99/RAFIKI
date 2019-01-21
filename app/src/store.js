@@ -336,6 +336,7 @@ export default new Vuex.Store({
       aux.push(payload)
       console.log(aux)
       state.threads = aux;
+      //Achoq que vai ser auqi que vai ser atualoizado a experiencia do user
     },
     save(state) {
       state.preenchido = true;
@@ -449,10 +450,12 @@ export default new Vuex.Store({
       aux.push(payload)
       console.log(aux)
       state.badges = aux;
+    },
+    add_comment(state, com) {
+      state.comments.push(com);
+      let index = state.users.findIndex(us => us.id == com.idUser)
+      state.users[index].exp += 20;
     }
-
-
-
   },
   actions: {
     // OFFICE
@@ -479,6 +482,9 @@ export default new Vuex.Store({
       context.commit('add_answer', answer)
     },
     /* 3 actions e 3 mutations para (threads, answers, comments) */
+    add_comment(context, comment) {
+      context.commit("add_comment", comment)
+    },
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);
     },
