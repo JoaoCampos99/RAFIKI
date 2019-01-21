@@ -94,9 +94,6 @@ export default {
             size: 70
           }
         },
-        anotations: {
-          position: "back"
-        },
         labels: ["Upvotes/100", "Threads", "Comments", "Level"]
       }
     };
