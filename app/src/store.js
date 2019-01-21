@@ -455,6 +455,9 @@ export default new Vuex.Store({
       state.comments.push(com);
       let index = state.users.findIndex(us => us.id == com.idUser)
       state.users[index].exp += 20;
+    },
+    add_user_follow(state, obj){
+      state.users[obj.index].follow.push(obj.threadid)
     }
   },
   actions: {
@@ -537,7 +540,7 @@ export default new Vuex.Store({
           //S7swes5kWKmU6fHC-PcvXA joao gmail
           /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
           se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 1,
             name: "personNickname",
@@ -549,7 +552,7 @@ export default new Vuex.Store({
             rank: "numberInt",
             desc: "stringLong",
             foto: "personAvatar",
-            follow: "functionArray|3|numberInt",
+            follow: "functionArray|3|numberInt|1,10",
             skills: "personSkill",
             upvotes: [],
             _repeat: 1
@@ -581,9 +584,8 @@ export default new Vuex.Store({
         !localStorage.getItem("vuex") == true ||
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
-        console.log('ataatatataatatatatataatata')
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 1,
             userid: "numberInt|1,10",
@@ -626,7 +628,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -665,7 +667,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "Mn4xigS5bbMoHf8DRqmiHA",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",
@@ -693,6 +695,10 @@ export default new Vuex.Store({
           JSON.parse(localStorage["vuex"]).comments
         );
       }
+    },
+    add_user_follow(context, obj) {
+      let index = this.getters.getUsers.findIndex(us => us.id == obj.userid)
+      context.commit("add_user_follow", { index: index, threadid: obj.threadid })
     }
   },
   getters: {

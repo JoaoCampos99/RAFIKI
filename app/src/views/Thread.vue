@@ -43,6 +43,23 @@
                           <i class="fa fa-thumbs-o-up text-success"></i>
                           <span class="badge">Upvotes {{thread.upvotes}}</span>
                         </button>
+                        <button
+                          type="button"
+                          style="margin-left: 5px;"
+                          class="btn btn-outline-secondary"
+                        >
+                          <i class="fa fa-thumbs-o-up text-success"></i>
+                          <span class="badge">Followers {{numberFollowers()}}</span>
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          style="margin-left: 5px;"
+                          v-on:click="seguir"
+                        >
+                          <span class="badge">
+                            <i class="fas fa-user-plus"></i>
+                          </span>
+                        </button>
                       </div>
                     </div>
                     <hr>
@@ -267,7 +284,7 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      thread: null,
+      thread: this.thisThread(),
       user: null,
       answers: this.$store.getters.getAnswers,
       comments: this.$store.getters.getComments,
@@ -279,14 +296,11 @@ export default {
       arrowCommentDirection: "fas fa-sort-down",
       open: false,
       commentToAnswer: "",
-      ansIdToComment: 0
+      ansIdToComment: 0,
+      thisThreadFollows: this.numberFollowers()
     };
   },
   created() {
-    let threadid = this.$route.params.threadid;
-    this.thread = this.$store.getters.getThreads.filter(
-      thread => thread.id == threadid
-    )[0];
     this.user = this.$store.getters.getUsers.filter(
       user => this.thread.userid == user.id
     )[0];
@@ -302,6 +316,8 @@ export default {
         us => us.id == this.$store.getters.getloginID
       )[0];
     }
+
+    this.thisThreadFollows = this.numberFollowers()
   },
   computed: {
     threadAns() {
@@ -323,6 +339,24 @@ export default {
     }
   },
   methods: {
+    thisThread(){
+    let threadid = this.$route.params.threadid;
+    return this.thread = this.$store.getters.getThreads.filter(
+      thread => thread.id == threadid
+    )[0];
+    },
+    numberFollowers() {
+      return this.$store.getters.getUsers.filter(us => {
+        let passou = true;
+
+        for (let fol of us.follow) {
+          console.log(fol, this.thread.id)
+          if (fol == this.thread.id) passou = true;
+          else passou = false;
+        }
+        return passou;
+      }).length;
+    },
     hideComments(evt, ansid) {
       console.log(evt.target.id, ansid);
       // let idMudar = evt.target.id;
@@ -611,6 +645,37 @@ export default {
     },
     className(id) {
       return { id: true };
+    },
+    seguir() {
+      let seguir = true;
+      console.log(this.loginUser);
+      if (this.loginUser != null) {
+        for (let fol of this.loginUser.follow) {
+          if (fol == this.thread.id) {
+            seguir = false;
+          }
+        }
+
+        if (seguir) {
+          Swal("Boa", "Mamai", "success");
+
+          //Atualizar estado
+          this.$store.dispatch("add_user_follow", {
+            threadid: this.thread.id,
+            userid: this.loginUser.id
+          });
+          this.thisThreadFollows = this.loginUser.follow.length;
+        } else {
+          Swal("Já estás a seguir esta thread", "Vai ver mais vai", "error");
+        }
+      } else {
+        Swal({
+          text: "Tens que entrar na tua conta!!!",
+          type: "error",
+          footer:
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+        });
+      }
     }
   }
 };

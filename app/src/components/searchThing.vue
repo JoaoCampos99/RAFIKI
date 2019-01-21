@@ -4,7 +4,7 @@
       <button id="searchButton" type="button" class="btn btn-primary" data-toggle="dropdown">
         <i class="fas fa-search"></i>
       </button>
-      <div class="dropdown-menu text-right">
+      <div id="dropsSearchThing" class="dropdown-menu text-right">
         <div class="dropdown-item drop text-right">
           <div v-on:click="cTid" class="botoesSearchThing">Create Thread</div>
         </div>
@@ -31,7 +31,7 @@
       aria-hidden="true"
     >
       <!-- data-backdrop="false", para não deixar a modal ao clicar fora desta -->
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div id="contentor" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
             <div class="col-md-12">
@@ -260,7 +260,7 @@ div.dropdown-item.drop {
   padding: 0px;
   margin: 0px;
 }
-div.dropdown-menu {
+div#dropsSearchThing {
   border: none;
   cursor: pointer;
   padding: 0px 10px 10px 0px;
@@ -369,5 +369,8 @@ div.midlePagination {
   padding: 0% 10%;
   display: inline-block;
   text-align: center;
+}
+div#contentor {
+  background-color: blue;
 }
 </style>

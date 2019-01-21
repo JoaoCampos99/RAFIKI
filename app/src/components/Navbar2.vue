@@ -25,7 +25,7 @@
         <li class="nav-item">
           <router-link :to="{ name: 'users' }" :class="{ 'nav-link': true }">Users</router-link>
         </li>
-                <li class="nav-item">
+        <li class="nav-item">
           <router-link :to="{ name: 'tags' }" :class="{ 'nav-link': true }">Tags</router-link>
         </li>
         <li class="nav-item" @click="profile">
@@ -38,6 +38,31 @@
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div class="dropdown dropleft">
+            <a
+              class="nav-link"
+              data-toggle="dropdown"
+              role="button"
+              style="background-color: white;border-radius: 20px;"
+            >
+              <img
+                v-bind:src="loginUser.foto"
+                alt="Ups"
+                class="rounded-circle"
+                style="height: 2rem; width: auto;"
+              >
+              <!-- O span vai se mostrar se houver notificações e o innerHTML do "sino" Vai ser o numero de notificações -->
+              <span>
+                <i class="fas fa-bell" style="color: red;">2</i>
+              </span>
+            </a>
+            <div id="drops" class="dropdown-menu">
+              <a href class="dropdown-item">oaoakodk</a>
+              <a href class="dropdown-item">BOas</a>
+            </div>
+          </div>
+        </li>
         <li class="nav-item" @click="logout">
           <a class="nav-link">Logout</a>
         </li>
@@ -50,11 +75,17 @@
 export default {
   data() {
     return {
-      loginID: this.$store.getters.getloginID
+      loginID: this.$store.getters.getloginID,
+      loginUser: null
     };
   },
   created() {
     console.log(this.loginID);
+
+    //Encontrar user logado
+    this.loginUser = this.$store.getters.getUsers.filter(
+      us => us.id == this.loginID
+    )[0];
   },
   methods: {
     logout() {
@@ -73,3 +104,18 @@ export default {
   }
 };
 </script>
+
+<style>
+div#drops {
+  margin-top: 40px;
+  background-color: inherit !important;
+  border: none;
+}
+div#drops > a.dropdown-item {
+  overflow-wrap: inherit !important;
+  background-color: orange !important;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+</style>
+
