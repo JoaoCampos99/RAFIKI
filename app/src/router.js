@@ -140,7 +140,10 @@ const router = new Router({
     {
       path:"/office",
       name: "office",
-      component: Office
+      component: Office,
+      meta:{
+        admin:true
+      }
     },
     {
       path:"/tags",
@@ -174,6 +177,14 @@ router.beforeEach((to, from, next) => {
     } else {
       alert("Log in pls");
       router.go(-1);
+    }
+  }
+  if(to.meta.admin){
+    if(idlogin==1){
+      next()
+    }else{
+      alert("you're not admin")
+      router.go(-1)
     }
   }
 });

@@ -144,8 +144,12 @@
             v-bind:key="thread.id">
             <td>{{thread.title}}</td>
             <td>{{thread.date}}</td>
-            <td></td>
-            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)" > X </button> </td>
+            <td>{{getUserById(thread.userid).name}}</td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)" > X </button>
+              <button type="button" class="btn btn-caution btn-sm" @click="closeThread(thread.id)" v-if="thread.closeDate==null"> Close </button>
+            </td>
+          
           </tr>
         </tbody>
       </table>
@@ -248,6 +252,12 @@ export default {
         desc: this.badgeDesc,
         category: this.badgeCat
       });
+    },
+    getUserById(id){
+      return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
+    },
+    closeThread(id){
+      this.$store.dispatch("close_thread",id)
     }
 
     

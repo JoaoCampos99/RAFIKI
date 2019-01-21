@@ -458,10 +458,17 @@ export default new Vuex.Store({
     },
     add_user_follow(state, obj){
       state.users[obj.index].follow.push(obj.threadid)
+    },
+    CLOSE_THREAD(state,id){
+      let index = state.threads.findIndex(thread => thread.id == id)
+      state.threads[index].closeDate= new Date().toISOString().split('T')[0]
     }
   },
   actions: {
     // OFFICE
+    close_thread(context, id){
+      context.commit("CLOSE_THREAD", id)
+    },
     delete_user(context, id) {
       context.commit("DELETE_USER", id)
     },
