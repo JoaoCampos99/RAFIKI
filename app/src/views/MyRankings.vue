@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(rank) in ranks" v-bind:key="rank.id">
+        <tr v-for="(rank, cont) in ranks" v-bind:key="cont">
           <th scope="row">{{rank.rank[0] + 1}}</th>
           <td>{{rank.name}}</td>
           <td>{{rank.level}}</td>
@@ -43,7 +43,7 @@ export default {
     let pos = this.getIndexByID();
     console.log(pos);
     let cont = 5;
-    if (pos <= 1) {
+    if (pos <= 5) {
       console.log("TOP 5");
       for (let i = 0; i < cont; i++) {
         this.ranks.push(this.users[i]);
@@ -56,6 +56,7 @@ export default {
         console.log('ata2');
       }
     }
+    console.log(this.ranks)
   },
   methods: {
     getIndexByID() {

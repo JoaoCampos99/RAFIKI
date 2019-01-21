@@ -389,13 +389,20 @@ export default {
     },
     upvoteAns(id) {
       let guardar = true;
+      console.log(this.thread.id, id, null);
 
       for (let us of this.$store.getters.getUsers) {
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (ups.idanswer != undefined) {
-              if (ups.idthread == this.thread.id && this.idanswer == id)
-                guardar = false;
+              console.log(ups)
+              if (
+                ups.idthread == this.thread.id &&
+                ups.idanswer == id &&
+                ups.idcomment == null
+              )
+
+              guardar = false;
             }
           }
         }
@@ -497,7 +504,7 @@ export default {
             });
           }
         } else {
-          Swal("Ja inseriste");
+          Swal("Ja inseriste", "Ja deste upvote", "error");
         }
       } else {
         Swal({
@@ -515,7 +522,12 @@ export default {
       for (let us of this.$store.getters.getUsers) {
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
-            if (ups.idthread == this.thread.id) guardar = false;
+            if (
+              ups.idthread == this.thread.id &&
+              ups.idanswer == null &&
+              ups.idcomment == null
+            )
+              guardar = false;
           }
         }
       }
@@ -548,7 +560,7 @@ export default {
             });
           }
         } else {
-          Swal("Ja inseriste");
+          Swal("Ja inseriste", "Ja deste upvote", "error");
         }
       } else {
         Swal({
