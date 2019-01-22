@@ -91,3 +91,9 @@ export default {
   }
 };
 </script>
+
+<style>
+a.list-group-item {
+  cursor: pointer !important;
+}
+</style>

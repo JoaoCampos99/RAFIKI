@@ -23,6 +23,7 @@ import UserThreads from "./views/UserThreads.vue";
 import UserBadges from "./views/UserBadges.vue";
 import Office from "./views/Office.vue";
 import Tags from "./views/Tags.vue";
+import Stats from "./views/stats.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -138,17 +139,22 @@ const router = new Router({
       component: ContactUs
     },
     {
-      path:"/office",
+      path: "/office",
       name: "office",
       component: Office,
-      meta:{
-        admin:true
+      meta: {
+        admin: true
       }
     },
     {
-      path:"/tags",
+      path: "/tags",
       name: "tags",
       component: Tags
+    },
+    {
+      path: "/stats",
+      name: "stats",
+      component: Stats
     }
   ]
 });
@@ -179,12 +185,12 @@ router.beforeEach((to, from, next) => {
       router.go(-1);
     }
   }
-  if(to.meta.admin){
-    if(idlogin==1){
-      next()
-    }else{
-      alert("you're not admin")
-      router.go(-1)
+  if (to.meta.admin) {
+    if (idlogin == 1) {
+      next();
+    } else {
+      alert("you're not admin");
+      router.go(-1);
     }
   }
 });

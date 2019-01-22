@@ -19,7 +19,8 @@ class User {
     skill,
     year,
     course,
-    upvotes
+    upvotes,
+    notifications
   ) {
     //fazer nos getter's a atribuição de badges, level e rank
     this.id = id; //Não vai ser preciso fazer o getId aqui, porque já é feito nos dois sitios onde os utilizadores são adicionados
@@ -37,6 +38,7 @@ class User {
     this.year = year;
     this.course = course;
     this.upvotes = upvotes;
+    this.notifications = notifications
   }
 
   getLevel() {
@@ -70,7 +72,7 @@ class User {
     this.badges = [];
     console.log(threadsArr);
     let tr = this.getThreads(this.userId, threadsArr); //Isto depois vai substituir a batota
-    let batota = 20;
+    // let batota = 20;
     for (let badge of badgesArr) {
       let gravar = false;
 
@@ -80,7 +82,7 @@ class User {
       }
 
       if (badge.category == "help") {
-        if (badge.goal <= batota) {
+        if (badge.goal <= tr) {
           gravar = true;
         }
       }
@@ -104,6 +106,10 @@ class User {
 
   d() {
     console.log(this);
+  }
+
+  tamanhoMaximo() {
+    if (this.notifications.length == 6) this.notifications.pop();
   }
 }
 
@@ -144,6 +150,17 @@ class Answer {
   }
 }
 
+class Notification {
+  constructor(id, idthread, idUserFirst, text) {
+    this.id = id;
+    this.idThread = idthread;
+    this.idUserFirst = idUserFirst;
+    this.text = text;
+
+    this.data = new Date().toISOString().split('T')[0];
+    this.visto = false;
+  }
+}
 export default new Vuex.Store({
   state: {
     Userclass: User,
@@ -346,6 +363,7 @@ export default new Vuex.Store({
       for (let user of arr) {
         console.log(user)
         let ups = user.upvotes == undefined ? [] : user.upvotes
+        let notis = user.notifications == undefined ? [] : user.notifications
         let us = new User(
           user.id,
           user.name,
@@ -358,7 +376,8 @@ export default new Vuex.Store({
           user.skills,
           user.year,
           user.course,
-          ups
+          ups,
+          notis
         );
         aux.push(us);
       }
@@ -456,17 +475,35 @@ export default new Vuex.Store({
       let index = state.users.findIndex(us => us.id == com.idUser)
       state.users[index].exp += 20;
     },
-    add_user_follow(state, obj){
+    add_user_follow(state, obj) {
       state.users[obj.index].follow.push(obj.threadid)
     },
-    CLOSE_THREAD(state,id){
+    CLOSE_THREAD(state, id) {
       let index = state.threads.findIndex(thread => thread.id == id)
-      state.threads[index].closeDate= new Date().toISOString().split('T')[0]
+      state.threads[index].closeDate = new Date().toISOString().split('T')[0]
+    },
+    /* Notificações */
+    add_notification(state, obj) {
+      let index = state.users.findIndex(us => us.id == obj.idUser);
+      state.users[index].notifications.push(obj.notification);
+    },
+    change_notification_status(state, obj) {
+      console.log(obj)
+      state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
     }
   },
   actions: {
+    /* Notificações */
+    change_notification_status(context, obj) {
+      context.commit('change_notification_status', obj);
+    },
+    add_notification(context, obj) {
+      console.log(obj)
+      let newNotification = new Notification(obj.notification.id, obj.notification.idThread, obj.notification.idUserFirst, obj.notification.text)
+      context.commit("add_notification", { idUser: obj.idUser, notification: newNotification });
+    },
     // OFFICE
-    close_thread(context, id){
+    close_thread(context, id) {
       context.commit("CLOSE_THREAD", id)
     },
     delete_user(context, id) {
