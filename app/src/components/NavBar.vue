@@ -11,10 +11,9 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a href="/">
+    <router-link :to="{name:'home'}">
       <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px">
-    </a>
-
+    </router-link>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
