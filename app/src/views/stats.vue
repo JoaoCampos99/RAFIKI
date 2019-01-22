@@ -4,7 +4,15 @@
       <div class="col-md-6">
         <apexchart type="bar" width="100%" height="350" :options="chartOptions" :series="series"/>
       </div>
-      <div class="col-md-6"></div>
+      <div class="col-md-6">
+        <apexchart
+          type="donut"
+          width="100%"
+          height="350"
+          :options="chartOptions2"
+          :series="series2"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +81,42 @@ export default {
             color: "#fefefe"
           }
         }
+      },
+      series2: [],
+      chartOptions2: {
+        title: {
+          text: "Experience Distribution",
+          align: "top",
+          margin: 5,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "15px",
+            color: "#fefefe"
+          }
+        },
+        labels: [],
+        legend: {
+          position: "right",
+          offsetX: 0,
+          offsetY: 50,
+          width: 150,
+          height: 75
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
       }
     };
   },
@@ -132,7 +176,26 @@ export default {
       this.series[2].data.push(aux);
       console.log(this.series[2].data);
     }
-    //NEXT
+    //Donut Top Users XP
+    let users = this.$store.getters.getUsers;
+
+    users = users.sort((a, b) => {
+      if (a.exp > b.exp) return -1;
+      if (a.exp < b.exp) return 1;
+      else return 0;
+    });
+    console.log(users);
+    let count = 0;
+    for (let i = 0; i < users.length; i++) {
+      if (i < 5) {
+        this.chartOptions2.labels.push(users[i].name);
+        this.series2.push(users[i].exp);
+      } else {
+        count += users[i].exp;
+      }
+    }
+    this.chartOptions2.labels.push("Others");
+    this.series2.push(count);
   }
 };
 </script>
