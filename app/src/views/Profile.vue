@@ -83,6 +83,9 @@ export default {
           },
           size: undefined
         },
+        yaxis: {
+          show: false
+        },
         stroke: {
           width: 1
         },

@@ -78,6 +78,9 @@ export default {
         stroke: {
           width: 1
         },
+        yaxis: {
+          show: false
+        },
         fill: {
           opacity: 0.5
         },
