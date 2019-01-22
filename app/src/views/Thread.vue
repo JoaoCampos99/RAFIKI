@@ -284,7 +284,7 @@ import "../../node_modules/sweetalert2/src/sweetalert2.scss";
 export default {
   data() {
     return {
-      thread: this.thisThread(),
+      thread: null,
       user: null,
       answers: this.$store.getters.getAnswers,
       comments: this.$store.getters.getComments,
@@ -297,10 +297,25 @@ export default {
       open: false,
       commentToAnswer: "",
       ansIdToComment: 0,
-      thisThreadFollows: this.numberFollowers()
+      thisThreadFollows: null
     };
   },
   created() {
+    this.showAnswerDiv = this.$store.getters.getAuth;
+    this.textoResposta = null;
+    this.comments = this.$store.getters.getComments;
+    
+    let threadid = this.$route.params.threadid;
+    console.log(threadid);
+    this.thread = this.$store.getters.getThreads.filter(thread => {
+      // console.log(thread, threadid);
+      if (thread.id == parseInt(threadid)) {
+        console.log("atatatatatatatatat");
+        return true;
+      }
+    })[0];
+
+    this.thisThreadFollows = this.numberFollowers();
     this.user = this.$store.getters.getUsers.filter(
       user => this.thread.userid == user.id
     )[0];
@@ -316,11 +331,10 @@ export default {
         us => us.id == this.$store.getters.getloginID
       )[0];
     }
-
-    this.thisThreadFollows = this.numberFollowers()
   },
   computed: {
     threadAns() {
+      this.answers = this.$store.getters.getAnswers;
       this.thisAnswers = this.answers.filter(
         ans => ans.idThread == this.thread.id
       );
@@ -333,28 +347,32 @@ export default {
             return true;
           }
         }
-        console.log(this.thisComments);
+        // console.log(this.thisComments);
         return false;
       });
     }
   },
   methods: {
-    thisThread(){
-    let threadid = this.$route.params.threadid;
-    return this.thread = this.$store.getters.getThreads.filter(
-      thread => thread.id == threadid
-    )[0];
+    thisThread() {
+      let threadid = this.$route.params.threadid;
+      console.log(threadid);
+      return this.$store.getters.getThreads.filter(thread => {
+        // console.log(thread, threadid);
+        if (thread.id == parseInt(threadid)) {
+          console.log("atatatatatatatatat");
+          return true;
+        }
+      })[0];
     },
     numberFollowers() {
       return this.$store.getters.getUsers.filter(us => {
-        let passou = true;
-
+        // let passou = true;
+        // console.log(this.thread);
         for (let fol of us.follow) {
-          // console.log(fol, this.thread.id)
-          if (fol == this.thread.id) passou = true;
-          else passou = false;
+          // console.log(fol, this.thread.id);
+          if (fol == this.thread.id) return true;
         }
-        return passou;
+        // console.log(passou);
       }).length;
     },
     hideComments(evt, ansid) {
@@ -634,6 +652,9 @@ export default {
         } else {
           Swal("Ja inseriste", "Ja deste upvote", "error");
         }
+
+        /* Notidicação */
+        this.addNotificacionToStore(this.user.id, this.loginUser.id, "deu upvote à tua thread")
       } else {
         Swal({
           text: "Tens que entrar na tua conta!!!",
@@ -677,26 +698,35 @@ export default {
         });
       }
     },
-    addNotificacionToStore(iduser, /* parametros para a notificação */userFirst, texto){
+
+    addNotificacionToStore(
+      iduser,
+      /* parametros para a notificação */ userFirst,
+      texto
+    ) {
       //Fazer o id da notificação aqui... tenho os users e tenho....
-      let usernotilength = this.$store.getters.getUsers.filter(us => us.id == iduser)[0].notifications.length
-      let idnoti = 1
-      if(usernotilength > 0){
-        idnoti = this.$store.getters.getUsers.filter(us => us.id == iduser)[0].notifications[usernotilength-1].id +1;
+      let usernotilength = this.$store.getters.getUsers.filter(
+        us => us.id == iduser
+      )[0].notifications.length;
+      let idnoti = 1;
+      if (usernotilength > 0) {
+        idnoti =
+          this.$store.getters.getUsers.filter(us => us.id == iduser)[0]
+            .notifications[usernotilength - 1].id + 1;
       }
       let noti = {
         id: idnoti,
         idThread: this.thread.id,
         idUserFirst: userFirst,
         text: texto
-      }
+      };
 
       let obj = {
         idUser: iduser,
         notification: noti
-      }
+      };
 
-      this.$store.dispatch("add_notification", obj)
+      this.$store.dispatch("add_notification", obj);
     }
   }
 };
