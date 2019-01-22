@@ -28,7 +28,7 @@ export default {
         },
         {
           name: "Comentarios",
-          data: [11, 17, 15, 15, 21]
+          data: []
         }
       ],
       chartOptions: {
@@ -120,33 +120,18 @@ export default {
       let aux = 0;
       for (let j = 0; j < this.$store.getters.getThreads.length; j++) {
         if (hotTopics[i].id == this.$store.getters.getThreads[j].id) {
-          console.log("entra?");
-
+          aux =
+            hotTopics[i].points -
+            this.$store.getters.getThreads[j].upvotes -
+            this.$store.getters.getThreads[j].views;
+          console.log(aux);
           this.series[0].data.push(this.$store.getters.getThreads[j].upvotes);
           this.series[1].data.push(this.$store.getters.getThreads[j].views);
-          for (let k = 0; k < this.$store.getters.getAnswers.length; k++) {
-            if (
-              this.$store.getters.getThreads[j].id ==
-              this.$store.getters.getAnswers[k].idThread
-            ) {
-              for (let y = 0; y < this.$store.getters.getComments.length; y++) {
-                if (
-                  this.$store.getters.getAnswers[k].id ==
-                  this.$store.getters.getComments[y].idAnswer
-                ) {
-                  aux += 1;
-                }
-              }
-              aux += 1;
-            }
-          }
         }
       }
       this.series[2].data.push(aux);
-
       console.log(this.series[2].data);
     }
-    this.series[2].data.length = 5;
     //NEXT
   }
 };
