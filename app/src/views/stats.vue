@@ -14,6 +14,9 @@
         />
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12"></div>
+    </div>
   </div>
 </template>
 
@@ -108,11 +111,10 @@ export default {
           {
             breakpoint: 480,
             options: {
-              chart: {
-                width: 200
-              },
               legend: {
-                position: "bottom"
+                position: "bottom",
+                offsetX: -10,
+                offsetY: 0
               }
             }
           }
