@@ -416,7 +416,12 @@ export default {
         };
         this.$store.dispatch("add_comment", comment);
         let nivelDepois = this.loginUser.getLevel();
-
+        /* Notidicação */
+        this.addNotificacionToStore(
+          this.user.id,
+          this.loginUser.id,
+          "comentou uma resposta"
+        );
         if (
           nivelAtual != nivelDepois &&
           nivelDepois <= this.$store.getters.getBadges.length
@@ -446,7 +451,11 @@ export default {
       console.log(this.textoResposta);
       let nivelAtual = this.loginUser.getLevel();
       if (this.textoResposta != "") {
-        this.addNotificacionToStore(this.user.id, this.loginUser.id, "respondeu à tua thread")
+        this.addNotificacionToStore(
+          this.user.id,
+          this.loginUser.id,
+          "respondeu à tua thread"
+        );
         console.log(this.$store.getters.getloginID);
         let answer = {
           id:
@@ -508,6 +517,14 @@ export default {
 
           let nivelAtual = this.loginUser.getLevel();
           console.log(nivelAtual);
+
+          /* Notidicação */
+          this.addNotificacionToStore(
+            this.user.id,
+            this.loginUser.id,
+            "uvpvote na resposta"
+          );
+
           this.$store.dispatch("add_upvote_user", {
             userid: this.$store.getters.getloginID,
             up: up
@@ -571,6 +588,12 @@ export default {
           };
           let nivelAtual = this.loginUser.getLevel();
 
+          /* Notidicação */
+          this.addNotificacionToStore(
+            this.user.id,
+            this.loginUser.id,
+            "upvote num comentário"
+          );
           this.$store.dispatch("add_upvote_comment", id);
           this.$store.dispatch("add_upvote_user", {
             up: up,
@@ -713,7 +736,9 @@ export default {
     addNotificacionToStore(
       iduser,
       /* parametros para a notificação */ userFirst,
-      texto
+      texto,
+      answer = false,
+      idans = null
     ) {
       //Fazer o id da notificação aqui... tenho os users e tenho....
       let usernotilength = this.$store.getters.getUsers.filter(
@@ -725,16 +750,20 @@ export default {
           this.$store.getters.getUsers.filter(us => us.id == iduser)[0]
             .notifications[usernotilength - 1].id + 1;
       }
+      let idAtacar = null;
+      if (answer) idAtacar = idAns;
+      else idAtacar = this.thread.id;
       let noti = {
         id: idnoti,
-        idThread: this.thread.id,
+        idThread: idAtacar,
         idUserFirst: userFirst,
         text: texto
       };
 
       let obj = {
         idUser: iduser,
-        notification: noti
+        notification: noti,
+        answer: answer
       };
 
       this.$store.dispatch("add_notification", obj);
