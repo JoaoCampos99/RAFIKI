@@ -67,11 +67,12 @@ class User {
     console.log(rank);
     return [rank, trueRank];
   }
-  getBadges(badgesArr, threadsArr) {
+  getBadges(badgesArr, threadsArr, commentsArr, answersArr) {
     let badges = [];
     this.badges = [];
-    console.log(threadsArr);
-    let tr = this.getThreads(this.userId, threadsArr); //Isto depois vai substituir a batota
+    // console.log(threadsArr);
+    let tr = this.getThreads(threadsArr, commentsArr, answersArr); //Isto depois vai substituir a batota
+    console.log(tr)
     // let batota = 20;
     for (let badge of badgesArr) {
       let gravar = false;
@@ -96,12 +97,13 @@ class User {
     return badges;
   }
 
-  getThreads(userId, threadsArr) {
-    let threads = [];
-    for (let thread of threadsArr) {
-      if (thread.userId == userId) threads.push(thread);
-    }
-    return threads;
+  getThreads(threadsArr, commentsArr, answersArr) { /* Vai ter que returnar um numero */
+    let total = 0;
+
+    total += threadsArr.filter(th => th.userid == this.id).length
+    total += commentsArr.filter(cm => cm.idUser == this.id).length
+    total += answersArr.filter(ans=> ans.idUser == this.id).length
+    return total;
   }
 
   d() {
@@ -490,13 +492,12 @@ export default new Vuex.Store({
     change_notification_status(state, obj) {
       console.log(obj)
       state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
-      if(state.users[obj.indexUser].notifications.length == 6) state.users[obj.indexUser].notifications.shift()
+      if (state.users[obj.indexUser].notifications.length == 6) state.users[obj.indexUser].notifications.shift()
     }
   },
   actions: {
     /* Notificações */
     change_notification_status(context, obj) {
-      console.log('okokokokokokoko')
       context.commit('change_notification_status', obj);
     },
     add_notification(context, obj) {

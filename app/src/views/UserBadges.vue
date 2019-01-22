@@ -88,7 +88,9 @@ export default {
 
     auxUser.badges = auxUser.getBadges(
       this.$store.getters.getBadges,
-      this.$store.getters.getThreads
+      this.$store.getters.getThreads,
+      this.$store.getters.getComments,
+      this.$store.getters.getAnswers
     );
     console.log(auxUser);
 
