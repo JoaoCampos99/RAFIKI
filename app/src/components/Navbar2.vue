@@ -10,11 +10,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <a  href="/"><img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" ></a>
+    <a href="/">
+      <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px">
+    </a>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'stats' }" :class="{ 'nav-link': true }">Statistics</router-link>
         </li>
         <li class="nav-item">
           <router-link :to="{ name: 'rankings' }" :class="{ 'nav-link': true }">Ranking</router-link>
@@ -142,14 +147,14 @@ export default {
   },
   computed: {
     notificacoes() {
-      console.log(this.loginUser.notifications)
+      console.log(this.loginUser.notifications);
       let aux = this.loginUser.notifications;
       aux = aux.reverse();
       let aux2 = [];
       for (let i = 0; i < 5; i++) {
-        if(aux[i] != undefined)  aux2.push(aux[i]);
+        if (aux[i] != undefined) aux2.push(aux[i]);
       }
-      console.log(aux2)
+      console.log(aux2);
       return aux2;
     }
   }
@@ -191,4 +196,3 @@ span.userName {
   font-family: verdana;
 }
 </style>
-
