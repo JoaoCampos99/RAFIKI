@@ -61,18 +61,21 @@
                 >{{loginUser.notifications.filter(noti => noti.visto == false).length}}</i>
               </span>
             </a>
-            <div
-              id="drops"
-              class="dropdown-menu"
-              v-for="noti of loginUser.notifications"
-              v-bind:key="noti.id"
-            >
-              <router-link
-                v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
-                class="dropdown-item"
+            <div id="drops" class="dropdown-menu">
+              <div
+                v-for="noti of notificacoes"
+                v-bind:key="noti.id"
                 v-on:click="notificacaoVista(noti.id)"
-              >{{users.find(us => us.id == noti.idUserFirst).name}} {{noti.text}}</router-link>
-
+              >
+                <router-link
+                  v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
+                  class="dropdown-item"
+                  v-bind:class="{ 'bg-secondary': !noti.visto, 'text-success': !noti.visto }"
+                >
+                  <span class="userName">{{users.find(us => us.id == noti.idUserFirst).name}}</span>
+                  {{noti.text}}
+                </router-link>
+              </div>
               <!-- <a href class="dropdown-item">oaoakodk</a>
               <a href class="dropdown-item">BOas</a>
               <span class="vermais text-right" v-on:click="verMais()">Ver Mais</span>-->
@@ -103,6 +106,9 @@ export default {
     this.loginUser = this.$store.getters.getUsers.filter(
       us => us.id == this.loginID
     )[0];
+
+    console.log(this.loginUser.notifications);
+    // this.loginUser.tamanhoMaximo()
   },
   methods: {
     logout() {
@@ -122,18 +128,30 @@ export default {
       console.log(this.loginUser);
     },
     notificacaoVista(id) {
+      console.log(id);
       let indexUser = this.users.findIndex(us => us.id == this.loginUser.id);
-      let indexNoti = this.loginUser.findIndex(not => not.id == id);
+      let indexNoti = this.loginUser.notifications.findIndex(
+        not => not.id == id
+      );
       //Mandar index user e index notificacao no user
-      console.log('aatatatatattatatat')
       this.$store.dispatch("change_notification_status", {
         indexUser: indexUser,
         indexNoti: indexNoti
-      })
+      });
     }
   },
   computed: {
-    userNotificacionsÑotSeen() {}
+    notificacoes() {
+      console.log(this.loginUser.notifications)
+      let aux = this.loginUser.notifications;
+      aux = aux.reverse();
+      let aux2 = [];
+      for (let i = 0; i < 5; i++) {
+        if(aux[i] != undefined)  aux2.push(aux[i]);
+      }
+      console.log(aux2)
+      return aux2;
+    }
   }
 };
 </script>
@@ -144,12 +162,16 @@ div#drops {
   background-color: inherit !important;
   border: none;
 }
-div#drops > a.dropdown-item {
+div#drops > div {
   overflow-wrap: inherit !important;
-  background-color: orange !important;
+  background-color: rgba(0, 255, 242, 0.445) !important;
   border-radius: 20px;
   margin-bottom: 10px;
   border-top-right-radius: 3px;
+  font-size: 2.2vh;
+}
+div#drops div:hover {
+  background: orange !important;
 }
 span.vermais {
   color: blue;
@@ -161,6 +183,12 @@ span.vermais {
   margin: 0px 5px;
   padding: 0px 5px;
   background-blend-mode: screen;
+}
+span.userName {
+  font-weight: bold;
+  font-size: 2.2vh;
+  color: rebeccapurple;
+  font-family: verdana;
 }
 </style>
 

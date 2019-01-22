@@ -109,7 +109,7 @@ class User {
   }
 
   tamanhoMaximo() {
-    if (this.notifications.length == 6) this.notifications.pop();
+    if (this.notifications.length == 6) this.notifications.shift();
   }
 }
 
@@ -490,11 +490,13 @@ export default new Vuex.Store({
     change_notification_status(state, obj) {
       console.log(obj)
       state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
+      if(state.users[obj.indexUser].notifications.length == 6) state.users[obj.indexUser].notifications.shift()
     }
   },
   actions: {
     /* Notificações */
     change_notification_status(context, obj) {
+      console.log('okokokokokokoko')
       context.commit('change_notification_status', obj);
     },
     add_notification(context, obj) {

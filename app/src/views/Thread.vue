@@ -304,7 +304,7 @@ export default {
     this.showAnswerDiv = this.$store.getters.getAuth;
     this.textoResposta = null;
     this.comments = this.$store.getters.getComments;
-    
+
     let threadid = this.$route.params.threadid;
     console.log(threadid);
     this.thread = this.$store.getters.getThreads.filter(thread => {
@@ -446,6 +446,7 @@ export default {
       console.log(this.textoResposta);
       let nivelAtual = this.loginUser.getLevel();
       if (this.textoResposta != "") {
+        this.addNotificacionToStore(this.user.id, this.loginUser.id, "respondeu à tua thread")
         console.log(this.$store.getters.getloginID);
         let answer = {
           id:
@@ -620,6 +621,13 @@ export default {
       }
       if (this.$store.getters.getAuth) {
         if (guardar) {
+          /* Notidicação */
+          this.addNotificacionToStore(
+            this.user.id,
+            this.loginUser.id,
+            "deu upvote à tua thread"
+          );
+
           let up = {
             idthread: this.thread.id,
             idAnswer: null,
@@ -652,9 +660,6 @@ export default {
         } else {
           Swal("Ja inseriste", "Ja deste upvote", "error");
         }
-
-        /* Notidicação */
-        this.addNotificacionToStore(this.user.id, this.loginUser.id, "deu upvote à tua thread")
       } else {
         Swal({
           text: "Tens que entrar na tua conta!!!",
@@ -680,6 +685,12 @@ export default {
         if (seguir) {
           Swal("Boa", "Mamai", "success");
 
+          /* Notidicação */
+          this.addNotificacionToStore(
+            this.user.id,
+            this.loginUser.id,
+            "seguiu a tua thread"
+          );
           //Atualizar estado
           this.$store.dispatch("add_user_follow", {
             threadid: this.thread.id,
