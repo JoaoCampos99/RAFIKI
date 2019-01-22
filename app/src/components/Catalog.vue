@@ -3,7 +3,7 @@
   <div id="letabela">
     <!--Filtros-->
     <div style="padding:5px;">
-      <span>Filter Threads By:</span>
+      <span>Filter Threads By: </span>
       <select class="custom-select" style="width:30%;" v-model="searchBy">
         <option value="All">All</option>
         <option>Tag</option>
@@ -30,30 +30,62 @@
         >
       </p>
     </div>
+    <!--        -->
+    <br>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>Topic</th>
+            <th>Owner</th>
+            <th>Views</th>
+            <th>Upvotes</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(thread) in $store.state.threads" v-bind:key="thread.id">
+            <td>
+              <router-link
+                v-bind:to="{name: 'thread', params: {threadid: thread.id}}"
+              >{{thread.title}}</router-link>
+            </td>
+            <td><img v-bind:src="getUserById(thread.userid).foto" class="img-fluid pic"></td>
+            <td>{{thread.views}}</td>
 
-    <div
+            <td>{{thread.upvotes}}</td>
+            <td>{{thread.date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--<div
       class="border-pill border col-sm-12"
       v-for="thread in filteredThreads"
       v-bind:key="thread.id"
       style="width: 100%;margin-bottom: 20px;"
     >
-      <!-- <div class="col-sm-3">
+       <div class="col-sm-3">
           <img src="../assets/logo.png" class="card-img-left img-fluid" alt="...">
-      </div>-->
+      </div>
       <div class="card-body">
         <router-link
           v-bind:to="{name: 'thread', params: {threadid: thread.id}}"
           tag="h5"
           class="card-title titulo"
         >{{thread.title}}</router-link>
-        <h6 class="card-subtitle mb-2 text-muted">{{thread.date}}</h6>
-        <p class="card-text">
-          <span v-for="tag in thread.tags" v-bind:key="tag.id">{{tag.text}}</span>
-        </p>
-        <a href="#" class="card-link">{{thread.id}}</a>
-        <a href="#" class="card-link">{{thread.views}}</a>
+
+        <div class="item-content-block tags">
+          <a v-for="tag in thread.tags" v-bind:key="tag.id">{{tag.text}}</a>
+        </div>
+        <a href="#" class="card-link">Upvotes {{thread.upvotes}}</a>
+        <a href="#" class="card-link">Views {{thread.views}}</a>
+        <a href="#" class="card-link"> Upvotes {{thread.upvotes}}</a>
+        <a href="#" class="card-link"> Views {{thread.views}}</a>
+        <h6 class="card-subtitle mb-2 text-muted">Posted {{thread.date}}</h6>
       </div>
-    </div>
+    </div>-->
   </div>
 
   <!-- </div> -->
@@ -74,6 +106,12 @@ export default {
       autocompleteItems: this.$store.state.tags,
       threads: this.$store.state.threads
     };
+  },
+  methods: {
+      getUserById(id){
+        return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
+    }
+
   },
   created() {
     if (this.$store.state.searchTag != "") {
@@ -136,5 +174,56 @@ export default {
 .titulo:hover {
   cursor: pointer;
   color: blue;
+}
+.item {
+  color: #48453d;
+  margin-top: 30px;
+  overflow: hidden;
+}
+.block-title {
+  color: #48453d;
+  margin-bottom: 0px;
+  font-size: 18px;
+  margin-top: 0px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.item-content-block {
+  padding: 20px;
+  border-top: 2px solid #f6f6f2;
+  background-color: #fff;
+  display: block;
+}
+.tags a {
+  background-color: #756f5d;
+  padding: 10px;
+  color: #fff;
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  line-height: 11px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-right: 2px;
+  text-decoration: none;
+}
+.tags a:hover {
+  background-color: #a38018;
+}
+
+a {
+  text-align: right;
+}
+
+td,
+th {
+  border-bottom: 1px solid #a5a5a5 !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-top: none !important;
+  text-align: left !important;
+  padding: 8px;
+  color: black !important;
+  background-color: #ffffff !important;
 }
 </style>
