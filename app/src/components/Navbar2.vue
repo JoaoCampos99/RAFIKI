@@ -58,13 +58,27 @@
               >
               <!-- O span vai se mostrar se houver notificações e o innerHTML do "sino" Vai ser o numero de notificações -->
               <span>
-                <i class="fas fa-bell" style="color: red;">2</i>
+                <i
+                  class="fas fa-bell"
+                  style="color: red;"
+                >{{loginUser.notifications.filter(noti => noti.visto == false).length}}</i>
               </span>
             </a>
-            <div id="drops" class="dropdown-menu">
-              <a href class="dropdown-item">oaoakodk</a>
+            <div
+              id="drops"
+              class="dropdown-menu"
+              v-for="noti of loginUser.notifications"
+              v-bind:key="noti.id"
+            >
+              <router-link
+                v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
+                class="dropdown-item"
+                v-on:click="notificacaoVista(noti.id)"
+              >{{users.find(us => us.id == noti.idUserFirst).name}} {{noti.text}}</router-link>
+
+              <!-- <a href class="dropdown-item">oaoakodk</a>
               <a href class="dropdown-item">BOas</a>
-              <span class="vermais text-right" v-on:click="verMais()">Ver Mais</span>
+              <span class="vermais text-right" v-on:click="verMais()">Ver Mais</span>-->
             </div>
           </div>
         </li>
@@ -81,7 +95,8 @@ export default {
   data() {
     return {
       loginID: this.$store.getters.getloginID,
-      loginUser: null
+      loginUser: null,
+      users: this.$store.getters.getUsers
     };
   },
   created() {
@@ -108,7 +123,20 @@ export default {
     },
     verMais() {
       console.log(this.loginUser);
+    },
+    notificacaoVista(id) {
+      let indexUser = this.users.findIndex(us => us.id == this.loginUser.id);
+      let indexNoti = this.loginUser.findIndex(not => not.id == id);
+      //Mandar index user e index notificacao no user
+      console.log('aatatatatattatatat')
+      this.$store.dispatch("change_notification_status", {
+        indexUser: indexUser,
+        indexNoti: indexNoti
+      })
     }
+  },
+  computed: {
+    userNotificacionsÑotSeen() {}
   }
 };
 </script>
