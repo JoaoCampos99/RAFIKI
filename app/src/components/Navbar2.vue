@@ -10,12 +10,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <a class="navbar-brand" href="/">Rafiki</a>
+    <a  href="/"><img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" ></a>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link :to="{ name: 'faq' }" :class="{ 'nav-link': true }">FAQ</router-link>
-        </li>
         <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
         </li>

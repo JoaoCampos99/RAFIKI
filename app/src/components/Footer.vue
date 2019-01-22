@@ -1,18 +1,43 @@
 <template>
 
+
   <footer class="row text-center text-xs-center text-sm-left text-md-left">
     <hr>
-    <div class="col-sm-4">
+  <div class="container-fluid">
+	  <div class="row text-center">
+		  <div class="col-xs-12 col-md-3">
+        <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" >
+		  </div>
+		  <div class="col-xs-12 col-md-3">
+        <img alt="Vue logo" src="@/assets/ipp_logo.png" style="width: 100px" >
+        <h6>Escola Superior de Media Artes e Design</h6>
+		  </div>
+		  <div class="col-xs-12 col-md-3">
+        <router-link to="faq" id="faq"><h3 class="footerText">FAQ</h3></router-link>
+		  </div>
+		  <div class="col-xs-12 col-md-3">
+        <h3>HELP</h3>
+          <router-link to="contactus" id="contactus">SEND US AN EMAIL</router-link>
+		  </div>
+	  </div>
+  </div>
+
+
+
+
+
+    <!--<div class="col-sm-4">
       <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" >
     </div>
-        <!--<div class="col-sm-4">
+        <div class="col-sm-4">
       <img alt="Vue logo" src="@/assets/ipp_logo.png" style="width: 100px" >
-    </div>-->
+    </div>
     
     <div class="col-sm-8 text-center">
       <div class="row">
         <div class="col-md-4">
-          <!-- <h3></h3> -->
+          <img alt="Vue logo" src="@/assets/ipp_logo.png" style="width: 100px" >
+          <h3></h3>
         </div>
         <div class="col-md-4">
           <h3>FAQ</h3>
@@ -22,7 +47,7 @@
           <router-link to="contactus" id="contactus">Send us an email</router-link>
         </div>
       </div>
-    </div>
+    </div> -->
   </footer>
 </template>
 
@@ -49,6 +74,9 @@ footer > hr {
 
   animation: 2s infinite alternate moving-lines;
   /*animation-delay: 2s;*/
+}
+.footerText {
+  color:rgb(40,40,40);
 }
 
 @keyframes moving-lines {

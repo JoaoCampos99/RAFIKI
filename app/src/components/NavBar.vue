@@ -11,15 +11,12 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/">Rafiki</a>
+    <a href="/"><img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" ></a>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
           <router-link :to="{ name: 'login' }" :class="{ 'nav-link': true }">Login</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'faq' }" :class="{ 'nav-link': true }">FAQ</router-link>
         </li>
         <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
@@ -47,5 +44,9 @@
 }
 nav {
   margin-bottom: 2rem;
+}
+
+.navLogo {
+  width:100px
 }
 </style>

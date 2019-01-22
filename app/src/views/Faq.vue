@@ -39,8 +39,10 @@
           </p>
         </div>
       </div>
+      <hr>
     </div>
     <h1 class="text-center">Used Librarys</h1>
+    <br>
     <div class="row" style="width: auto;">
       <div class="col-md-3">
         <div class="card">

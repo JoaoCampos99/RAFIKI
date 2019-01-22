@@ -20,8 +20,6 @@
           @click="goToTag(tag.text)"
         >{{tag.text}}</button>
         <br>
-        <span>Used X times</span>
-        <hr>
       </div>
     </div>
     <br>
