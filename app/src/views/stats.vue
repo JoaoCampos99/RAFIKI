@@ -4,7 +4,20 @@
       <div class="col-md-6">
         <apexchart type="bar" width="100%" height="350" :options="chartOptions" :series="series"/>
       </div>
-      <div class="col-md-6"></div>
+      <div class="col-md-6">
+        <apexchart
+          type="donut"
+          width="100%"
+          height="350"
+          :options="chartOptions2"
+          :series="series2"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <apexchart type="bar" width="100%" height="400" :options="chartOptions3" :series="series3"/>
+      </div>
     </div>
   </div>
 </template>
@@ -73,7 +86,73 @@ export default {
             color: "#fefefe"
           }
         }
-      }
+      },
+      series2: [],
+      chartOptions2: {
+        title: {
+          text: "Experience Distribution",
+          align: "top",
+          margin: 5,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "15px",
+            color: "#fefefe"
+          }
+        },
+        labels: [],
+        legend: {
+          position: "right",
+          offsetX: 0,
+          offsetY: 50,
+          width: 150,
+          height: 75
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: "bottom",
+                offsetX: -10,
+                offsetY: 0
+              }
+            }
+          }
+        ]
+      },
+      series3: [
+        {
+          data: []
+        }
+      ],
+      chartOptions3: {
+        plotOptions: {
+          bar: {
+            horizontal: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        title: {
+          text: "Top Commentators",
+          align: "top",
+          margin: 10,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "30px",
+            color: "#fefefe"
+          }
+        },
+        xaxis: {
+          categories: []
+        }
+      },
+      commentators: []
     };
   },
   created() {
@@ -132,7 +211,67 @@ export default {
       this.series[2].data.push(aux);
       console.log(this.series[2].data);
     }
-    //NEXT
+    //Donut Top Users XP
+    let users = this.$store.getters.getUsers;
+
+    users = users.sort((a, b) => {
+      if (a.exp > b.exp) return -1;
+      if (a.exp < b.exp) return 1;
+      else return 0;
+    });
+    console.log(users);
+    let count = 0;
+    for (let i = 0; i < users.length; i++) {
+      if (i < 5) {
+        this.chartOptions2.labels.push(users[i].name);
+        this.series2.push(users[i].exp);
+      } else {
+        count += users[i].exp;
+      }
+    }
+    this.chartOptions2.labels.push("Others");
+    this.series2.push(count);
+    //Gráfico users Mais comentadores
+    this.commentators = this.$store.getters.getUsers.map(user => {
+      let newObj = {
+        id: user.id,
+        name: user.name,
+        comentarios: 0
+      };
+      return newObj;
+    });
+    //Atribuir respostas
+    for (let i = 0; i < this.commentators.length; i++) {
+      for (let j = 0; j < this.$store.getters.getAnswers.length; j++) {
+        if (
+          this.commentators[i].id == this.$store.getters.getAnswers[j].idUser
+        ) {
+          this.commentators[i].comentarios += 1;
+        }
+      }
+    }
+    //Atribuir comentarios às respostas
+    for (let i = 0; i < this.commentators.length; i++) {
+      for (let j = 0; j < this.$store.getters.getComments.length; j++) {
+        if (
+          this.commentators[i].id == this.$store.getters.getComments[j].idUser
+        ) {
+          this.commentators[i].comentarios += 1;
+        }
+      }
+    }
+
+    //Ordenar e atribuir ao gráfico
+
+    this.commentators = this.commentators.sort((a, b) => {
+      if (a.comentarios > b.comentarios) return -1;
+      if (a.comentarios < b.comentarios) return 1;
+      else return 0;
+    });
+    for (let i = 0; i < 5; i++) {
+      this.series3[0].data.push(this.commentators[i].comentarios);
+      this.chartOptions3.xaxis.categories.push(this.commentators[i].name);
+    }
   }
 };
 </script>
