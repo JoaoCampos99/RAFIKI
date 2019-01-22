@@ -15,7 +15,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12"></div>
+      <div class="col-md-12">
+        <apexchart type="bar" width="100%" height="400" :options="chartOptions3" :series="series3"/>
+      </div>
     </div>
   </div>
 </template>
@@ -119,7 +121,38 @@ export default {
             }
           }
         ]
-      }
+      },
+      series3: [
+        {
+          data: []
+        }
+      ],
+      chartOptions3: {
+        plotOptions: {
+          bar: {
+            horizontal: true
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        title: {
+          text: "Top Commentators",
+          align: "top",
+          margin: 10,
+          offsetX: 0,
+          offsetY: 0,
+          floating: false,
+          style: {
+            fontSize: "30px",
+            color: "#fefefe"
+          }
+        },
+        xaxis: {
+          categories: []
+        }
+      },
+      commentators: []
     };
   },
   created() {
@@ -198,6 +231,47 @@ export default {
     }
     this.chartOptions2.labels.push("Others");
     this.series2.push(count);
+    //Gráfico users Mais comentadores
+    this.commentators = this.$store.getters.getUsers.map(user => {
+      let newObj = {
+        id: user.id,
+        name: user.name,
+        comentarios: 0
+      };
+      return newObj;
+    });
+    //Atribuir respostas
+    for (let i = 0; i < this.commentators.length; i++) {
+      for (let j = 0; j < this.$store.getters.getAnswers.length; j++) {
+        if (
+          this.commentators[i].id == this.$store.getters.getAnswers[j].idUser
+        ) {
+          this.commentators[i].comentarios += 1;
+        }
+      }
+    }
+    //Atribuir comentarios às respostas
+    for (let i = 0; i < this.commentators.length; i++) {
+      for (let j = 0; j < this.$store.getters.getComments.length; j++) {
+        if (
+          this.commentators[i].id == this.$store.getters.getComments[j].idUser
+        ) {
+          this.commentators[i].comentarios += 1;
+        }
+      }
+    }
+
+    //Ordenar e atribuir ao gráfico
+
+    this.commentators = this.commentators.sort((a, b) => {
+      if (a.comentarios > b.comentarios) return -1;
+      if (a.comentarios < b.comentarios) return 1;
+      else return 0;
+    });
+    for (let i = 0; i < 5; i++) {
+      this.series3[0].data.push(this.commentators[i].comentarios);
+      this.chartOptions3.xaxis.categories.push(this.commentators[i].name);
+    }
   }
 };
 </script>
