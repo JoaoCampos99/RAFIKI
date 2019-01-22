@@ -1,9 +1,14 @@
 <template>
+
   <footer class="row text-center text-xs-center text-sm-left text-md-left">
     <hr>
     <div class="col-sm-4">
-      <img alt="Vue logo" src="@/assets/logoR.png" style="width: inherit">
+      <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px" >
     </div>
+        <!--<div class="col-sm-4">
+      <img alt="Vue logo" src="@/assets/ipp_logo.png" style="width: 100px" >
+    </div>-->
+    
     <div class="col-sm-8 text-center">
       <div class="row">
         <div class="col-md-4">
@@ -13,8 +18,8 @@
           <h3>FAQ</h3>
         </div>
         <div class="col-md-4">
-          <h3>Enviar Mail</h3>
-          <router-link to="contactus" id="contactus">Contacta-nos</router-link>
+          <h3>HELP</h3>
+          <router-link to="contactus" id="contactus">Send us an email</router-link>
         </div>
       </div>
     </div>
