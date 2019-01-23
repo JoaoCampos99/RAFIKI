@@ -118,7 +118,7 @@
             </div>
           </div>
         </div>
-        <div class="card threadFechada" v-show="thread.closeDate != ''">
+        <div class="card threadFechada" v-show="!threadFechada()">
           <div class="card-body text-center">
             <h1>Esta Thread encontra-se Fechada!!!</h1>
           </div>
@@ -146,7 +146,7 @@
                   <p>{{ans.answer}}</p>
                   <p>
                     <a
-                      v-show="thread.closeDate == ''"
+                      v-show="threadFechada()"
                       v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
                       v-on:click="commentAnswer(ans.id)"
@@ -214,7 +214,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="showAnswerDiv == true && thread.closeDate == ''">
+        <div class="row" v-show="showAnswerDiv == true && threadFechada() == false">
           <div class="col-md-12 text-left">
             <h4>Responder</h4>
             <textarea
@@ -780,6 +780,17 @@ export default {
       };
 
       this.$store.dispatch("add_notification", obj);
+    },
+    threadFechada() {
+      if(typeof this.thread.closeDate == "object"){
+        if (this.thread == null) return false
+      }
+
+      if (typeof this.thread.closeDate == "string") {
+        if (this.thread == "") return false
+      }
+
+      return true
     }
   }
 };

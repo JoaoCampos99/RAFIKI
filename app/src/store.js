@@ -392,7 +392,7 @@ export default new Vuex.Store({
       let aux = [];
       for (let thread of arr) {
         let views = thread.views == undefined ? 0 : thread.views
-        let closedate = thread.closeDate == undefined || thread.closeDate == null ? null : thread.closeDate
+        let closedate = (thread.closeDate == undefined || thread.closeDate == null) ? null : thread.closeDate
         console.log(closedate)
         let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
         // let views = thread.views == undefined ? 0 : thread.views;
