@@ -147,7 +147,7 @@
             <td>{{getUserById(thread.userid).name}}</td>
             <td>
               <button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)" > X </button>
-              <button type="button" class="btn btn-caution btn-sm" @click="closeThread(thread.id)" v-if="thread.closeDate==null"> Close </button>
+              <button type="button" class="btn btn-caution btn-sm" @click="closeThread(thread.id)" v-if="thread.closeDate==''"> Close </button>
             </td>
           
           </tr>

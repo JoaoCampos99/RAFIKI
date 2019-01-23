@@ -381,7 +381,8 @@ export default new Vuex.Store({
       let aux = []
       for (let thread of arr) {
         let views = thread.views == undefined ? 0 : thread.views
-        let closedate = thread.closeDate == undefined || null ? null : thread.closeDate
+        let closedate = thread.closeDate == undefined || thread.closeDate == null ? null : thread.closeDate
+        console.log(closedate)
         let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
 
         th.tags.push({
@@ -590,7 +591,7 @@ export default new Vuex.Store({
           //S7swes5kWKmU6fHC-PcvXA joao gmail
           /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
           se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 1,
             name: "personNickname",
@@ -635,7 +636,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 1,
             userid: "numberInt|1,10",
@@ -661,6 +662,7 @@ export default new Vuex.Store({
             for (let i = 0; i < ans.length; i++) {
               ans[i].id = i + 1;
             }
+            // ans.closeDate = null
             console.log(ans);
             context.commit("save_threads", ans);
           })
@@ -678,7 +680,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -717,7 +719,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "Mn4xigS5bbMoHf8DRqmiHA",
+          token: "k_x0qyzrU3rzj9Y2qfzQSA",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",
