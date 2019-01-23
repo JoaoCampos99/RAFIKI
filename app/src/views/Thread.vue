@@ -118,6 +118,11 @@
             </div>
           </div>
         </div>
+        <div class="card threadFechada" v-show="thread.closeDate != null">
+          <div class="card-body text-center">
+            <h1>Esta Thread encontra-se Fechada!!!</h1>
+          </div>
+        </div>
         <hr class="devilhr">
         <div>
           <!-- Respostas e Comentários -->
@@ -140,7 +145,7 @@
                   <div class="clearfix"></div>
                   <p>{{ans.answer}}</p>
                   <p>
-                    <a
+                    <a v-show="thread.closeDate == null"
                       v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
                       v-on:click="commentAnswer(ans.id)"
@@ -206,7 +211,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="showAnswerDiv">
+        <div class="row" v-show="showAnswerDiv == true && thread.closeDate == null">
           <div class="col-md-12 text-left">
             <h4>Responder</h4>
             <textarea
@@ -706,7 +711,7 @@ export default {
         }
 
         if (seguir) {
-          Swal("Boa", "Mamai", "success");
+          Swal("Boa", "", "success");
 
           /* Notidicação */
           this.addNotificacionToStore(
@@ -793,5 +798,10 @@ a:hover {
   width: 100%;
   height: 15rem;
   resize: none;
+}
+div.threadFechada{
+  border: 1px solid orange;
+  border-radius: 7px;
+  font-family:fantasy; 
 }
 </style>

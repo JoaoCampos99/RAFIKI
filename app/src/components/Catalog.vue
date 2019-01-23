@@ -41,11 +41,11 @@
           <img src="../assets/logo.png" class="card-img-left img-fluid" alt="...">
       </div>-->
       <div class="card-body">
-        <router-link
-          v-bind:to="{name: 'thread', params: {threadid: thread.id}}"
+        <a
           tag="h5"
           class="card-title titulo"
-        >{{thread.title}}</router-link>
+          v-on:click="incrementar(thread.id)"
+        >{{thread.title}}</a>
         <h6 class="card-subtitle mb-2 text-muted">{{thread.date}}</h6>
         <p class="card-text">
           <span v-for="tag in thread.tags" v-bind:key="tag.id">{{tag.text}}</span>
@@ -121,6 +121,18 @@ export default {
           return true;
         }
       });
+    }
+  },
+  methods: {
+    incrementar(id) {
+      console.log("FODACE");
+      this.$router.push({
+        name: "thread",
+        params: {
+          threadid: id
+        }
+      });
+      this.$store.dispatch("increment_views", id);
     }
   }
 };

@@ -87,6 +87,7 @@ export default {
           threadid: id
         }
       });
+      this.$store.dispatch("increment_views", id);
     }
   }
 };

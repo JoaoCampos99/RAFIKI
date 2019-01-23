@@ -61,10 +61,10 @@
                   <i v-else class="fas fa-user"></i>
                 </div>
                 <div class="desc">
-                  <router-link
+                  <a
                     v-if="res.name == undefined"
-                    v-bind:to="{name: 'thread', params: {threadid: res.id}}"
-                  >{{res.title}}</router-link>
+                    v-on:click="incrementar(res.id)"
+                  >{{res.title}}</a>
                   <router-link
                     v-else
                     v-bind:to="{name: 'viewprofile', params: {visiteduserid: res.id}}"
@@ -131,6 +131,15 @@ export default {
     console.log("alalalalal - " + this.loginID);
   },
   methods: {
+    incrementar(threadid) {
+      this.$router.push({
+        name: "thread",
+        params: {
+          threadid: id
+        }
+      });
+      this.$store.dispatch("increment_views", threadid);
+    },
     openDialog() {
       // let dialog = document.getElementById('dialogSearch')
       // dialog.show()
@@ -185,7 +194,7 @@ export default {
 
       this.cont = aux.length;
 
-      // console.log(aux)
+      console.log(aux)
       // console.log(this.cont)
       return aux;
     }

@@ -115,19 +115,8 @@ class User {
   }
 }
 
-// id: 1,
-//             userid: "numberInt|1,10",
-//             title: "stringWords",
-//             question: "<p>Mamaaaaaaaaaas</p>",
-//             tags: [], //"functionArray|2|stringWords|1,2",
-//             idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-//             upvotes: "numberInt|1,100",
-//             date: "dateTime|ISOdate",
-//             views: "numberInt|1,20", // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-//             course: "stringCharacters|3,4",
-//             closeDate: null,
 class Thread {
-  constructor(id, userid, title, question, idGroup, course, upvotes) {
+  constructor(id, userid, title, question, idGroup, course, upvotes, closedate, views) {
     this.id = id
     this.userid = userid
     this.title = title
@@ -138,7 +127,8 @@ class Thread {
     this.date = new Date().toISOString().split('T')[0]
     this.views = 0
     this.course = course
-    this.closeDate = null
+    this.closeDate = closedate
+    this.views = views
   }
 }
 class Answer {
@@ -390,7 +380,9 @@ export default new Vuex.Store({
       console.log(arr);
       let aux = []
       for (let thread of arr) {
-        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes)
+        let views = thread.views == undefined ? 0 : thread.views
+        let closedate = thread.closeDate == undefined || null ? null : thread.closeDate
+        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
 
         th.tags.push({
           id: th.tags.length == 0 ? 1 : th.tags[th.tags.length - 1].id + 1,
@@ -493,9 +485,20 @@ export default new Vuex.Store({
       console.log(obj)
       state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
       if (state.users[obj.indexUser].notifications.length == 6) state.users[obj.indexUser].notifications.shift()
+    },
+    /* views */
+    increment_views(state, idthread) {
+      console.log('MUTATION')
+      let index = state.threads.findIndex(thr => thr.id == idthread);
+      state.threads[index].views++;
     }
   },
   actions: {
+    /* views */
+    increment_views(context, idthread) {
+      console.log('ACTION')
+      context.commit("increment_views", idthread)
+    },
     /* Notificações */
     change_notification_status(context, obj) {
       context.commit('change_notification_status', obj);
@@ -637,7 +640,7 @@ export default new Vuex.Store({
             id: 1,
             userid: "numberInt|1,10",
             title: "stringWords",
-            question: "<p>Mamaaaaaaaaaas</p>",
+            question: "stringLong",
             tags: [], //"functionArray|2|stringWords|1,2",
             idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
             upvotes: "numberInt|1,100",

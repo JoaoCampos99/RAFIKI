@@ -63,8 +63,8 @@
             </a>
             <div id="drops" class="dropdown-menu">
               <div
-                v-for="noti of notificacoes"
-                v-bind:key="noti.id"
+                v-for="(noti, cont) of notificacoes"
+                v-bind:key="cont"
                 v-on:click="notificacaoVista(noti.id)"
               >
                 <router-link
