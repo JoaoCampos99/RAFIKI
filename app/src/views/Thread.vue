@@ -214,7 +214,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="showAnswerDiv == true && threadFechada() == false">
+        <div class="row" v-show="showAnswerDiv == true && threadFechada() == true">
           <div class="col-md-12 text-left">
             <h4>Responder</h4>
             <textarea
