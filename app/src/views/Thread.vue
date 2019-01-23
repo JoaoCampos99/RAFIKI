@@ -214,7 +214,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="showAnswerDiv == true && threadFechada() == false">
+        <div class="row" v-show="showAnswerDiv == true && threadFechada()">
           <div class="col-md-12 text-left">
             <h4>Responder</h4>
             <textarea
@@ -234,26 +234,8 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div class="row mb-2">
-          <div class="col-md-12">
-            <div class="card">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5>Related</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active">First item</a>
-                <a href="#" class="list-group-item list-group-item-action">Second item</a>
-                <a href="#" class="list-group-item list-group-item-action">Third item</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h3 style="padding: 0 0 0 5; padding-inline-start: 20px">Topics For You</h3>
+        <related></related>
       </div>
     </div>
     <dialog id="idDialog" ref="myDialogcomment">
@@ -289,7 +271,11 @@ window.addEventListener("click", contarClicks);
 function contarClicks(nClicks) {}
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
 import "../../node_modules/sweetalert2/src/sweetalert2.scss";
+import Related from "@/components/Related.vue";
 export default {
+  components: {
+    Related
+  },
   data() {
     return {
       thread: null,
@@ -387,9 +373,9 @@ export default {
       let caixaComentarios = document.getElementsByClassName("theWrapper");
       console.log(caixaComentarios, ansid);
 
-      let index = null
-      for(let i = 0; i<caixaComentarios.length; i++){
-        if (caixaComentarios[i].id == ansid) index = i 
+      let index = null;
+      for (let i = 0; i < caixaComentarios.length; i++) {
+        if (caixaComentarios[i].id == ansid) index = i;
       }
       if (caixaComentarios[index].style.display == "none") {
         caixaComentarios[index].style.display = "block";
@@ -782,15 +768,15 @@ export default {
       this.$store.dispatch("add_notification", obj);
     },
     threadFechada() {
-      if(typeof this.thread.closeDate == "object"){
-        if (this.thread == null) return false
+      if (typeof this.thread.closeDate == "object") {
+        if (this.thread == null) return false;
       }
 
       if (typeof this.thread.closeDate == "string") {
-        if (this.thread == "") return false
+        if (this.thread == "") return false;
       }
 
-      return true
+      return true;
     }
   }
 };
