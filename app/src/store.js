@@ -38,7 +38,7 @@ class User {
     this.year = year;
     this.course = course;
     this.upvotes = upvotes;
-    this.notifications = notifications
+    this.notifications = notifications;
   }
 
   getLevel() {
@@ -51,7 +51,7 @@ class User {
     let trueRank = null;
     console.log(this.level);
     switch (
-    rank //O calculo do rank deve estar mal....
+      rank //O calculo do rank deve estar mal....
     ) {
       case 0:
         trueRank = "A começar";
@@ -72,7 +72,7 @@ class User {
     this.badges = [];
     // console.log(threadsArr);
     let tr = this.getThreads(threadsArr, commentsArr, answersArr); //Isto depois vai substituir a batota
-    console.log(tr)
+    console.log(tr);
     // let batota = 20;
     for (let badge of badgesArr) {
       let gravar = false;
@@ -97,12 +97,13 @@ class User {
     return badges;
   }
 
-  getThreads(threadsArr, commentsArr, answersArr) { /* Vai ter que returnar um numero */
+  getThreads(threadsArr, commentsArr, answersArr) {
+    /* Vai ter que returnar um numero */
     let total = 0;
 
-    total += threadsArr.filter(th => th.userid == this.id).length
-    total += commentsArr.filter(cm => cm.idUser == this.id).length
-    total += answersArr.filter(ans=> ans.idUser == this.id).length
+    total += threadsArr.filter(th => th.userid == this.id).length;
+    total += commentsArr.filter(cm => cm.idUser == this.id).length;
+    total += answersArr.filter(ans => ans.idUser == this.id).length;
     return total;
   }
 
@@ -116,19 +117,29 @@ class User {
 }
 
 class Thread {
-  constructor(id, userid, title, question, idGroup, course, upvotes, closedate, views) {
-    this.id = id
-    this.userid = userid
-    this.title = title
-    this.question = question
-    this.tags = []
-    this.idGroup = idGroup
+  constructor(
+    id,
+    userid,
+    title,
+    question,
+    idGroup,
+    course,
+    upvotes,
+    closedate,
+    views
+  ) {
+    this.id = id;
+    this.userid = userid;
+    this.title = title;
+    this.question = question;
+    this.tags = [];
+    this.idGroup = idGroup;
     this.upvotes = upvotes;
-    this.date = new Date().toISOString().split('T')[0]
-    this.views = 0
-    this.course = course
-    this.closeDate = closedate
-    this.views = views
+    this.date = new Date().toISOString().split("T")[0];
+    this.views = 0;
+    this.course = course;
+    this.closeDate = closedate;
+    this.views = views;
   }
 }
 class Answer {
@@ -138,7 +149,7 @@ class Answer {
     this.answer = ans;
     this.idUser = idUser;
     this.upvotes = upvotes;
-    this.date = new Date().toISOString().split('T')[0];
+    this.date = new Date().toISOString().split("T")[0];
   }
 }
 
@@ -149,7 +160,7 @@ class Notification {
     this.idUserFirst = idUserFirst;
     this.text = text;
 
-    this.data = new Date().toISOString().split('T')[0];
+    this.data = new Date().toISOString().split("T")[0];
     this.visto = false;
   }
 }
@@ -332,7 +343,7 @@ export default new Vuex.Store({
     ADD_THREAD(state, payload) {
       let aux = state.threads;
       if (state.threads.length != 0) {
-        state.threads.sort(function (a, b) {
+        state.threads.sort(function(a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
         });
@@ -342,8 +353,8 @@ export default new Vuex.Store({
         payload.id = 1;
       }
 
-      aux.push(payload)
-      console.log(aux)
+      aux.push(payload);
+      console.log(aux);
       state.threads = aux;
       //Achoq que vai ser auqi que vai ser atualoizado a experiencia do user
     },
@@ -353,9 +364,9 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
-        console.log(user)
-        let ups = user.upvotes == undefined ? [] : user.upvotes
-        let notis = user.notifications == undefined ? [] : user.notifications
+        console.log(user);
+        let ups = user.upvotes == undefined ? [] : user.upvotes;
+        let notis = user.notifications == undefined ? [] : user.notifications;
         let us = new User(
           user.id,
           user.name,
@@ -378,26 +389,49 @@ export default new Vuex.Store({
     },
     save_threads(state, arr) {
       console.log(arr);
-      let aux = []
+      let aux = [];
       for (let thread of arr) {
-        let views = thread.views == undefined ? 0 : thread.views
-        let closedate = thread.closeDate == undefined || null ? null : thread.closeDate
-        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
+        let views = thread.views == undefined ? 0 : thread.views;
+        let closedate =
+          thread.closeDate == undefined || null ? null : thread.closeDate;
+        let th = new Thread(
+          thread.id,
+          thread.userid,
+          thread.title,
+          thread.question,
+          0,
+          null,
+          thread.upvotes,
+          closedate,
+          views
+        );
 
-        th.tags.push({
-          id: th.tags.length == 0 ? 1 : th.tags[th.tags.length - 1].id + 1,
-          text: th.title.split(' ')[0]
-        })
+        th.tags.push(
+          {
+            id: 1,
+            text: "vue.js"
+          },
+          {
+            id: 2,
+            text: "javascript"
+          }
+        );
 
-        aux.push(th)
+        aux.push(th);
       }
       state.threads = aux;
     },
     save_answers(state, arr) {
-      let aux = []
+      let aux = [];
       for (let ans of arr) {
-        let as = new Answer(ans.id, ans.idThread, ans.answer, ans.idUser, ans.upvotes);
-        aux.push(as)
+        let as = new Answer(
+          ans.id,
+          ans.idThread,
+          ans.answer,
+          ans.idUser,
+          ans.upvotes
+        );
+        aux.push(as);
       }
 
       state.answers = aux;
@@ -426,7 +460,8 @@ export default new Vuex.Store({
     add_upvote_thread(state, id) {
       state.threads.filter(th => th.id == id)[0].upvotes++;
     },
-    add_upvote_answer(state, id) { //É o id da answer
+    add_upvote_answer(state, id) {
+      //É o id da answer
       state.answers.filter(ans => ans.id == id)[0].upvotes++;
     },
     add_upvote_comment(state, id) {
@@ -434,7 +469,7 @@ export default new Vuex.Store({
     },
     add_upvote_user(state, up) {
       console.log("ata");
-      let addExp = 10
+      let addExp = 10;
 
       let index = state.users.findIndex(us => us.id == up.userid);
       state.users[index].exp += addExp;
@@ -442,39 +477,39 @@ export default new Vuex.Store({
       state.users[index].upvotes.push(up.up);
     },
     DELETE_USER(state, id) {
-      let index = state.users.findIndex(user => user.id == id)
+      let index = state.users.findIndex(user => user.id == id);
       state.users.splice(index, 1);
     },
     DELETE_BADGE(state, id) {
-      let index = state.badges.findIndex(badge => badge.id == id)
+      let index = state.badges.findIndex(badge => badge.id == id);
       state.badges.splice(index, 1);
     },
     DELETE_THREAD(state, id) {
-      let index = state.threads.findIndex(thread => thread.id == id)
+      let index = state.threads.findIndex(thread => thread.id == id);
       state.threads.splice(index, 1);
     },
     DELETE_TAG(state, id) {
-      let index = state.tags.findIndex(tag => tag.id == id)
+      let index = state.tags.findIndex(tag => tag.id == id);
       state.tags.splice(index, 1);
     },
 
     ADD_BADGE(state, payload) {
       let aux = state.badges;
-      aux.push(payload)
-      console.log(aux)
+      aux.push(payload);
+      console.log(aux);
       state.badges = aux;
     },
     add_comment(state, com) {
       state.comments.push(com);
-      let index = state.users.findIndex(us => us.id == com.idUser)
+      let index = state.users.findIndex(us => us.id == com.idUser);
       state.users[index].exp += 20;
     },
     add_user_follow(state, obj) {
-      state.users[obj.index].follow.push(obj.threadid)
+      state.users[obj.index].follow.push(obj.threadid);
     },
     CLOSE_THREAD(state, id) {
-      let index = state.threads.findIndex(thread => thread.id == id)
-      state.threads[index].closeDate = new Date().toISOString().split('T')[0]
+      let index = state.threads.findIndex(thread => thread.id == id);
+      state.threads[index].closeDate = new Date().toISOString().split("T")[0];
     },
     /* Notificações */
     add_notification(state, obj) {
@@ -482,13 +517,14 @@ export default new Vuex.Store({
       state.users[index].notifications.push(obj.notification);
     },
     change_notification_status(state, obj) {
-      console.log(obj)
+      console.log(obj);
       state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
-      if (state.users[obj.indexUser].notifications.length == 6) state.users[obj.indexUser].notifications.shift()
+      if (state.users[obj.indexUser].notifications.length == 6)
+        state.users[obj.indexUser].notifications.shift();
     },
     /* views */
     increment_views(state, idthread) {
-      console.log('MUTATION')
+      console.log("MUTATION");
       let index = state.threads.findIndex(thr => thr.id == idthread);
       state.threads[index].views++;
     }
@@ -496,47 +532,55 @@ export default new Vuex.Store({
   actions: {
     /* views */
     increment_views(context, idthread) {
-      console.log('ACTION')
-      context.commit("increment_views", idthread)
+      console.log("ACTION");
+      context.commit("increment_views", idthread);
     },
     /* Notificações */
     change_notification_status(context, obj) {
-      context.commit('change_notification_status', obj);
+      context.commit("change_notification_status", obj);
     },
     add_notification(context, obj) {
-      console.log(obj)
-      let newNotification = new Notification(obj.notification.id, obj.notification.idThread, obj.notification.idUserFirst, obj.notification.text)
-      context.commit("add_notification", { idUser: obj.idUser, notification: newNotification });
+      console.log(obj);
+      let newNotification = new Notification(
+        obj.notification.id,
+        obj.notification.idThread,
+        obj.notification.idUserFirst,
+        obj.notification.text
+      );
+      context.commit("add_notification", {
+        idUser: obj.idUser,
+        notification: newNotification
+      });
     },
     // OFFICE
     close_thread(context, id) {
-      context.commit("CLOSE_THREAD", id)
+      context.commit("CLOSE_THREAD", id);
     },
     delete_user(context, id) {
-      context.commit("DELETE_USER", id)
+      context.commit("DELETE_USER", id);
     },
 
     delete_badge(context, id) {
-      context.commit("DELETE_BADGE", id)
+      context.commit("DELETE_BADGE", id);
     },
 
     delete_thread(context, id) {
-      context.commit("DELETE_THREAD", id)
+      context.commit("DELETE_THREAD", id);
     },
 
     delete_tag(context, id) {
-      context.commit("DELETE_TAG", id)
+      context.commit("DELETE_TAG", id);
     },
 
     add_badge(context, payload) {
       context.commit("ADD_BADGE", payload);
     },
     add_answer(context, answer) {
-      context.commit('add_answer', answer)
+      context.commit("add_answer", answer);
     },
     /* 3 actions e 3 mutations para (threads, answers, comments) */
     add_comment(context, comment) {
-      context.commit("add_comment", comment)
+      context.commit("add_comment", comment);
     },
     add_upvote_thread(context, id) {
       context.commit("add_upvote_thread", id);
@@ -747,8 +791,11 @@ export default new Vuex.Store({
       }
     },
     add_user_follow(context, obj) {
-      let index = this.getters.getUsers.findIndex(us => us.id == obj.userid)
-      context.commit("add_user_follow", { index: index, threadid: obj.threadid })
+      let index = this.getters.getUsers.findIndex(us => us.id == obj.userid);
+      context.commit("add_user_follow", {
+        index: index,
+        threadid: obj.threadid
+      });
     }
   },
   getters: {

@@ -78,6 +78,7 @@ export default {
         console.log(this.relatedTags);
       }
     }
+    this.relatedThreads.length = 5;
   },
   methods: {
     goToThread(id) {
