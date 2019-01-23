@@ -60,7 +60,7 @@
       </table>
     </div>
 
-    <!--<div
+    <!-- <div
       class="border-pill border col-sm-12"
       v-for="thread in filteredThreads"
       v-bind:key="thread.id"
@@ -92,7 +92,7 @@
         <a href="#" class="card-link"> Views {{thread.views}}</a>
         <h6 class="card-subtitle mb-2 text-muted">Posted {{thread.date}}</h6>
       </div>
-    </div>-->
+    </div> -->
   </div>
 
   <!-- </div> -->
@@ -113,12 +113,6 @@ export default {
       autocompleteItems: this.$store.state.tags,
       threads: this.$store.state.threads
     };
-  },
-  methods: {
-      getUserById(id){
-        return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
-    }
-
   },
   created() {
     if (this.$store.state.searchTag != "") {
@@ -178,7 +172,10 @@ export default {
         }
       });
       this.$store.dispatch("increment_views", id);
-    }
+    },
+      getUserById(id){
+        return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
+        }
   }
 };
 </script>
