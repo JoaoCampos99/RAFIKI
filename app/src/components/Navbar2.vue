@@ -10,9 +10,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    <a href="/">
+        <router-link :to="{name:'home'}">
       <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px">
-    </a>
+    </router-link>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
