@@ -34,9 +34,6 @@
         <router-link :to="{name:'MyThreads'}" :class="{'nav-link':true}">My Threads</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{name:'MyGroups'}" :class="{'nav-link':true}">My Groups</router-link>
-      </li>
-      <li class="nav-item">
         <router-link :to="{name:'MyBadges'}" :class="{'nav-link':true}">My Badges</router-link>
       </li>
       <li class="nav-item">
