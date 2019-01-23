@@ -145,7 +145,8 @@
                   <div class="clearfix"></div>
                   <p>{{ans.answer}}</p>
                   <p>
-                    <a v-show="thread.closeDate == null"
+                    <a
+                      v-show="thread.closeDate == null"
                       v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
                       v-on:click="commentAnswer(ans.id)"
@@ -171,38 +172,40 @@
                 </div>
               </div>
               <div v-bind:class="className(ans.id)">
-                <div
-                  class="card card-inner"
-                  v-for="com in comments"
-                  v-bind:key="com.id"
-                  v-if="com.idAnswer == ans.id"
-                >
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-2">
-                        <img src class="img img-rounded img-fluid">
-                        <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
-                      </div>
-                      <div class="col-md-10">
-                        <p>
-                          <a href>
-                            <strong>{{userNome(com.idUser)}}</strong>
-                          </a>
-                        </p>
-                        <p>{{com.text}}</p>
-                        <p>
-                          <!-- <a class="float-right btn btn-outline-primary ml-2">
+                <div class="theWrapper">
+                  <div
+                    class="card card-inner"
+                    v-for="com in comments"
+                    v-bind:key="com.id"
+                    v-if="com.idAnswer == ans.id"
+                  >
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <img src class="img img-rounded img-fluid">
+                          <!-- <p class="text-secondary text-center">15 Minutes Ago</p> -->
+                        </div>
+                        <div class="col-md-10">
+                          <p>
+                            <a href>
+                              <strong>{{userNome(com.idUser)}}</strong>
+                            </a>
+                          </p>
+                          <p>{{com.text}}</p>
+                          <p>
+                            <!-- <a class="float-right btn btn-outline-primary ml-2">
                             <i class="fa fa-reply"></i>
-                          </a>-->
-                          <a
-                            class="float-right btn text-white btn-success ml-2"
-                            v-on:click="upvoteComment(com.id, ans.id)"
-                          >
-                            <i
-                              class="fas fa-thumbs-up"
-                            >| {{com.upvotes == 0 ? '' : parseInt(com.upvotes)}}</i>
-                          </a>
-                        </p>
+                            </a>-->
+                            <a
+                              class="float-right btn text-white btn-success ml-2"
+                              v-on:click="upvoteComment(com.id, ans.id)"
+                            >
+                              <i
+                                class="fas fa-thumbs-up"
+                              >| {{com.upvotes == 0 ? '' : parseInt(com.upvotes)}}</i>
+                            </a>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -324,9 +327,9 @@ export default {
     this.user = this.$store.getters.getUsers.filter(
       user => this.thread.userid == user.id
     )[0];
-    console.log("OLAAAA");
-    console.log(this.thread);
-    console.log(this.user);
+    // console.log("OLAAAA");
+    // console.log(this.thread);
+    // console.log(this.user);
     if (!this.$store.getters.getAuth) {
       localStorage.setItem("setLastThread", threadid);
     }
@@ -799,9 +802,9 @@ a:hover {
   height: 15rem;
   resize: none;
 }
-div.threadFechada{
+div.threadFechada {
   border: 1px solid orange;
   border-radius: 7px;
-  font-family:fantasy; 
+  font-family: fantasy;
 }
 </style>

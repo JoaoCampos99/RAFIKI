@@ -3,7 +3,7 @@
   <div id="letabela">
     <!--Filtros-->
     <div style="padding:5px;">
-      <span>Filter Threads By: </span>
+      <span>Filter Threads By:</span>
       <select class="custom-select" style="width:30%;" v-model="searchBy">
         <option value="All">All</option>
         <option>Tag</option>
@@ -46,11 +46,11 @@
         <tbody>
           <tr v-for="(thread) in $store.state.threads" v-bind:key="thread.id">
             <td>
-              <router-link
-                v-bind:to="{name: 'thread', params: {threadid: thread.id}}"
-              >{{thread.title}}</router-link>
+              <a v-on:click="incrementar(thread.id)" class="title">{{thread.title}}</a>
             </td>
-            <td><img v-bind:src="getUserById(thread.userid).foto" class="img-fluid pic"></td>
+            <td>
+              <img v-bind:src="getUserById(thread.userid).foto" class="img-fluid pic">
+            </td>
             <td>{{thread.views}}</td>
 
             <td>{{thread.upvotes}}</td>
@@ -73,7 +73,6 @@
         <a
           tag="h5"
           class="card-title titulo"
-          v-on:click="incrementar(thread.id)"
         >{{thread.title}}</a>
         <h6 class="card-subtitle mb-2 text-muted">{{thread.date}}</h6>
         <p class="card-text">
@@ -92,7 +91,7 @@
         <a href="#" class="card-link"> Views {{thread.views}}</a>
         <h6 class="card-subtitle mb-2 text-muted">Posted {{thread.date}}</h6>
       </div>
-    </div> -->
+    </div>-->
   </div>
 
   <!-- </div> -->
@@ -164,7 +163,6 @@ export default {
   },
   methods: {
     incrementar(id) {
-      console.log("FODACE");
       this.$router.push({
         name: "thread",
         params: {
@@ -173,9 +171,9 @@ export default {
       });
       this.$store.dispatch("increment_views", id);
     },
-      getUserById(id){
-        return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
-        }
+    getUserById(id) {
+      return this.$store.getters.getUsers.filter(user => user.id == id)[0];
+    }
   }
 };
 </script>
@@ -241,5 +239,9 @@ th {
   padding: 8px;
   color: black !important;
   background-color: #ffffff !important;
+}
+td > a.title {
+  color: blue;
+  cursor: pointer;
 }
 </style>
