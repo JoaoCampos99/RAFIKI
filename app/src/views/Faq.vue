@@ -69,21 +69,34 @@
         <div class="card">
           <h2 class="card-title text-center">Vue chart</h2>
           <div class="card-body">
-            <a href="https://daneden.github.io/animate.css/">https://daneden.github.io/animate.css/</a>
+            <a href="https://ecomfe.github.io/vue-echarts/">https://ecomfe.github.io/vue-echarts/</a>
           </div>
         </div>
       </div>
       <div class="col-md-3">
         <div class="card">
-          <h2 class="card-title text-center">Sweet Alert 2</h2>
+          <h2 class="card-title text-center">Vue2 editor</h2>
           <div class="card-body">
             <!-- <a href="https://daneden.me/">Daniel Eden</a>
             <br>-->
-            <a href="https://sweetalert2.github.io/">https://sweetalert2.github.io/</a>
+            <a href="https://davidroyer.github.io/vue2-editor/#/">https://davidroyer.github.io/vue2-editor/#/</a>
           </div>
         </div>
       </div>
     </div>
+    <br>
+    <div class="row text-center">
+		<div class="col-md-12">
+      <div class="card cardFooter">
+          <h2 class="card-title text-center">fakeJSON</h2>
+          <div class="card-body text-center">
+            <!-- <a href="https://daneden.me/">Daniel Eden</a>
+            <br>-->
+            <a href="https://fakejson.com/documentation#js_using">https://fakejson.com/documentation#js_using</a>
+          </div>
+        </div>
+		</div>
+	</div>
     <br>
   </div>
 </template>
@@ -118,6 +131,10 @@ div {
 .titleFAQ {
   color: rgb(46, 161, 255);
 }
+.cardFooter {
+  width:100%!important
+}
+
 </style>
 
 
