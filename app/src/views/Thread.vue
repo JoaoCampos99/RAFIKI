@@ -171,8 +171,8 @@
                   </p>
                 </div>
               </div>
-              <div v-bind:class="className(ans.id)">
-                <div class="theWrapper">
+              <div v-bind:class="ans.id">
+                <div v-bind:id="ans.id" class="theWrapper">
                   <div
                     class="card card-inner"
                     v-for="com in comments"
@@ -384,14 +384,19 @@ export default {
       }).length;
     },
     hideComments(evt, ansid) {
-      console.log(evt.target.id, ansid);
-      // let idMudar = evt.target.id;
-      // open = !open;
-      // if (idMudar == ansid) {
-      //   if (open) {
-      //     this.arrowCommentDirection = "fas fa-caret-up";
-      //   } else this.arrowCommentDirection = "fas fa-sort-down";
-      // }
+      let caixaComentarios = document.getElementsByClassName("theWrapper");
+      console.log(caixaComentarios, ansid);
+
+      let index = null
+      for(let i = 0; i<caixaComentarios.length; i++){
+        if (caixaComentarios[i].id == ansid) index = i 
+      }
+      if (caixaComentarios[index].style.display == "none") {
+        caixaComentarios[index].style.display = "block";
+      } else {
+        caixaComentarios[index].style.display = "none";
+      }
+      console.log(caixaComentarios[index].style.display);
     },
     commentAnswer(ansid) {
       if (this.$store.getters.getAuth) {
