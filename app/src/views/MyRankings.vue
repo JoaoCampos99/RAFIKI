@@ -43,7 +43,7 @@ export default {
     let pos = this.getIndexByID();
     console.log(pos);
     let cont = 5;
-    if (pos <= 5) {
+    if (pos <= 1) {
       console.log("TOP 5");
       for (let i = 0; i < cont; i++) {
         this.ranks.push(this.users[i]);
