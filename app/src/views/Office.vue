@@ -225,7 +225,7 @@ export default {
     },
 
     closeDialog(){
-      this.$refs.myDialog.closeModal()
+      this.$refs.myDialog.close()
     },
 
     getLastID() {

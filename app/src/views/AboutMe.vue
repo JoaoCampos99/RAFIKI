@@ -11,8 +11,8 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Tecnologias e Sistemas de Informção para Web</td>
-                           <td>2º</td>
+                           <td>{{getUser(this.$route.params.userid).couse}}</td>
+                           <td>{{getUser(this.$route.params.userid).year}}</td>
                            
                         </tr>
                      </tbody>

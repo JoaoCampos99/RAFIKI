@@ -220,10 +220,11 @@ export default {
             name: "AboutMe",
             params: { userid: id }
           });
+          location.reload()
         }
       } else {
         Swal("Password Diferente de Confirmar Password");
-      }
+      } 
     },
     login() {
       console.log(this.users);

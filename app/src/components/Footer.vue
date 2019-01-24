@@ -13,11 +13,11 @@
         <h6>Escola Superior de Media Artes e Design</h6>
 		  </div>
 		  <div class="col-xs-12 col-md-3">
-        <router-link to="faq" id="faq"><h3 class="footerText">FAQ</h3></router-link>
+        <router-link :to="{name:'faq'}" id="faq"><h3 class="footerText">FAQ</h3></router-link>
 		  </div>
 		  <div class="col-xs-12 col-md-3">
         <h3>HELP</h3>
-          <router-link to="contactus" id="contactus">SEND US AN EMAIL</router-link>
+          <router-link :to="{name:'contactus'}" id="contactus">SEND US AN EMAIL</router-link>
 		  </div>
 	  </div>
   </div>

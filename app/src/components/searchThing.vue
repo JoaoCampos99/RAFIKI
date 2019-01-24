@@ -139,6 +139,7 @@ export default {
         }
       });
       this.$store.dispatch("increment_views", threadid);
+      location.reload()
     },
     openDialog() {
       // let dialog = document.getElementById('dialogSearch')
@@ -234,10 +235,10 @@ export default {
 
 @keyframes trocarCoresDiv {
   from {
-    background-color: rgb(80, 253, 80);
+    background-color: rgb(86, 192, 253);
   }
   to {
-    background-color: rgb(223, 139, 43);
+    background-color: rgb(46, 43, 223);
   }
 }
 div.dropdown-divider {
@@ -343,8 +344,8 @@ div.searchbar > a.search_icon:hover {
   border-radius: 50px;
 }
 button.btn {
-  background-color: #353b48;
-  color: green;
+  background-color: #129dfa;
+  color: white;
 }
 div.row > div.dropdowns {
   margin-bottom: 2px;

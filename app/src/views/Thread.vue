@@ -119,7 +119,7 @@
         </div>
         <div class="card threadFechada" v-show="!threadFechada()">
           <div class="card-body text-center">
-            <h1>Esta Thread encontra-se Fechada!!!</h1>
+            <h1>This thread is closed!</h1>
           </div>
         </div>
         <hr class="devilhr">
@@ -215,19 +215,19 @@
         </div>
         <div class="row" v-show="showAnswerDiv == true && threadFechada()==true">
           <div class="col-md-12 text-left">
-            <h4>Responder</h4>
+            <h4>Answer</h4>
             <textarea
               name
               id="resposta"
               cols="30"
               rows="10"
               style="width: inherit"
-              placeholder="Escreve aqui a tua resposta"
+              placeholder="Type your answer"
               v-model="textoResposta"
             ></textarea>
 
             <div class="text-right" style="margin-bottom: 15px;">
-              <button class="btn btn-outline-success" v-on:click="adicionarResposta">Responder</button>
+              <button class="btn btn-outline-success" v-on:click="adicionarResposta">Answer</button>
             </div>
           </div>
         </div>
@@ -240,14 +240,15 @@
     <dialog id="idDialog" ref="myDialogcomment">
       <form method="dialog" v-on:submit="comentar()">
         <h4>
-          Responder a
+          Answer to
           <span
             style="font-weight: bold; font-family: verdana; color: rgb(255, 65, 99);"
           >{{user.name}}</span>
         </h4>
-        <textarea placeholder="Carrega Amélia..." name id="comentario" v-model="commentToAnswer"></textarea>
+        <textarea placeholder="Comment..." name id="comentario" v-model="commentToAnswer"></textarea>
         <div class="col-md-12 text-right">
-          <button class="btn btn-outline-success bg-dark" type="submit">Responder</button>
+          <button class="btn btn-outline-success bg-dark" type="submit">Answer</button>
+          <button class="btn btn-outline-success bg-dark" type="button" @click="closeDialog()">Cancel</button>
         </div>
       </form>
     </dialog>
@@ -346,6 +347,9 @@ export default {
     }
   },
   methods: {
+    closeDialog(){
+      this.$refs.myDialogcomment.close()
+    },
     thisThread() {
       let threadid = this.$route.params.threadid;
       console.log(threadid);
@@ -389,10 +393,10 @@ export default {
         this.ansIdToComment = ansid;
       } else {
         Swal({
-          text: "Tens que entrar na tua conta!!!",
+          text: "First you need to login!",
           type: "error",
           footer:
-            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Register / Login</a>'
         });
       }
     },
@@ -434,7 +438,7 @@ export default {
           });
         }
       } else {
-        Swal("Não escreveste nada", "Atao mas", "question");
+        Swal("You didn't type anything", "Type something", "question");
       }
       this.commentToAnswer = "";
     },
@@ -547,7 +551,7 @@ export default {
         }
       } else {
         Swal({
-          text: "Tens que entrar na tua conta!!!",
+          text: "First you need to login!",
           type: "error",
           footer:
             '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
@@ -613,11 +617,11 @@ export default {
             });
           }
         } else {
-          Swal("Ja inseriste", "Ja deste upvote", "error");
+          Swal("Already done", "You already upvoted", "error");
         }
       } else {
         Swal({
-          text: "Tens que entrar na tua conta!!!",
+          text: "First you need to login!",
           type: "error",
           footer:
             '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
@@ -679,11 +683,11 @@ export default {
             });
           }
         } else {
-          Swal("Ja inseriste", "Ja deste upvote", "error");
+          Swal("Already done", "You already upvoted", "error");
         }
       } else {
         Swal({
-          text: "Tens que entrar na tua conta!!!",
+          text: "First you need to login!",
           type: "error",
           footer:
             '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
@@ -719,14 +723,14 @@ export default {
           });
           this.thisThreadFollows = this.loginUser.follow.length;
         } else {
-          Swal("Já estás a seguir esta thread", "Vai ver mais vai", "error");
+          Swal("You already followed this thread", "Check more threads", "error");
         }
       } else {
         Swal({
-          text: "Tens que entrar na tua conta!!!",
+          text: "First you need to login!",
           type: "error",
           footer:
-            '<a href="#/login" type="button" class="btn btn-outline-dark">Registar / Login</a>'
+            '<a href="#/login" type="button" class="btn btn-outline-dark">Register / Login</a>'
         });
       }
     },

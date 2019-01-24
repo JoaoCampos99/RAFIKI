@@ -10,7 +10,7 @@
           <div class="col-md-8" style="text-align: left">
             <div>
               <select v-model="form.subject">
-                <option value disabled selected hidden>Escolhe</option>
+                <option value disabled selected hidden>Choose</option>
                 <option value="duvida">Duvida</option>
                 <option value="recomendacao">Recomendação</option>
                 <option value="reclamacao">Reclamação</option>
@@ -27,7 +27,7 @@
           </div>
           <div class="col-md-2"></div>
         </div>
-        <button type="submit" class="btn btn-danger">Ola</button>
+        <button type="submit" class="btn btn-danger">Submit</button>
       </form>
     </div>
   </div>
