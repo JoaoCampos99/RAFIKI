@@ -95,6 +95,7 @@ export default {
         }
       });
       this.$store.dispatch("increment_views", id);
+      location.reload()
     }
   }
 };

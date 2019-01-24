@@ -2,7 +2,7 @@
   <div id="searchBox">
     <div class="cont btn-group dropup">
       <button id="searchButton" type="button" class="btn btn-primary" data-toggle="dropdown">
-        <i class="fas fa-search"></i>
+        <i class="fas fa-plus"></i>
       </button>
       <div id="dropsSearchThing" class="dropdown-menu text-right">
         <div class="dropdown-item drop text-right">
@@ -241,7 +241,7 @@ export default {
   }
 }
 div.dropdown-divider {
-  border: 1px solid green;
+  border: 1px solid rgb(20, 247, 255);
   width: 50%;
   margin-left: 75px;
   animation: 10s infinite trocarCoresBorder;

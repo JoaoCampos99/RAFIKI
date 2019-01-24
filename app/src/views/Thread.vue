@@ -56,7 +56,7 @@
                           v-on:click="seguir"
                         >
                           <span class="badge">
-                            <i class="fas fa-user-plus"></i>
+                            <i class="fas fa-heart"></i>
                           </span>
                         </button>
                       </div>
