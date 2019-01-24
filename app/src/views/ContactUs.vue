@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center" style="margin-bottom: 100px;">
-      <h1>isto é a página para nos contactar</h1>
+      <h1>Contact us</h1>
 
       <form v-on:submit.prevent="submit">
         <div class="row" style="margin-bottom: 20px">
@@ -16,13 +16,13 @@
                 <option value="reclamacao">Reclamação</option>
               </select>
             </div>
-            <h4>{{form.user_name}}</h4>Nome:
+            <h4>{{form.user_name}}</h4>Name:
             <input type="text" v-model="form.user_name" class="form-control">
-            <h4>{{form.user_email}}</h4>Mail:
+            <h4>{{form.user_email}}</h4>E-mail:
             <input type="text" v-model="form.user_email" class="form-control">
             <br>
             <br>
-            <h4>Mensagem</h4>
+            <h4>Message</h4>
             <textarea cols="30" rows="17" v-model="form.text" class="form-control"></textarea>
           </div>
           <div class="col-md-2"></div>
@@ -45,7 +45,9 @@ export default {
         subject: "",
         user_name: "",
         user_email: "",
-        text: ""
+        text: "",
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toISOString().split('T')[1]
       }
     };
   },

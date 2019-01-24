@@ -39,7 +39,7 @@
                 v-on:click="showfp = !showfp; emailfp = null"
               >Forgot Password?</p>
               <div class="col-md-12" v-show="showfp">
-                <p class="form-text">Insere o teu e-mail e nós mandamos-te um manguito</p>
+                <p class="form-text">Insert your e-mail and we send you Rafiki</p>
                 <input
                   type="email"
                   v-model="emailfp"

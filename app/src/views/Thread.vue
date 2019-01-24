@@ -25,7 +25,6 @@
                           <a href="#">
                             <small>{{thread.date}}</small>
                             <p></p>
-                            <small>Thread id = {{thread.id}}</small>
                             <!-- Isto e o <p> de cima vão sair, é só para ver o id da thread -->
                           </a>
                         </li>
