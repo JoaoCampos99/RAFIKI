@@ -147,7 +147,7 @@ export default {
         tags: this.tags,
         idGroup: null,
         upvotes: 0,
-        date: new Date(),
+        date: new Date().toISOString().split('T')[0],
         views: 0,
         course: "",
         closeDate: null

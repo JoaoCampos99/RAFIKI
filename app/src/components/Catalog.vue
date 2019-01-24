@@ -44,7 +44,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(thread) in $store.state.threads" v-bind:key="thread.id">
+          <tr v-for="(thread) in filteredThreads" v-bind:key="thread.id">
             <td>
               <a v-on:click="incrementar(thread.id)" class="title">{{thread.title}}</a>
             </td>
@@ -136,6 +136,7 @@ export default {
     }
     console.log(this.tag);
     console.log(this.keyword);
+    console.log(this.tags.length)
   },
   beforeDestroy() {
     this.$store.dispatch("search_tag", "");
@@ -149,8 +150,11 @@ export default {
     filteredThreads() {
       return this.threads.filter(thread => {
         if (this.tags.length == 1) {
+                      console.log("Entra")
+
           if (thread.tags.find(tag => tag.text == this.tag)) {
             return true;
+            console.log("Entra")
           }
         } else if (this.keyword != "") {
           if (thread.title.toLowerCase().includes(this.keyword.toLowerCase()))
