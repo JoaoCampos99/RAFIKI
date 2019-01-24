@@ -135,7 +135,7 @@ export default {
       this.$router.push({
         name: "thread",
         params: {
-          threadid: id
+          threadid: threadid
         }
       });
       this.$store.dispatch("increment_views", threadid);
@@ -380,6 +380,6 @@ div.midlePagination {
   text-align: center;
 }
 div#contentor {
-  background-color: blue;
+  /* background-color: blue; */
 }
 </style>
