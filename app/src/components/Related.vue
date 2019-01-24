@@ -33,10 +33,12 @@ export default {
     if (threadid) {
       let userid = this.$store.getters.getloginID;
       //SE tiver loggado
+      console.log(userid);
       if (userid != 0) {
         this.relatedTags = this.$store.getters.getThreads.filter(
           thread => thread.userid == userid
         );
+        console.log("WTF" + this.relatedTags);
         this.relatedTags = this.relatedTags.map(thread => {
           let newObj = {
             tags: thread.tags
@@ -78,7 +80,11 @@ export default {
         console.log(this.relatedTags);
       }
     }
+
     this.relatedThreads.length = 5;
+    if (this.relatedTags.length == 0) {
+      this.relatedThreads.length = 0;
+    }
   },
   methods: {
     goToThread(id) {
