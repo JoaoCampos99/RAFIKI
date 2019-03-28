@@ -4,20 +4,14 @@
       <button id="searchButton" type="button" class="btn btn-primary" data-toggle="dropdown">
         <i class="fas fa-plus"></i>
       </button>
-      <div id="dropsSearchThing" class="dropdown-menu text-right">
-        <div class="dropdown-item drop text-right">
-          <div v-on:click="cTid" class="botoesSearchThing">Create Thread</div>
-        </div>
-        <div class="dropdown-divider"></div>
-
-        <div class="dropdown-item drop">
+      <div id="dropsSearchThing" class="dropdown-menu">
+          <a v-on:click="cTid" class="dropdown-item botoesSearchThing">Create Thread</a>
           <a
-            class="botoesSearchThing"
+            class="botoesSearchThing dropdown-item"
             data-toggle="modal"
             data-target="#modalSearch"
             v-on:click="openDialog"
           >Search</a>
-        </div>
       </div>
     </div>
 
@@ -243,7 +237,7 @@ export default {
 }
 div.dropdown-divider {
   border: 1px solid rgb(20, 247, 255);
-  width: 50%;
+  width: 100%;
   margin-left: 75px;
   animation: 10s infinite trocarCoresBorder;
 }
@@ -258,30 +252,35 @@ div.dropdown-divider {
 .botoesSearchThing {
   padding: 0px 5px 0px 0px;
   margin: 0px;
-  border: 1px solid green;
+  /* border: 1px solid green; */
   border-radius: 10px;
   background-color: white;
-  width: fit-content;
-  text-align: right;
+  /* width: auto; */
+  /* text-align: right; */
 
-  animation: 10s infinite trocarCoresBorder;
+  /* animation: 10s infinite trocarCoresBorder; */
 }
 div.dropdown-item.drop {
   padding: 0px;
   margin: 0px;
+  display: inline-block !important;
 }
 div#dropsSearchThing {
   border: none;
   cursor: pointer;
   padding: 0px 10px 10px 0px;
-  background-color: rgba(255, 255, 255, 0);
+  /* background-color: rgba(255, 255, 255, 0); */
+  width: 100px !important;
 }
-.drop > div {
-  margin-left: 50px;
+div#dropsSearchThing a {
+  font-weight: 900;
 }
-/* #modalSearch {
-  z-index: -1;
-} */
+div#dropsSearchThing a:hover {
+  background-color: #343a40;
+  color: #ffc107;
+}
+
+
 .modal-backdrop {
   display: none;
 }

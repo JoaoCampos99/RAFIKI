@@ -107,6 +107,7 @@
 <script>
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
 import "../../node_modules/sweetalert2/src/sweetalert2.scss";
+
 class User {
   constructor(id, nome, pass, mail, exp, desc, foto, follow, skill) {
     //fazer nos getter's a atribuição de badges, level e rank

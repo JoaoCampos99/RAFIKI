@@ -51,7 +51,7 @@ class User {
     let trueRank = null;
     console.log(this.level);
     switch (
-      rank //O calculo do rank deve estar mal....
+    rank //O calculo do rank deve estar mal....
     ) {
       case 0:
         trueRank = "A começar";
@@ -184,7 +184,7 @@ export default new Vuex.Store({
       },
       {
         id: 2,
-        name: "Damn! You know alot!",
+        name: "Damn! You know a lot!",
         goal: 20,
         desc: "Give 20 answers",
         category: "help"
@@ -263,20 +263,20 @@ export default new Vuex.Store({
       }
     ],
     threads: [
-      {
-        id: 1,
-        userid: 1,
-        question:
-          "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
-        title: "Como crio um component em vue.js?",
-        tags: [],
-        // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-        upvotes: [],
-        date: "xx/xx/xx",
-        // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-        course: "TSIW"
-        // closeDate: "xx/xx/xx"
-      }
+      // {
+      //   id: 1,
+      //   userid: 1,
+      //   question:
+      //     "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consecteturNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur",
+      //   title: "Como crio um component em vue.js?",
+      //   tags: [],
+      //   // idGroup: "", //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
+      //   upvotes: [],
+      //   date: "xx/xx/xx",
+      //   // views: 0, // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+      //   course: "TSIW"
+      //   // closeDate: "xx/xx/xx"
+      // }
     ],
     tags: [
       {
@@ -343,7 +343,7 @@ export default new Vuex.Store({
     ADD_THREAD(state, payload) {
       let aux = state.threads;
       if (state.threads.length != 0) {
-        state.threads.sort(function(a, b) {
+        state.threads.sort(function (a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
         });
@@ -638,7 +638,7 @@ export default new Vuex.Store({
           //S7swes5kWKmU6fHC-PcvXA joao gmail
           /*Vai ter um objeto com iduser, idthread, idAnswer, idComment
           se estes dois ultimos não tiverem preenchidos é porque pertence a uma thread (users upvotes) */
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: 1,
             name: "personNickname",
@@ -678,28 +678,28 @@ export default new Vuex.Store({
       }
     },
     save_threads(context) {
-      if (
-        !localStorage.getItem("vuex") == true ||
-        JSON.parse(localStorage["vuex"]).threads.length == 0
-      ) {
-        let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
-          data: {
-            id: 1,
-            userid: "numberInt|1,10",
-            title: "stringWords",
-            question: "stringLong",
-            tags: [], //"functionArray|2|stringWords|1,2",
-            idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-            upvotes: "numberInt|1,100",
-            date: "dateTime|ISOdate",
-            views: "numberInt|1,20", // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-            course: "stringCharacters|3,4",
-            closeDate: null,
-            _repeat: 1
-          }
-        };
-        $.ajax({
+      let payload = {
+        token: "I6EFQFoKLa1FFP453_jzQg",
+        data: {
+          id: 1,
+          userid: "numberInt|1,10",
+          title: "stringWords",
+          question: "stringLong",
+          tags: [], //"functionArray|2|stringWords|1,2",
+          idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
+          upvotes: "numberInt|1,100",
+          date: "dateTime|ISOdate",
+          views: "numberInt|1,20", // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
+          course: "stringCharacters|3,4",
+          closeDate: null,
+          _repeat: 1
+        }
+      };
+
+      async function t() {
+       try {
+        console.log('ata');
+        let threads = await $.ajax({
           type: "POST",
           url: "https:app.fakejson.com/q",
           data: payload,
@@ -710,10 +710,23 @@ export default new Vuex.Store({
               ans[i].id = i + 1;
             }
             // ans.closeDate = null
-            console.log(ans);
-            context.commit("save_threads", ans);
+            console.log(ans, 'threads ');
           })
         });
+        console.log(threads);
+        context.commit("save_threads", threads);
+       }
+       catch (err) {
+        console.log(err, 'tá bem joão')
+       } 
+      }
+
+      if (
+        !localStorage.getItem("vuex") == true ||
+        JSON.parse(localStorage["vuex"]).threads.length == 0
+      ) {
+        console.log('alalalalala');
+        t()
       } else {
         context.commit(
           "save_threads",
@@ -727,7 +740,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).threads.length == 0
       ) {
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: 0,
             idThread: "numberInt|1,10",
@@ -766,7 +779,7 @@ export default new Vuex.Store({
         JSON.parse(localStorage["vuex"]).comments.length == 0
       ) {
         let payload = {
-          token: "k_x0qyzrU3rzj9Y2qfzQSA",
+          token: "I6EFQFoKLa1FFP453_jzQg",
           data: {
             id: 0,
             idAnswer: "numberInt|1,10",

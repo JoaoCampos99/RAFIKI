@@ -136,7 +136,7 @@ export default {
     }
     console.log(this.tag);
     console.log(this.keyword);
-    console.log(this.tags.length)
+    console.log(this.tags.length);
   },
   beforeDestroy() {
     this.$store.dispatch("search_tag", "");
@@ -150,11 +150,11 @@ export default {
     filteredThreads() {
       return this.threads.filter(thread => {
         if (this.tags.length == 1) {
-                      console.log("Entra")
+          console.log("Entra");
 
           if (thread.tags.find(tag => tag.text == this.tag)) {
             return true;
-            console.log("Entra")
+            console.log("Entra");
           }
         } else if (this.keyword != "") {
           if (thread.title.toLowerCase().includes(this.keyword.toLowerCase()))
