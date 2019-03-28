@@ -59,10 +59,10 @@
                     v-if="res.name == undefined"
                     v-on:click="incrementar(res.id)"
                   >{{res.title}}</a>
-                  <router-link
+                  <a
                     v-else
-                    v-bind:to="{name: 'viewprofile', params: {visiteduserid: res.id}}"
-                  >{{res.name}}</router-link>
+                    v-on:click="goToUser(res.id)"
+                  >{{res.name}}</a>
                 </div>
               </div>
             </div>
@@ -135,10 +135,18 @@ export default {
       this.$store.dispatch("increment_views", threadid);
       location.reload()
     },
+    goToUser(usid){
+      this.$router.push({
+        name: "viewprofile",
+        params: {
+          visiteduserid: usid
+        }
+      })
+      location.reload()
+    },
     openDialog() {
-      // let dialog = document.getElementById('dialogSearch')
-      // dialog.show()
-      // console.log(this.users);
+      let searchbar = document.querySelector('#search')
+      searchbar.focus()
     },
     cTid() {
       console.log("este e o id" + this.loginID);
@@ -289,7 +297,7 @@ div.searchbar {
   margin-top: auto;
   height: 60px;
   background-color: #353b48;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 10px;
 }
 div.searchbar > input.search_input,
@@ -337,10 +345,10 @@ div.searchbar > a.search_icon {
   padding: 2px;
 }
 div.searchbar > a.search_icon:hover {
-  caret-color: red;
   color: red;
-  background-color: white;
-  border-radius: 50px;
+  cursor: pointer;
+  /* background-color: white;
+  border-radius: 50px; */
 }
 button.btn {
   background-color: #129dfa;
