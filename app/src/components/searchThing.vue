@@ -123,7 +123,7 @@ export default {
   },
   created() {
     console.log("alalalalal - " + this.loginID);
-  },
+  }, //a
   methods: {
     incrementar(threadid) {
       this.$router.push({
