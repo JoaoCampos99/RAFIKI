@@ -30,7 +30,7 @@
         <li class="nav-item">
           <router-link :to="{ name: 'tags' }" :class="{ 'nav-link': true }">Tags</router-link>
         </li>
-        <li class="nav-item" @click="profile">
+        <li class="nav-item point" @click="profile">
           <a class="nav-link">Profile</a>
         </li>
         <li class="nav-item">
@@ -61,7 +61,7 @@
               style="height:20px;border-radius: 50%;"
             >
               <!-- O span vai se mostrar se houver notificações e o innerHTML do "sino" Vai ser o numero de notificações -->
-              <span>
+              <span class="point">
                 <i
                   class="fas fa-bell"
                   style="color: #60CAE2;"
@@ -78,7 +78,7 @@
                   v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
                   class="dropdown-item"
                   v-bind:class="{ 'bgNoti': noti.visto, 'textNoti': noti.visto }"
-                > <i class="far fa-flag"></i>
+                > <i class="far fa-flag ii"></i>
                   <span class="userName">{{users.find(us => us.id == noti.idUserFirst).name}}</span>
                   {{noti.text}}
                 </router-link>
@@ -89,7 +89,7 @@
             </div>
           </div>
         </li>
-        <li class="nav-item" @click="logout">
+        <li class="nav-item point" @click="logout">
           <a class="nav-link">Logout</a>
         </li>
       </ul>
@@ -164,6 +164,12 @@ export default {
 </script>
 
 <style>
+.point{
+  cursor: pointer;
+}
+.ii{
+  margin-right: 10px;
+}
 .textNoti{
 color:white !important;
 }

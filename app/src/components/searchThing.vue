@@ -29,7 +29,7 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="col-md-12">
-              <h1 class="text-center" style="display: inline-block; width: 50%;">Pesquisar</h1>
+              <h1 class="text-center" style="display: inline-block; width: 50%;">Search</h1>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true bg-blue">&times;</span>
               </button>
@@ -40,7 +40,7 @@
                   id="search"
                   type="text"
                   class="search_input form-control"
-                  placeholder="Search..."
+                  placeholder="Find what you want"
                   v-model="searchText"
                 >
                 <a class="search_icon">
@@ -94,11 +94,8 @@
               </nav>
             </div>
           </div>
-          <hr class="devilhr">
-          <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-            <button type="button" class="btn">Look Up!</button>
-          </div>
+          
+
         </div>
       </div>
     </div>
@@ -237,17 +234,17 @@ export default {
 
 @keyframes trocarCoresDiv {
   from {
-    background-color: rgb(86, 192, 253);
+    background-color: #60CAE2;
   }
   to {
-    background-color: rgb(46, 43, 223);
+    background-color:#1C91C2;
   }
 }
 div.dropdown-divider {
   border: 1px solid rgb(20, 247, 255);
   width: 100%;
   margin-left: 75px;
-  animation: 10s infinite trocarCoresBorder;
+  animation: 5s infinite trocarCoresBorder;
 }
 @keyframes trocarCoresBorder {
   from {
@@ -281,11 +278,11 @@ div#dropsSearchThing {
   width: 100px !important;
 }
 div#dropsSearchThing a {
-  font-weight: 900;
+  font-weight: 600;
 }
 div#dropsSearchThing a:hover {
-  background-color: #343a40;
-  color: #ffc107;
+  background-color: #1C91C2;
+  color: white;
 }
 
 
@@ -296,7 +293,7 @@ div.searchbar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
-  background-color: #353b48;
+  background-color: #d6d5d5;
   border-radius: 20px;
   padding: 10px;
 }
@@ -345,7 +342,7 @@ div.searchbar > a.search_icon {
   padding: 2px;
 }
 div.searchbar > a.search_icon:hover {
-  color: red;
+  color: #1C91C2;
   cursor: pointer;
   /* background-color: white;
   border-radius: 50px; */
@@ -359,8 +356,8 @@ div.row > div.dropdowns {
   margin-top: 2px;
   height: 60px;
   background-color: white;
-  border-radius: 30px;
-  border: 1px solid black;
+  border-radius: 10px;
+  border: 1px solid  #129dfa;
   padding: 10px;
 }
 div.row.containerDropdowns {
@@ -368,12 +365,13 @@ div.row.containerDropdowns {
   margin: 3% 2.5%;
 }
 div.dropdowns:hover {
-  background-color: rgb(226, 171, 52) !important;
+  background-color: rgb(202, 207, 255) !important;
   cursor: pointer;
 }
 div.userImg {
   width: 20%;
-  background-color: grey;
+  margin-top:10px;
+  background-color: rgb(202, 207, 255);
   border-radius: 20px;
   display: inline-block !important;
 }
