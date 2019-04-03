@@ -17,9 +17,6 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <router-link :to="{ name: 'login' }" :class="{ 'nav-link': true }">Login</router-link>
-        </li>
-        <li class="nav-item">
           <router-link :to="{ name: 'badges' }" :class="{ 'nav-link': true }">Badges</router-link>
         </li>
         <li class="nav-item">
@@ -38,6 +35,13 @@
       <!-- <div class="navbar-brand">
         <img src="../assets/logoR.png" class="d-inline-block align-top img-fluid" alt="">
       </div>-->
+      <!-- <div class="navbar-collapse collapse w-100 order-3 dual-collapse"> -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <router-link :to="{ name: 'login' }" :class="{ 'nav-link': true }">Login</router-link>
+          </li>
+        </ul>
+      <!-- </div> -->
     </div>
   </nav>
 </template>

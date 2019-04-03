@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-        <router-link :to="{name:'home'}">
+    <router-link :to="{name:'home'}">
       <img alt="Vue logo" src="@/assets/logoR.png" style="width: 100px">
     </router-link>
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -45,24 +45,26 @@
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+          <img
+            v-bind:src="loginUser.foto"
+            alt="Ups"
+            class="rounded-circle"
+            style="height: 35px; width: auto;"
+          >
+        </li>
+        <li class="nav-item">
           <div class="dropdown dropleft">
             <a
               class="nav-link"
               data-toggle="dropdown"
               role="button"
-              style="background-color: white;border-radius: 20px;"
+              style="height:20px;border-radius: 50%;"
             >
-              <img
-                v-bind:src="loginUser.foto"
-                alt="Ups"
-                class="rounded-circle"
-                style="height: 2rem; width: auto;"
-              >
               <!-- O span vai se mostrar se houver notificações e o innerHTML do "sino" Vai ser o numero de notificações -->
               <span>
                 <i
                   class="fas fa-bell"
-                  style="color: red;"
+                  style="color: #60CAE2;"
                 >{{loginUser.notifications.filter(noti => noti.visto == false).length}}</i>
               </span>
             </a>
@@ -75,8 +77,8 @@
                 <router-link
                   v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
                   class="dropdown-item"
-                  v-bind:class="{ 'bg-secondary': !noti.visto, 'text-success': !noti.visto }"
-                >
+                  v-bind:class="{ 'bgNoti': noti.visto, 'textNoti': noti.visto }"
+                > <i class="far fa-flag"></i>
                   <span class="userName">{{users.find(us => us.id == noti.idUserFirst).name}}</span>
                   {{noti.text}}
                 </router-link>
@@ -162,14 +164,23 @@ export default {
 </script>
 
 <style>
+.textNoti{
+color:white !important;
+}
+.textNoti{
+background-color: #60CAE2!important;
+}
+.img {
+  border-radius: 25% !important;
+}
 div#drops {
   margin-top: 40px;
-  background-color: inherit !important;
+  background-color:#60CAE2!important;
   border: none;
 }
 div#drops > div {
   overflow-wrap: inherit !important;
-  background-color: rgba(0, 255, 242, 0.445) !important;
+  background-color: white !important;
   border-radius: 20px;
   margin-bottom: 10px;
   border-top-right-radius: 3px;
@@ -192,7 +203,7 @@ span.vermais {
 span.userName {
   font-weight: bold;
   font-size: 2.2vh;
-  color: rebeccapurple;
+  color: rgb(247, 64, 64);
   font-family: verdana;
 }
 </style>
