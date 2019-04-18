@@ -119,7 +119,7 @@ export default {
     };
   },
   created() {
-    console.log("alalalalal - " + this.loginID);
+    // console.log("alalalalal - " + this.loginID);
   }, //a
   methods: {
     incrementar(threadid) {
@@ -194,7 +194,7 @@ export default {
 
       this.cont = aux.length;
 
-      console.log(aux)
+      // console.log(aux)
       // console.log(this.cont)
       return aux;
     }

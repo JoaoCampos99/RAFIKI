@@ -49,7 +49,7 @@ class User {
     //Vai ter que se fazer um switch para dar os nomes aos ranks
     let rank = Math.floor(this.level / 10);
     let trueRank = null;
-    console.log(this.level);
+    // console.log(this.level);
     switch (
     rank //O calculo do rank deve estar mal....
     ) {
@@ -63,8 +63,9 @@ class User {
         trueRank = "muito grande";
         break;
     }
-    console.log(trueRank);
-    console.log(rank);
+
+    // console.log(trueRank);
+    // console.log(rank);
     return [rank, trueRank];
   }
   getBadges(badgesArr, threadsArr, commentsArr, answersArr) {
@@ -136,7 +137,6 @@ class Thread {
     this.idGroup = idGroup;
     this.upvotes = upvotes;
     this.date = new Date().toISOString().split("T")[0];
-    this.views = 0;
     this.course = course;
     this.closeDate = closedate;
     this.views = views;
@@ -364,7 +364,7 @@ export default new Vuex.Store({
     save_users(state, arr) {
       let aux = [];
       for (let user of arr) {
-        console.log(user);
+        // console.log(user);
         let ups = user.upvotes == undefined ? [] : user.upvotes;
         let notis = user.notifications == undefined ? [] : user.notifications;
         let us = new User(
@@ -385,15 +385,15 @@ export default new Vuex.Store({
         aux.push(us);
       }
       state.users = aux;
-      console.log(state.users);
+      // console.log(state.users);
     },
     save_threads(state, arr) {
-      console.log(arr);
+      // console.log(arr);
       let aux = [];
       for (let thread of arr) {
         let views = thread.views == undefined ? 0 : thread.views
         let closedate = (thread.closeDate == undefined || thread.closeDate == null) ? null : thread.closeDate
-        console.log(closedate)
+        // console.log(closedate)
         let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
         // let views = thread.views == undefined ? 0 : thread.views;
         // let closedate =
@@ -521,22 +521,29 @@ export default new Vuex.Store({
       state.users[index].notifications.push(obj.notification);
     },
     change_notification_status(state, obj) {
-      console.log(obj);
+      // console.log(obj);
       state.users[obj.indexUser].notifications[obj.indexNoti].visto = true;
       if (state.users[obj.indexUser].notifications.length == 6)
         state.users[obj.indexUser].notifications.shift();
     },
     /* views */
     increment_views(state, idthread) {
-      console.log("MUTATION");
+      // console.log("MUTATION");
       let index = state.threads.findIndex(thr => thr.id == idthread);
       state.threads[index].views++;
+    },
+    add_tag(state, tag) {
+      state.tags.push(tag);
     }
   },
   actions: {
+    /* tags */
+    add_tag(context, tag) {
+      context.commit("add_tag", tag);
+    },
     /* views */
     increment_views(context, idthread) {
-      console.log("ACTION");
+      // console.log("ACTION");
       context.commit("increment_views", idthread);
     },
     /* Notificações */
@@ -697,28 +704,28 @@ export default new Vuex.Store({
       };
 
       async function t() {
-       try {
-        console.log('ata');
-        let threads = await $.ajax({
-          type: "POST",
-          url: "https:app.fakejson.com/q",
-          data: payload,
-          success: (resp => {
-            return resp;
-          })(ans => {
-            for (let i = 0; i < ans.length; i++) {
-              ans[i].id = i + 1;
-            }
-            // ans.closeDate = null
-            console.log(ans, 'threads ');
-          })
-        });
-        console.log(threads);
-        context.commit("save_threads", threads);
-       }
-       catch (err) {
-        console.log(err, 'tá bem joão')
-       } 
+        try {
+          console.log('ata');
+          let threads = await $.ajax({
+            type: "POST",
+            url: "https:app.fakejson.com/q",
+            data: payload,
+            success: (resp => {
+              return resp;
+            })(ans => {
+              for (let i = 0; i < ans.length; i++) {
+                ans[i].id = i + 1;
+              }
+              // ans.closeDate = null
+              console.log(ans, 'threads ');
+            })
+          });
+          console.log(threads);
+          context.commit("save_threads", threads);
+        }
+        catch (err) {
+          console.log(err, 'tá bem joão')
+        }
       }
 
       if (
@@ -836,6 +843,7 @@ export default new Vuex.Store({
       return state.threads;
     },
     getAnswers: state => state.answers,
-    getComments: state => state.comments
+    getComments: state => state.comments,
+    getTags: state => state.tags
   }
 });

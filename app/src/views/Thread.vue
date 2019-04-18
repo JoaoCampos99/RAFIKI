@@ -300,11 +300,11 @@ export default {
     this.comments = this.$store.getters.getComments;
 
     let threadid = this.$route.params.threadid;
-    console.log(threadid);
+    // console.log(threadid);
     this.thread = this.$store.getters.getThreads.filter(thread => {
       // console.log(thread, threadid);
       if (thread.id == parseInt(threadid)) {
-        console.log("atatatatatatatatat");
+        // console.log("atatatatatatatatat");
         return true;
       }
     })[0];

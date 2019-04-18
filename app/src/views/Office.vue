@@ -17,19 +17,20 @@
             <th>Level</th>
             <th>Course</th>
             <th>Actions</th>
-
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(user) in $store.state.users"
-            v-bind:key="user.id">
-            <td><img v-bind:src="user.foto" class="img-fluid pic"></td>
+          <tr v-for="(user) in $store.state.users" v-bind:key="user.id">
+            <td>
+              <img v-bind:src="user.foto" class="img-fluid pic">
+            </td>
             <td>{{user.name}}</td>
             <td>{{user.rank.toString().replace(',', ' - ')}}</td>
             <td>{{user.level}}</td>
             <td>{{user.course}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.id)"> X </button> </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteUser(user.id)">X</button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -40,9 +41,13 @@
         <br>
         <h2>Badges</h2>
         <hr>
-        <button type="button" class="btn btn-success btn-lg" @click="openDialog">  Create Badge </button>
+        <button
+          type="button"
+          class="btn btn-success btn-lg"
+          @click="openDialog('badges')"
+        >Create Badge</button>
         <br>
-          <br>
+        <br>
       </div>
     </div>
     <div class="table-responsive">
@@ -54,70 +59,76 @@
             <th>Goal</th>
             <th>Category</th>
             <th>Actions</th>
-
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(badge) in $store.state.badges"
-            v-bind:key="badge.id">
+          <tr v-for="(badge) in $store.state.badges" v-bind:key="badge.id">
             <td>{{badge.id}}</td>
             <td>{{badge.name}}</td>
             <td>{{badge.desc}}</td>
             <td>{{badge.category}}</td>
             <td>
-              <button type="button" class="btn btn-danger btn-sm" @click="deleteBadge(badge.id)"> X </button>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteBadge(badge.id)">X</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <dialog id="idDialog" ref="myDialog">
-         <form method="dialog">
-              <p><label for="nameinput">Name: </label>
-              <input
-              id="nameinput"
-              name="nameinput"
-              placeholder
-              class="form-control input-md"
-              required
-              type="text"
-              v-model="badgeName"
-              > </p>
+      <form method="dialog">
+        <p>
+          <label for="nameinput">Name:</label>
+          <input
+            id="nameinput"
+            name="nameinput"
+            placeholder
+            class="form-control input-md"
+            required
+            type="text"
+            v-model="badgeName"
+          >
+        </p>
 
-              <p><label for="nameinput">Goal: </label>
-              <input
-              id="goalinput"
-              name="goalinput"
-              placeholder
-              class="form-control input-md"
-              required
-              type="number"
-              v-model="badgeGoal"
-              > </p>
-              <p><label for="nameinput">Description: </label>
-              <input
-              id="descinput"
-              name="descinput"
-              placeholder
-              class="form-control input-md"
-              required
-              type="text"
-              v-model="badgeDesc"
-              > </p>
-              <p><label>Category:
-                   <select v-model="badgeCat">
-                      <option></option>
-                      <option>help</option>
-                      <option>rank</option>
-                      <option>usage</option>
-                   </select>
-              </label></p>
-              <menu>
-                  <button @click="closeDialog">Cancel</button>
-                  <button @click="createBadge">Confirm</button>
-              </menu>
-          </form>
+        <p>
+          <label for="nameinput">Goal:</label>
+          <input
+            id="goalinput"
+            name="goalinput"
+            placeholder
+            class="form-control input-md"
+            required
+            type="number"
+            v-model="badgeGoal"
+          >
+        </p>
+        <p>
+          <label for="nameinput">Description:</label>
+          <input
+            id="descinput"
+            name="descinput"
+            placeholder
+            class="form-control input-md"
+            required
+            type="text"
+            v-model="badgeDesc"
+          >
+        </p>
+        <p>
+          <label>
+            Category:
+            <select v-model="badgeCat">
+              <option></option>
+              <option>help</option>
+              <option>rank</option>
+              <option>usage</option>
+            </select>
+          </label>
+        </p>
+        <menu>
+          <button @click="closeDialog('badges')">Cancel</button>
+          <button @click="createBadge">Confirm</button>
+        </menu>
+      </form>
     </dialog>
     <!-- THREADS -->
     <div class="row">
@@ -135,21 +146,22 @@
             <th>Date</th>
             <th>Owner</th>
             <th>Actions</th>
-
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(thread) in $store.state.threads"
-            v-bind:key="thread.id">
+          <tr v-for="(thread) in $store.state.threads" v-bind:key="thread.id">
             <td>{{thread.title}}</td>
             <td>{{thread.date}}</td>
             <td>{{getUserById(thread.userid).name}}</td>
             <td>
-              <button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)" > X </button>
-              <button type="button" class="btn btn-caution btn-sm" @click="closeThread(thread.id)" v-if="thread.closeDate==''"> Close </button>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)">X</button>
+              <button
+                type="button"
+                class="btn btn-caution btn-sm"
+                @click="closeThread(thread.id)"
+                v-if="thread.closeDate==''"
+              >Close</button>
             </td>
-          
           </tr>
         </tbody>
       </table>
@@ -160,7 +172,26 @@
         <br>
         <h2>Tags</h2>
         <hr>
+        <button
+          v-on:click="openDialog('tags')"
+          type="button"
+          class="btn btn-success btn-lg"
+        >Create Tag</button>
+        <br>
+        <br>
       </div>
+      <dialog id="idDialog" ref="addTag">
+        <form method="dialog">
+          <p>
+            <label for="tagname">Nome</label>
+            <input v-model="tagName" type="text" id="tagname" class="form-control input-md">
+          </p>
+          <menu>
+            <button @click="closeDialog('tags')">Cancel</button>
+            <button @click="createTag">Confirm</button>
+          </menu>
+        </form>
+      </dialog>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-hover table-bordered">
@@ -172,12 +203,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(tag) in $store.state.tags"
-            v-bind:key="tag.id">
+          <tr v-for="(tag) in $store.state.tags" v-bind:key="tag.id">
             <td>{{tag.id}}</td>
             <td>{{tag.text}}</td>
-            <td><button type="button" class="btn btn-danger btn-sm" @click="deleteTag(tag.id)"> X </button>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" @click="deleteTag(tag.id)">X</button>
             </td>
           </tr>
         </tbody>
@@ -190,42 +220,54 @@ export default {
   data() {
     return {
       badges: this.$store.getters.getBadges,
-      badgeId:"",
-      badgeName:"",
-      badgeGoal:"",
-      badgeDesc:"",
-      badgeCat:"",
-      dialog:"",
+      badgeId: "",
+      badgeName: "",
+      badgeGoal: "",
+      badgeDesc: "",
+      badgeCat: "",
+      dialog: "",
+      tagName: ""
     };
   },
-  created() {
-    
-  },
+  created() {},
   methods: {
     deleteUser(id) {
-      console.log(id)
-      this.$store.dispatch("delete_user",id)
+      console.log(id);
+      this.$store.dispatch("delete_user", id);
     },
 
     deleteBadge(id) {
-      this.$store.dispatch("delete_badge",id)
+      this.$store.dispatch("delete_badge", id);
     },
 
     deleteThread(id) {
-    this.$store.dispatch("delete_thread",id)
+      this.$store.dispatch("delete_thread", id);
     },
 
     deleteTag(id) {
-    this.$store.dispatch("delete_tag",id)
+      this.$store.dispatch("delete_tag", id);
     },
-    
-    openDialog() {
-       console.log("ola")
-       this.$refs.myDialog.showModal()
+    createTag() {
+      let id =
+        this.$store.getters.getTags.length == 0
+          ? 1
+          : this.$store.getters.getTags[
+              this.$store.getters.getTags.length - 1
+            ].id + 1;
+      console.log(this.$store.getters.getTags[
+              this.$store.getters.getTags.length - 1
+            ]);
+      this.$store.dispatch("add_tag", { id: id, text: this.tagName });
+      this.tagName = "";
+    },
+    openDialog(dialog) {
+      if (dialog == "badges") this.$refs.myDialog.showModal();
+      else if (dialog == "tags") this.$refs.addTag.showModal();
     },
 
-    closeDialog(){
-      this.$refs.myDialog.close()
+    closeDialog(dialog) {
+      if (dialog == "badges") this.$refs.myDialog.close();
+      else if (dialog == "tags") this.$refs.addTag.close();
     },
 
     getLastID() {
@@ -234,7 +276,7 @@ export default {
         this.badges.sort(function(a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
-        })
+        });
         maior = this.badges[this.badges.length - 1].id;
         console.log(maior);
         return maior;
@@ -243,9 +285,9 @@ export default {
       }
     },
 
-    createBadge(){
+    createBadge() {
       this.badgeId = this.getLastID() + 1;
-      this.$store.dispatch("add_badge",{
+      this.$store.dispatch("add_badge", {
         id: this.badgeId,
         name: this.badgeName,
         goal: this.badgeGoal,
@@ -253,22 +295,20 @@ export default {
         category: this.badgeCat
       });
     },
-    getUserById(id){
-      return this.$store.getters.getUsers.filter(user=>user.id==id)[0]
+    getUserById(id) {
+      return this.$store.getters.getUsers.filter(user => user.id == id)[0];
     },
-    closeThread(id){
-      this.$store.dispatch("close_thread",id)
+    closeThread(id) {
+      this.$store.dispatch("close_thread", id);
     }
-
-    
   }
 };
 </script>
 <style>
 .pic {
-  width:50px;
-  height:50px;
-  border-radius:25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
   border: 4px solid rgb(0, 89, 255);
 }
 </style>

@@ -72,7 +72,7 @@ export default {
       };
       return newObj;
     });
-    console.log("Antes de receber pontos por comentarios" + this.hotTopics);
+    // console.log("Antes de receber pontos por comentarios" + this.hotTopics);
     let answers = this.$store.getters.getAnswers;
     let comments = this.$store.getters.getComments;
     for (let i = 0; i < this.hotTopics.length; i++) {
@@ -87,7 +87,7 @@ export default {
         }
       }
     }
-    console.log(this.hotTopics);
+    // console.log(this.hotTopics);
     this.hotTopics = this.hotTopics.sort((a, b) => {
       if (a.points > b.points) return -1;
       if (a.points < b.points) return 1;

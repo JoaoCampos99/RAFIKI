@@ -78,7 +78,8 @@
                   v-bind:to="{name: 'thread', params: {threadid: noti.idThread}}"
                   class="dropdown-item"
                   v-bind:class="{ 'bgNoti': noti.visto, 'textNoti': noti.visto }"
-                > <i class="far fa-flag ii"></i>
+                >
+                  <i class="far fa-flag ii"></i>
                   <span class="userName">{{users.find(us => us.id == noti.idUserFirst).name}}</span>
                   {{noti.text}}
                 </router-link>
@@ -86,6 +87,17 @@
               <!-- <a href class="dropdown-item">oaoakodk</a>
               <a href class="dropdown-item">BOas</a>
               <span class="vermais text-right" v-on:click="verMais()">Ver Mais</span>-->
+              <div class="dropdwon-divider"></div>
+              <div id="dropdown-footer" class="dropdown-item">
+                <ul class="list-inline">
+                  <li class="list-inline-item helpers point">Ver Mais</li>
+                  <li
+                    v-on:click="markAsRead()"
+                    class="list-inline-item helpers point"
+                  >Marcar como Lido</li>
+                  <!-- Isto podia ficar com um icone de mesnsagem aberta e com um helper -->
+                </ul>
+              </div>
             </div>
           </div>
         </li>
@@ -104,17 +116,18 @@ export default {
       loginID: this.$store.getters.getloginID,
       loginUser: null,
       users: this.$store.getters.getUsers
+      //[{"id":1,"idThread":4,"idUserFirst":1,"text":"ola boutarde","visto":false}]
     };
   },
   created() {
-    console.log(this.loginID);
+    // console.log(this.loginID);
 
     //Encontrar user logado
     this.loginUser = this.$store.getters.getUsers.filter(
       us => us.id == this.loginID
     )[0];
 
-    console.log(this.loginUser.notifications);
+    // console.log(this.loginUser.notifications);
     // this.loginUser.tamanhoMaximo()
   },
   methods: {
@@ -145,18 +158,29 @@ export default {
         indexUser: indexUser,
         indexNoti: indexNoti
       });
+    },
+    markAsRead() {
+      let indexUser = this.users.findIndex(us => us.id == this.loginUser.id)
+      this.loginUser.notifications.map((noti, index) => {
+        console.log(index)
+        // noti.visto = true;
+        this.$store.dispatch("change_notification_status", {
+          indexUser: indexUser,
+          indexNoti: index
+        })
+      });
     }
   },
   computed: {
     notificacoes() {
-      console.log(this.loginUser.notifications);
+      // console.log(this.loginUser.notifications);
       let aux = this.loginUser.notifications;
       aux = aux.reverse();
       let aux2 = [];
       for (let i = 0; i < 5; i++) {
         if (aux[i] != undefined) aux2.push(aux[i]);
       }
-      console.log(aux2);
+      // console.log(aux2);
       return aux2;
     }
   }
@@ -164,27 +188,27 @@ export default {
 </script>
 
 <style>
-.point{
+.point {
   cursor: pointer;
 }
-.ii{
+.ii {
   margin-right: 10px;
 }
-.textNoti{
-color:white !important;
+.textNoti {
+  color: white !important;
 }
-.textNoti{
-background-color: #60CAE2!important;
+.textNoti {
+  background-color: #60cae2 !important;
 }
 .img {
   border-radius: 25% !important;
 }
 div#drops {
   margin-top: 40px;
-  background-color:#60CAE2!important;
+  background-color: #60cae2 !important;
   border: none;
 }
-div#drops > div {
+div#drops > div:not(#dropdown-footer) {
   overflow-wrap: inherit !important;
   background-color: white !important;
   border-radius: 20px;
@@ -192,9 +216,23 @@ div#drops > div {
   border-top-right-radius: 3px;
   font-size: 2.2vh;
 }
-div#drops div:hover {
+div#drops div:hover:not(#dropdown-footer),
+.helpers:hover {
   background: orange !important;
 }
+div#dropdown-footer.dropdown-item {
+  background-color: #60cae2;
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 2.3vh;
+  text-align: center;
+}
+.helpers {
+}
+/* div#dropdown-footer > span {
+  background-color: red;
+  font-weight: bold;
+} */
 span.vermais {
   color: blue;
   font-weight: bold;

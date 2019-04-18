@@ -29,23 +29,23 @@ export default {
   },
   created() {
     let threadid = JSON.parse(localStorage.getItem("setLastThread"));
-    console.log(threadid);
+    // console.log(threadid);
     if (threadid) {
       let userid = this.$store.getters.getloginID;
       //SE tiver loggado
-      console.log(userid);
+      // console.log(userid);
       if (userid != 0) {
         this.relatedTags = this.$store.getters.getThreads.filter(
           thread => thread.userid == userid
         );
-        console.log("WTF" + this.relatedTags);
+        // console.log("WTF" + this.relatedTags);
         this.relatedTags = this.relatedTags.map(thread => {
           let newObj = {
             tags: thread.tags
           };
           return newObj;
         });
-        console.log("Todas as threads:" + this.$store.getters.getThreads);
+        // console.log("Todas as threads:" + this.$store.getters.getThreads);
         this.relatedThreads = this.$store.getters.getThreads.filter(thread => {
           let tagExists = false;
           for (let i = 0; i < this.relatedTags.length; i++) {
