@@ -24,6 +24,7 @@ import UserBadges from "./views/UserBadges.vue";
 import Office from "./views/Office.vue";
 import Tags from "./views/Tags.vue";
 import Stats from "./views/stats.vue";
+import ViewMore from "./views/ViewMore.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -155,6 +156,11 @@ const router = new Router({
       path: "/stats",
       name: "stats",
       component: Stats
+    },
+    {
+      path: "/ViewMore",
+      name: "ViewMore",
+      component: ViewMore
     }
   ]
 });

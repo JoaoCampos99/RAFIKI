@@ -90,7 +90,8 @@
               <div class="dropdwon-divider"></div>
               <div id="dropdown-footer" class="dropdown-item">
                 <ul class="list-inline">
-                  <li class="list-inline-item helpers point">Ver Mais</li>
+                  <li class="list-inline-item helpers point">
+                    <router-link :to="{ name: 'ViewMore' }" :class="{ 'nav-link': true }">View More</router-link> </li>
                   <li
                     v-on:click="markAsRead()"
                     class="list-inline-item helpers point"
@@ -247,7 +248,7 @@ span.vermais {
 span.userName {
   font-weight: bold;
   font-size: 2.2vh;
-  color: rgb(247, 64, 64);
+  color: rgb(2, 38, 72);
   font-family: verdana;
 }
 </style>
