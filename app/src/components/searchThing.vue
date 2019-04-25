@@ -49,7 +49,7 @@
               </div>
             </div>
             <div class="row containerDropdowns">
-              <div v-for="(res, cont) in theSearch" v-bind:key="cont" class="col-md-12 dropdowns">
+              <div v-for="(res, incr) in theSearch" v-bind:key="incr" class="col-md-12 dropdowns">
                 <div class="userImg text-center">
                   <i v-if="res.name == undefined" class="fas fa-atom"></i>
                   <i v-else class="fas fa-user"></i>
@@ -60,32 +60,37 @@
                 </div>
               </div>
             </div>
-            <div v-if="cont>10" class="col-md-12 midlePagination">
-              <nav aria-label="Page navigation example" class>
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+            <div class="row">
+              <div v-if="showPagination" class="col-md-12 text-center">
+                <nav aria-label="Page navigation example" style="display:inline-block;">
+                  <ul class="pagination">
+                    <li v-if="navigation > 0" v-on:click="navigate($event)" class="page-item">
+                      <a class="page-link prev" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li
+                      class="page-item navigation"
+                      v-for="page in cont"
+                      v-on:click="navigationNumbers(page)"
+                      v-bind:class="{active: page == 1 ? true : false}"
+                      v-bind:key="page"
+                    >
+                      <a class="page-link" href="#">{{page}}</a>
+                    </li>
+
+                    <li v-if="navigation < cont -1" v-on:click="navigate($event)" class="page-item">
+                      <!-- VAi ser preciso controlar se se mostra esta seta ou não
+                      pode se controlar isso pela página em que o user está-->
+                      <a class="page-link next" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
@@ -107,11 +112,15 @@ export default {
       threads: this.$store.state.threads,
       loginID: this.$store.getters.getloginID,
       searchText: null,
-      cont: 0
+      cont: 0,
+      showPagination: false,
+      navigation: 0, // "página" atual (entre 0 e máximo de páginas -1)
+      maxEle: 5
     };
   },
-  created() {
-    // console.log("alalalalal - " + this.loginID);
+  mounted() {
+    // $("li.navigation")[0].className = "page-item navigation active"
+    console.log($("li.navigation"));
   }, //a
   methods: {
     incrementar(threadid) {
@@ -150,6 +159,54 @@ export default {
       let index2 = title.indexOf("<", index1);
 
       return title.substring(index1 + 1, index2);
+    },
+    navigate(eve) {
+      // console.log(eve.path[0].tagName, 'alala')
+
+      // for (let el of eve.path) {
+      //   console.log(el.tagName);
+      // }
+
+      // Toggle the active class in the navigationList
+      let navigationList = $("li.navigation");
+      // console.log(navigationList);
+
+      const path = eve.path;
+      if (
+        (path[0].className.includes("next") ||
+          path[1].className.includes("next")) &&
+        this.navigation < this.cont
+      ) {
+        console.log("mais");
+        this.navigation++;
+      }
+      if (
+        (path[0].className.includes("prev") ||
+          path[1].className.includes("prev")) &&
+        this.navigation > 0
+      ) {
+        console.log("menos");
+        this.navigation--;
+      }
+
+      for (let i = 0; i < navigationList.length; i++) {
+        // console.log(i);
+        if (i == this.navigation)
+          navigationList[i].className = "page-item navigation active";
+        else navigationList[i].className = "page-item navigation";
+      }
+      console.log(this.navigation);
+    },
+    navigationNumbers(index) {
+      this.navigation = index-1;
+      let navigationList = $('li.navigation')
+      for (let i = 0; i < navigationList.length; i++) {
+        // console.log(i);
+        if (i == this.navigation)
+          navigationList[i].className = "page-item navigation active";
+        else navigationList[i].className = "page-item navigation";
+      }
+      this.theSearch;
     }
   },
   computed: {
@@ -158,37 +215,55 @@ export default {
     },
     theSearch() {
       let aux = [];
+
+      // Filtrar os Users
       if (this.searchText != null) {
         aux = this.users.filter(user =>
           user.name.toUpperCase().includes(this.searchText.toUpperCase())
         );
 
-        // console.log(aux)
+        // Filtrar Threads
         let auxThreads = [];
-        // console.log(this.threads)
         auxThreads = this.threads.filter(thread =>
           thread.title.toUpperCase().includes(this.searchText.toUpperCase())
         );
 
         if (auxThreads.length > 0) {
           for (let thread of auxThreads) {
-            // console.log(auxThreads)
+            //Limpar o titulo das threads para ser apresentável.
             if (thread.title[0] == "<") {
               thread.title = this.trimTitle(thread.title);
             }
+            //Inserir-las no mesmo array que os users
             aux.push(thread);
           }
         }
       }
 
+      // "Esvaziar" o array para o caso de não ter nada escrito
       if (this.searchText == "") {
         aux = [];
       }
 
-      this.cont = aux.length;
+      // MOstrar ou não a paginação
+      if (aux.length >= 5) {
+        //Determinar as "páginas" da paginação, por agora cada "página" vai mostrar 5 elementos
+        let nPages = Math.ceil(aux.length / 5);
+        this.cont = nPages;
+        this.showPagination = true;
 
-      // console.log(aux)
-      // console.log(this.cont)
+        let finalArr = [];
+        let begin = this.cont == 1 ? 0 : this.navigation * this.maxEle;
+        let end = begin + 5;
+        for (let i = begin; i < end; i++) {
+          if (aux[i] != undefined) finalArr.push(aux[i]);
+        }
+        console.log(finalArr);
+        return finalArr;
+      } else this.showPagination = false;
+
+      // console.log(nPages, aux.length);
+
       return aux;
     }
   }
@@ -374,10 +449,17 @@ div.desc {
 }
 div.midlePagination {
   padding: 0% 10%;
-  display: inline-block;
+  display: block;
   text-align: center;
 }
-div#contentor {
-  /* background-color: blue; */
+/* div#contentor {
+   background-color: blue;
+} */
+li.navigation.active {
+  background-color: rgb(202, 207, 255);
+}
+li.navigation.active > a {
+  color: black !important;
+  font-weight: bold;
 }
 </style>
