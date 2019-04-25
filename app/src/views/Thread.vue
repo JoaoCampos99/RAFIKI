@@ -117,7 +117,7 @@
             </div>
           </div>
         </div>
-        <div class="card threadFechada" v-show="!threadFechada()">
+        <div class="card threadFechada" v-show="threadFechada()">
           <div class="card-body text-center">
             <h1>This thread is closed!</h1>
           </div>
@@ -145,7 +145,7 @@
                   <p>{{ans.answer}}</p>
                   <p>
                     <a
-                      v-show="threadFechada()"
+                      v-show="!threadFechada()"
                       v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
                       v-on:click="commentAnswer(ans.id)"
@@ -213,7 +213,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-show="showAnswerDiv == true && threadFechada()==true">
+        <div class="row" v-show="showAnswerDiv == true && !threadFechada()==true">
           <div class="col-md-12 text-left">
             <h4>Answer</h4>
             <textarea
@@ -248,7 +248,11 @@
         <textarea placeholder="Comment..." name id="comentario" v-model="commentToAnswer"></textarea>
         <div class="col-md-12 text-right">
           <button class="btn btn-outline-success bg-dark" type="submit">Answer</button>
-          <button class="btn btn-outline-success bg-dark" type="button" @click="closeDialog()">Cancel</button>
+          <button
+            class="btn btn-outline-success bg-dark"
+            type="button"
+            @click="closeDialog()"
+          >Cancel</button>
         </div>
       </form>
     </dialog>
@@ -278,7 +282,15 @@ export default {
   },
   data() {
     return {
-      thread: null,
+      thread: this.$store.getters.getThreads.filter(thread => {
+        let threadid = this.$route.params.threadid;
+
+        // console.log(thread, threadid);
+        if (thread.id == parseInt(threadid)) {
+          // console.log("atatatatatatatatat");
+          return true;
+        }
+      })[0],
       user: null,
       answers: this.$store.getters.getAnswers,
       comments: this.$store.getters.getComments,
@@ -299,15 +311,9 @@ export default {
     this.textoResposta = null;
     this.comments = this.$store.getters.getComments;
 
-    let threadid = this.$route.params.threadid;
     // console.log(threadid);
-    this.thread = this.$store.getters.getThreads.filter(thread => {
-      // console.log(thread, threadid);
-      if (thread.id == parseInt(threadid)) {
-        // console.log("atatatatatatatatat");
-        return true;
-      }
-    })[0];
+    // this.thread =
+    console.log(this.thread);
 
     this.thisThreadFollows = this.numberFollowers();
     this.user = this.$store.getters.getUsers.filter(
@@ -347,8 +353,8 @@ export default {
     }
   },
   methods: {
-    closeDialog(){
-      this.$refs.myDialogcomment.close()
+    closeDialog() {
+      this.$refs.myDialogcomment.close();
     },
     thisThread() {
       let threadid = this.$route.params.threadid;
@@ -723,7 +729,11 @@ export default {
           });
           this.thisThreadFollows = this.loginUser.follow.length;
         } else {
-          Swal("You already followed this thread", "Check more threads", "error");
+          Swal(
+            "You already followed this thread",
+            "Check more threads",
+            "error"
+          );
         }
       } else {
         Swal({
@@ -771,15 +781,14 @@ export default {
       this.$store.dispatch("add_notification", obj);
     },
     threadFechada() {
-      if (typeof this.thread.closeDate == "object") {
-        if (this.thread == null) return false;
-      }
-
-      if (typeof this.thread.closeDate == "string") {
-        if (this.thread == "") return false;
-      }
-
-      return true;
+      // if (typeof this.thread.closeDate == "object") {
+      //   if (this.thread == null) return false;
+      // }
+console.log(this.thread.closeDate)
+      // if (typeof this.thread.closeDate == "string") {
+        if (this.thread.closeDate === "") return false;
+        else return true;
+      // }
     }
   }
 };

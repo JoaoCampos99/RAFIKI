@@ -514,6 +514,7 @@ export default new Vuex.Store({
     },
     CLOSE_THREAD(state, id) {
       let index = state.threads.findIndex(thread => thread.id == id);
+      console.log(index)
       state.threads[index].closeDate = new Date().toISOString().split("T")[0];
     },
     /* Notificações */

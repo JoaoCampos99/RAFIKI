@@ -5,13 +5,13 @@
         <i class="fas fa-plus"></i>
       </button>
       <div id="dropsSearchThing" class="dropdown-menu">
-          <a v-on:click="cTid" class="dropdown-item botoesSearchThing">Create Thread</a>
-          <a
-            class="botoesSearchThing dropdown-item"
-            data-toggle="modal"
-            data-target="#modalSearch"
-            v-on:click="openDialog"
-          >Search</a>
+        <a v-on:click="cTid" class="dropdown-item botoesSearchThing">Create Thread</a>
+        <a
+          class="botoesSearchThing dropdown-item"
+          data-toggle="modal"
+          data-target="#modalSearch"
+          v-on:click="openDialog"
+        >Search</a>
       </div>
     </div>
 
@@ -55,14 +55,8 @@
                   <i v-else class="fas fa-user"></i>
                 </div>
                 <div class="desc">
-                  <a
-                    v-if="res.name == undefined"
-                    v-on:click="incrementar(res.id)"
-                  >{{res.title}}</a>
-                  <a
-                    v-else
-                    v-on:click="goToUser(res.id)"
-                  >{{res.name}}</a>
+                  <a v-if="res.name == undefined" v-on:click="incrementar(res.id)">{{res.title}}</a>
+                  <a v-else v-on:click="goToUser(res.id)">{{res.name}}</a>
                 </div>
               </div>
             </div>
@@ -94,8 +88,6 @@
               </nav>
             </div>
           </div>
-          
-
         </div>
       </div>
     </div>
@@ -130,20 +122,21 @@ export default {
         }
       });
       this.$store.dispatch("increment_views", threadid);
-      location.reload()
+      location.reload();
     },
-    goToUser(usid){
+    goToUser(usid) {
       this.$router.push({
         name: "viewprofile",
         params: {
           visiteduserid: usid
         }
-      })
-      location.reload()
+      });
+      location.reload();
     },
     openDialog() {
-      let searchbar = document.querySelector('#search')
-      searchbar.focus()
+      setTimeout(() => {
+        document.querySelector("#search").focus();
+      }, 500);
     },
     cTid() {
       console.log("este e o id" + this.loginID);
@@ -234,10 +227,10 @@ export default {
 
 @keyframes trocarCoresDiv {
   from {
-    background-color: #60CAE2;
+    background-color: #60cae2;
   }
   to {
-    background-color:#1C91C2;
+    background-color: #1c91c2;
   }
 }
 div.dropdown-divider {
@@ -281,10 +274,9 @@ div#dropsSearchThing a {
   font-weight: 600;
 }
 div#dropsSearchThing a:hover {
-  background-color: #1C91C2;
+  background-color: #1c91c2;
   color: white;
 }
-
 
 .modal-backdrop {
   display: none;
@@ -342,7 +334,7 @@ div.searchbar > a.search_icon {
   padding: 2px;
 }
 div.searchbar > a.search_icon:hover {
-  color: #1C91C2;
+  color: #1c91c2;
   cursor: pointer;
   /* background-color: white;
   border-radius: 50px; */
@@ -357,7 +349,7 @@ div.row > div.dropdowns {
   height: 60px;
   background-color: white;
   border-radius: 10px;
-  border: 1px solid  #129dfa;
+  border: 1px solid #129dfa;
   padding: 10px;
 }
 div.row.containerDropdowns {
@@ -370,7 +362,7 @@ div.dropdowns:hover {
 }
 div.userImg {
   width: 20%;
-  margin-top:10px;
+  margin-top: 10px;
   background-color: rgb(202, 207, 255);
   border-radius: 20px;
   display: inline-block !important;
