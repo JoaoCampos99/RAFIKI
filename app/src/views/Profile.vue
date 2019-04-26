@@ -198,9 +198,9 @@ export default {
     },
     getUserProgress(id) {
       console.log(
-        (this.users.filter(user => user.id == id)[0].exp % 100) + "%"
+        (this.users.filter(user => user.id == id)[0].experience % 100) + "%"
       );
-      return (this.users.filter(user => user.id == id)[0].exp % 100) + "%";
+      return (this.users.filter(user => user.id == id)[0].experience % 100) + "%";
     },
     removeImageTag(content) {
       content = content.replace(/<img[^>]*>/g, "");

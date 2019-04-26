@@ -215,8 +215,8 @@ export default {
     let users = this.$store.getters.getUsers;
 
     users = users.sort((a, b) => {
-      if (a.exp > b.exp) return -1;
-      if (a.exp < b.exp) return 1;
+      if (a.experience > b.experience) return -1;
+      if (a.experience < b.experience) return 1;
       else return 0;
     });
     console.log(users);
@@ -224,9 +224,9 @@ export default {
     for (let i = 0; i < users.length; i++) {
       if (i < 5) {
         this.chartOptions2.labels.push(users[i].name);
-        this.series2.push(users[i].exp);
+        this.series2.push(users[i].experience);
       } else {
-        count += users[i].exp;
+        count += users[i].experience;
       }
     }
     this.chartOptions2.labels.push("Others");

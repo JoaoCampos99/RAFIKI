@@ -174,15 +174,7 @@ export default {
   },
   computed: {
     notificacoes() {
-      // console.log(this.loginUser.notifications);
-      let aux = this.loginUser.notifications;
-      aux = aux.reverse();
-      let aux2 = [];
-      for (let i = 0; i < 5; i++) {
-        if (aux[i] != undefined) aux2.push(aux[i]);
-      }
-      // console.log(aux2);
-      return aux2;
+      setTimeout()
     }
   }
 };

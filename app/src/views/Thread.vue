@@ -526,7 +526,7 @@ export default {
         if (guardar) {
           let up = {
             // Isto vai ser o que vai para o array dos upvotes do user
-            iduser: this.$store.getters.getloginID,
+            // iduser: this.$store.getters.getloginID,
             idthread: this.thread.id,
             idanswer: id,
             idcomment: null
