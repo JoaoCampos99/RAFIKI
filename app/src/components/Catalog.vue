@@ -49,7 +49,7 @@
               <a v-on:click="incrementar(thread.id)" class="title">{{thread.title}}</a>
             </td>
             <td>
-              <img v-bind:src="getUserById(thread.userid).foto" class="img-fluid pic">
+              <img v-bind:src="getUserById(thread.userid).picture" class="img-fluid pic">
             </td>
             <td>{{thread.views}}</td>
 

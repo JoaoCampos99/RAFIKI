@@ -17,7 +17,6 @@ class User {
     desc,
     foto,
     follow,
-    skill,
     year,
     course,
     upvotes,
@@ -28,14 +27,14 @@ class User {
     this.name = nome;
     this.password = pass;
     this.email = mail;
-    this.exp = exp;
+    this.experience = exp;
     this.level = this.getLevel();
     this.rank = this.getRank();
     this.badges = [];
-    this.desc = desc;
-    this.foto = foto;
+    this.description = desc;
+    this.picture = foto;
     this.follow = follow;
-    this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
+    // this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
     this.year = year;
     this.course = course;
     this.upvotes = upvotes;
@@ -43,7 +42,7 @@ class User {
   }
 
   getLevel() {
-    return Math.floor(this.exp / 100) + 1;
+    return Math.floor(this.experience / 100) + 1;
   }
 
   getRank() {
@@ -300,13 +299,13 @@ export default new Vuex.Store({
       // }
     ],
     comments: [
-      {
-        // id: 0,
-        // idAnswer: 0,
-        // idUser: 0,
-        // text: "",
-        // upvotes: 0
-      }
+      // {
+      // id: 0,
+      // idAnswer: 0,
+      // idUser: 0,
+      // text: "",
+      // upvotes: 0
+      // }
     ]
   },
   plugins: [createPersistedState()],
@@ -321,13 +320,14 @@ export default new Vuex.Store({
         user.name,
         user.password,
         user.email,
-        user.exp,
-        user.desc,
-        user.foto,
+        user.experience,
+        user.description,
+        user.picture,
         user.follow,
-        user.skills,
+        // user.skills,
         user.year,
         user.course,
+        [],
         []
       );
       state.users.push(us);
@@ -364,8 +364,9 @@ export default new Vuex.Store({
     },
     save_users(state, arr) {
       let aux = [];
+
+      console.log(arr);
       for (let user of arr) {
-        // console.log(user);
         let ups = user.upvotes == undefined ? [] : user.upvotes;
         let notis = user.notifications == undefined ? [] : user.notifications;
         let us = new User(
@@ -373,11 +374,10 @@ export default new Vuex.Store({
           user.name,
           user.password,
           user.email,
-          user.exp,
-          user.desc,
-          user.foto,
+          user.experience,
+          user.description,
+          user.picture,
           user.follow,
-          user.skills,
           user.year,
           user.course,
           ups,
@@ -606,6 +606,7 @@ export default new Vuex.Store({
     },
     add_upvote_user(context, up) {
       context.commit("add_upvote_user", up);
+      console.log('Isto é um upvote', up)
     },
     update_user(context, newUser) {
       context.commit("UPDATE_USER", newUser);

@@ -148,7 +148,7 @@
                       v-show="!threadFechada()"
                       v-bind:id="ans.id"
                       class="float-right btn btn-outline-primary ml-2"
-                      v-on:click="commentAnswer(ans.id)"
+                      v-on:click="commentAnswer(ans.id, ans.idUser)"
                     >
                       <i class="fa fa-reply" v-bind:id="ans.id"></i>
                     </a>
@@ -243,7 +243,7 @@
           Answer to
           <span
             style="font-weight: bold; font-family: verdana; color: rgb(255, 65, 99);"
-          >{{user.name}}</span>
+          >{{replyUser}}</span>
         </h4>
         <textarea placeholder="Comment..." name id="comentario" v-model="commentToAnswer"></textarea>
         <div class="col-md-12 text-right">
@@ -303,7 +303,8 @@ export default {
       open: false,
       commentToAnswer: "",
       ansIdToComment: 0,
-      thisThreadFollows: null
+      thisThreadFollows: null,
+      replyUser: null // Nome do User a que se vai comentar a resposta
     };
   },
   created() {
@@ -393,10 +394,11 @@ export default {
       }
       console.log(caixaComentarios[index].style.display);
     },
-    commentAnswer(ansid) {
+    commentAnswer(ansid, idUser) {
       if (this.$store.getters.getAuth) {
         this.$refs.myDialogcomment.showModal();
         this.ansIdToComment = ansid;
+        this.replyUser = this.$store.getters.getUsers.find(us => us.id == idUser).name
       } else {
         Swal({
           text: "First you need to login!",
@@ -424,7 +426,7 @@ export default {
         };
         this.$store.dispatch("add_comment", comment);
         let nivelDepois = this.loginUser.getLevel();
-        /* Notidicação */
+        /* Notiticação */
         this.addNotificacionToStore(
           this.user.id,
           this.loginUser.id,
@@ -456,9 +458,9 @@ export default {
     },
     adicionarResposta() {
       //Adicionar experiencia ao user
-      console.log(this.textoResposta);
+      console.log(this.textoResposta, 'alalal');
       let nivelAtual = this.loginUser.getLevel();
-      if (this.textoResposta != "") {
+      if (this.textoResposta != "" && this.textoResposta != null) {
         this.addNotificacionToStore(
           this.user.id,
           this.loginUser.id,
@@ -491,6 +493,13 @@ export default {
             timer: 1500
           });
         }
+      }
+      else {
+        Swal({
+          title: "Não podes responder nada",
+          type: "error",
+          text: "Escreve alguma coisa para responder"
+        })
       }
     },
     upvoteAns(id) {
@@ -637,8 +646,9 @@ export default {
     upvoteThread() {
       let guardar = true;
 
-      console.log(this.$store.getters.getUsers);
+      // console.log(this.$store.getters.getUsers);
       for (let us of this.$store.getters.getUsers) {
+        console.log(us)
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (

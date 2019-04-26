@@ -207,11 +207,12 @@ export default {
               this.newEmail,
               0,
               "Newbie",
+              "",
               "http://www.coffeebrain.org/wiki/images/9/93/PEOPLE-NoFoto.JPG",
               [],
               "programador",
-              "",
-              ""
+              [],
+              []
             )
           );
           Swal("Utilizador registado com sucesso");
