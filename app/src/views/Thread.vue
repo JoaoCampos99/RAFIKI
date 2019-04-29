@@ -323,6 +323,7 @@ export default {
     // console.log("OLAAAA");
     // console.log(this.thread);
     // console.log(this.user);
+    let threadid = this.$route.params.threadid
     if (!this.$store.getters.getAuth) {
       localStorage.setItem("setLastThread", threadid);
     }

@@ -69,8 +69,8 @@ export default {
         this.relatedThreads = this.$store.getters.getThreads.filter(thread => {
           let tagExists = false;
           for (let i = 0; i < this.relatedTags.length; i++) {
-            console.log(this.relatedTags[i]);
-            console.log(thread.tags);
+            // console.log(this.relatedTags[i]);
+            // console.log(thread.tags);
             if (thread.tags.find(tag => tag.text == this.relatedTags[i].text)) {
               tagExists = true;
             }

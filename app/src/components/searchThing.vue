@@ -55,8 +55,16 @@
                   <i v-else class="fas fa-user"></i>
                 </div>
                 <div class="desc">
-                  <a v-if="res.name == undefined" v-on:click="incrementar(res.id)">{{res.title}}</a>
-                  <a v-else v-on:click="goToUser(res.id)">{{res.name}}</a>
+                  <a
+                    v-if="res.name == undefined"
+                    v-bind:class="defineClass(res.id, 'thread')"
+                    v-on:click="incrementar(res.id)"
+                  >{{res.title}}</a>
+                  <a
+                    v-else
+                    v-bind:class="defineClass(res.id, 'user')"
+                    v-on:click="goToUser(res.id)"
+                  >{{res.name}}</a>
                 </div>
               </div>
             </div>
@@ -115,14 +123,76 @@ export default {
       cont: 0,
       showPagination: false,
       navigation: 0, // "página" atual (entre 0 e máximo de páginas -1)
-      maxEle: 5
+      maxEle: 5,
+      index: 0 //Index para controlar os divs no modal de search
     };
   },
   mounted() {
     // $("li.navigation")[0].className = "page-item navigation active"
-    console.log($("li.navigation"));
+    // console.log($("li.navigation"));
+    let search = document.querySelector("#search");
+    search.addEventListener("keydown", event => {
+      if (this.searchText != null && this.searchText != "") {
+        console.log(event.key);
+        this.navigateSearch(event);
+      }
+    });
   }, //a
   methods: {
+    defineClass(id, type) {
+      return `${id} ${type}`;
+    },
+    navigateSearch({ key, target }) {
+      //Variavel para saber em que "casa" do array final de search,
+      //o cursor está.
+      let dropdowns = $("div.dropdowns");
+      console.log(dropdowns);
+      let type = null,
+        targetId = null;
+      /**
+       * Saber em que div está,
+       * controlar a div em que está,
+       * criar um indice
+       */
+
+      if (dropdowns.length > 0) {
+        if (key == "ArrowUp") {
+          if (this.index > 0) this.index--;
+        } else if (key == "ArrowDown") {
+          if (this.index < dropdowns.length -1) this.index++;
+        }
+        console.log(this.index)
+  console.log(dropdowns[this.index].children[1])
+        if (this.index > dropdowns.length) this.index = 0; // Previne os erros caso o index não seja atualizado e seja maior que o dropdowns
+        type = dropdowns[this.index].children[1].children[0].className.split(
+          " "
+        )[1];
+        targetId = dropdowns[
+          this.index
+        ].children[1].children[0].className.split(" ")[0];
+        console.log({ type: type }, { targetId: targetId });
+
+        for (let i = 0; i < dropdowns.length; i++) {
+          if(this.index == i) {
+            dropdowns[i].className = "col-md-12 dropdowns activeSearch"
+          }
+          else {
+            dropdowns[i].className = "col-md-12 dropdowns"
+          }
+        }
+        
+        //Isto tem que ficar para ultimop que é para o this.index estar atualizado
+        if (key == "Enter") {
+          // Verificar o index do div que está selecionado
+          // e ir buscar a informação à variavel dropdowns
+
+          if(type == 'thread') this.incrementar(targetId)
+          else this.goToUser(targetId)
+        }
+      } else {
+        this.index = 0; //Para voltar ao inicio se a pesquisa não tiver resultados
+      }
+    },
     incrementar(threadid) {
       this.$router.push({
         name: "thread",
@@ -144,7 +214,8 @@ export default {
     },
     openDialog() {
       setTimeout(() => {
-        document.querySelector("#search").focus();
+        let search = document.querySelector("#search");
+        search.focus();
       }, 500);
     },
     cTid() {
@@ -198,8 +269,8 @@ export default {
       console.log(this.navigation);
     },
     navigationNumbers(index) {
-      this.navigation = index-1;
-      let navigationList = $('li.navigation')
+      this.navigation = index - 1;
+      let navigationList = $("li.navigation");
       for (let i = 0; i < navigationList.length; i++) {
         // console.log(i);
         if (i == this.navigation)
@@ -258,7 +329,7 @@ export default {
         for (let i = begin; i < end; i++) {
           if (aux[i] != undefined) finalArr.push(aux[i]);
         }
-        console.log(finalArr);
+        // console.log(finalArr);
         return finalArr;
       } else this.showPagination = false;
 
@@ -376,6 +447,7 @@ input.search_input:focus {
   width: 85%;
   margin: 0 !important;
   display: inline-block;
+  caret-color: black;
 }
 .devilhr {
   border: 3px solid #282c35;
@@ -432,6 +504,10 @@ div.row.containerDropdowns {
   margin: 3% 2.5%;
 }
 div.dropdowns:hover {
+  background-color: rgb(202, 207, 255) !important;
+  cursor: pointer;
+}
+.col-md-12.dropdowns.activeSearch {
   background-color: rgb(202, 207, 255) !important;
   cursor: pointer;
 }
