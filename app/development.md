@@ -53,6 +53,6 @@ console.log("ainda não está no localstorage");
               ans[i].id = i + 1;
             }
             console.log(ans);
-            context.commit("save_users", ans);
+            context.commit("get_users", ans);
           })
         });

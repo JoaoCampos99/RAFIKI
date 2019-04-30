@@ -28,7 +28,7 @@ export default {
   },
   computed: {},
   created() {
-    this.$store.dispatch("save_users");
+    this.$store.dispatch("get_users");
     this.$store.dispatch("save_threads");
     this.$store.dispatch("save_answers");
     this.$store.dispatch("save_comments");

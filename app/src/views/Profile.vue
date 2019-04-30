@@ -99,7 +99,7 @@ export default {
     };
   },
   created() {
-    this.imageSrc = this.getUser(this.$route.params.userid).foto;
+    this.imageSrc = this.getUser(this.$route.params.userid).picture;
     //Enviar para o gráfico o numero de upvotes
     let nUpvotes = 0;
     for (let i = 0; i < this.$store.getters.getThreads.length; i++) {

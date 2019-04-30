@@ -174,7 +174,7 @@ export default {
   },
   computed: {
     notificacoes() {
-      setTimeout()
+      // setTimeout()
     }
   }
 };

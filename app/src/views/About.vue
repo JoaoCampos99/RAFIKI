@@ -19,7 +19,7 @@
     </div>
     <div class="bs-callout bs-callout-danger">
       <h4>Bio</h4>
-      <p>{{getUser(this.$route.params.visiteduserid).desc}}</p>
+      <p>{{getUser(this.$route.params.visiteduserid).description}}</p>
     </div>
   </div>
 </template>

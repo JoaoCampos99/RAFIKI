@@ -146,7 +146,7 @@ export default {
       //Variavel para saber em que "casa" do array final de search,
       //o cursor está.
       let dropdowns = $("div.dropdowns");
-      console.log(dropdowns);
+      // console.log(dropdowns);
       let type = null,
         targetId = null;
       /**
@@ -159,10 +159,10 @@ export default {
         if (key == "ArrowUp") {
           if (this.index > 0) this.index--;
         } else if (key == "ArrowDown") {
-          if (this.index < dropdowns.length -1) this.index++;
+          if (this.index < dropdowns.length - 1) this.index++;
         }
-        console.log(this.index)
-  console.log(dropdowns[this.index].children[1])
+        console.log(this.index);
+        console.log(dropdowns[this.index].children[1]);
         if (this.index > dropdowns.length) this.index = 0; // Previne os erros caso o index não seja atualizado e seja maior que o dropdowns
         type = dropdowns[this.index].children[1].children[0].className.split(
           " "
@@ -173,21 +173,20 @@ export default {
         console.log({ type: type }, { targetId: targetId });
 
         for (let i = 0; i < dropdowns.length; i++) {
-          if(this.index == i) {
-            dropdowns[i].className = "col-md-12 dropdowns activeSearch"
-          }
-          else {
-            dropdowns[i].className = "col-md-12 dropdowns"
+          if (this.index == i) {
+            dropdowns[i].className = "col-md-12 dropdowns activeSearch";
+          } else {
+            dropdowns[i].className = "col-md-12 dropdowns";
           }
         }
-        
+
         //Isto tem que ficar para ultimop que é para o this.index estar atualizado
         if (key == "Enter") {
           // Verificar o index do div que está selecionado
           // e ir buscar a informação à variavel dropdowns
 
-          if(type == 'thread') this.incrementar(targetId)
-          else this.goToUser(targetId)
+          if (type == "thread") this.incrementar(targetId);
+          else this.goToUser(targetId);
         }
       } else {
         this.index = 0; //Para voltar ao inicio se a pesquisa não tiver resultados

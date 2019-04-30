@@ -308,7 +308,7 @@ export default new Vuex.Store({
       // }
     ]
   },
-  plugins: [createPersistedState()],
+  // plugins: [createPersistedState()],
   mutations: {
     addUser(state, user) {
       user.id =
@@ -362,7 +362,7 @@ export default new Vuex.Store({
     save(state) {
       state.preenchido = true;
     },
-    save_users(state, arr) {
+    get_users(state, arr) {
       let aux = [];
 
       console.log(arr);
@@ -633,21 +633,16 @@ export default new Vuex.Store({
     add_thread(context, payload) {
       context.commit("ADD_THREAD", payload);
     },
-    save_users(context) {
-      if (
-        !localStorage.getItem("vuex") == true ||
-        JSON.parse(localStorage["vuex"]).users.length == 0
-      ) {
+    get_users(context) {
+      if (context.state.users.length == 0) {
         axios.get('http://127.0.0.1:420/allusers')
           // .then(resp => resp.json())
           .then(collection => {
-            console.log(collection.data)
-            context.commit("save_users", collection.data)
+            let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
+            console.log(sortedUsers, 'aalalala')
+            context.commit("get_users", sortedUsers);
           })
-          .catch(err => console.log(err, 'Erro'))
-      } else {
-        // console.log(JSON.parse(localStorage["vuex"]).users);
-        context.commit("save_users", JSON.parse(localStorage["vuex"]).users);
+          .catch(err => console.log(err, 'Erro'));
       }
     },
     save_threads(context) {
