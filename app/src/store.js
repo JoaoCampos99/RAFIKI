@@ -120,7 +120,7 @@ class User {
 class Thread {
   constructor(
     id,
-    userid,
+    userInfo,
     title,
     question,
     idGroup,
@@ -130,7 +130,7 @@ class Thread {
     views
   ) {
     this.id = id;
-    this.userid = userid;
+    this.userInfo = userInfo;
     this.title = title;
     this.question = question;
     this.tags = [];
@@ -175,7 +175,7 @@ export default new Vuex.Store({
     users: [],
     badges: [
       //helpful awards
-      {
+      /*{
         id: 1,
         name: "Nice, you're helpful!",
         goal: 10,
@@ -252,7 +252,7 @@ export default new Vuex.Store({
         goal: 10,
         desc: "10 clicks on Rafiki",
         category: "hardwork" //Pode mudar de nome, mas devia ser uma categoria diferente
-      }
+      }*/
     ],
 
     groups: [
@@ -309,6 +309,9 @@ export default new Vuex.Store({
     ]
   },
   // plugins: [createPersistedState()],
+  /**
+   * Mutations
+   */
   mutations: {
     addUser(state, user) {
       user.id =
@@ -388,14 +391,14 @@ export default new Vuex.Store({
       state.users = aux;
       // console.log(state.users);
     },
-    save_threads(state, arr) {
+    get_threads(state, arr) {
       // console.log(arr);
       let aux = [];
       for (let thread of arr) {
         let views = thread.views == undefined ? 0 : thread.views
         let closedate = (thread.closeDate == undefined || thread.closeDate == null) ? null : thread.closeDate
         // console.log(closedate)
-        let th = new Thread(thread.id, thread.userid, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
+        let th = new Thread(thread.id, thread.userInfo, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
         // let views = thread.views == undefined ? 0 : thread.views;
         // let closedate =
         //   thread.closeDate == undefined || null ? null : thread.closeDate;
@@ -426,7 +429,7 @@ export default new Vuex.Store({
       }
       state.threads = aux;
     },
-    save_answers(state, arr) {
+    get_answers(state, arr) {
       let aux = [];
       for (let ans of arr) {
         let as = new Answer(
@@ -446,7 +449,7 @@ export default new Vuex.Store({
       let index = state.users.findIndex(us => us.id == answer.idUser);
       state.users[index].exp += 20;
     },
-    save_comments(state, arr) {
+    get_comment(state, arr) {
       state.comments = arr;
     },
     UPDATE_USER(state, newUser) {
@@ -536,8 +539,15 @@ export default new Vuex.Store({
     },
     add_tag(state, tag) {
       state.tags.push(tag);
+    },
+    get_badges(state, arr) {
+      console.log(arr, 'array badges mutation')
+      state.badges = arr
     }
   },
+  /**
+   * ACTIONS
+   */
   actions: {
     /* tags */
     add_tag(context, tag) {
@@ -639,142 +649,35 @@ export default new Vuex.Store({
           // .then(resp => resp.json())
           .then(collection => {
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
-            console.log(sortedUsers, 'aalalala')
+            console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
           })
           .catch(err => console.log(err, 'Erro'));
       }
     },
-    save_threads(context) {
-      let payload = {
-        token: "I6EFQFoKLa1FFP453_jzQg",
-        data: {
-          id: 1,
-          userid: "numberInt|1,10",
-          title: "stringWords",
-          question: "stringLong",
-          tags: [], //"functionArray|2|stringWords|1,2",
-          idGroup: null, //Caso este id seja diferente de null, seginifica que este thread pertence a um grupo, caso contrário é um thread geral
-          upvotes: "numberInt|1,100",
-          date: "dateTime|ISOdate",
-          views: "numberInt|1,20", // Contador que vai ser incrementado de cada vez que alguém aceda a um thread
-          course: "stringCharacters|3,4",
-          closeDate: null,
-          _repeat: 1
-        }
-      };
-
-      async function t() {
-        try {
-          console.log('ata');
-          let threads = await $.ajax({
-            type: "POST",
-            url: "https:app.fakejson.com/q",
-            data: payload,
-            success: (resp => {
-              return resp;
-            })(ans => {
-              for (let i = 0; i < ans.length; i++) {
-                ans[i].id = i + 1;
-              }
-              // ans.closeDate = null
-              console.log(ans, 'threads ');
-            })
-          });
-          console.log(threads);
-          context.commit("save_threads", threads);
-        }
-        catch (err) {
-          console.log(err, 'tá bem joão')
-        }
-      }
-
-      if (
-        !localStorage.getItem("vuex") == true ||
-        JSON.parse(localStorage["vuex"]).threads.length == 0
-      ) {
-        console.log('alalalalala');
-        t()
-      } else {
-        context.commit(
-          "save_threads",
-          JSON.parse(localStorage["vuex"]).threads
-        );
-      }
+    get_threads(context) {
+      //Serve para ir buscar as threads
+      axios.get('http://127.0.0.1:420/allthreads')
+        .then(collection => {
+          let sortedThreads = collection.data.sort((a, b) => a.id - b.id)
+          console.log(sortedThreads, "threads")
+          context.commit("get_threads", sortedThreads)
+        })
+        .catch(err => console.log(err, 'Erro nos Threads'))
     },
-    save_answers(context) {
-      if (
-        !localStorage.getItem("vuex") == true ||
-        JSON.parse(localStorage["vuex"]).threads.length == 0
-      ) {
-        let payload = {
-          token: "I6EFQFoKLa1FFP453_jzQg",
-          data: {
-            id: 0,
-            idThread: "numberInt|1,10",
-            answer: "stringShort",
-            idUser: "numberInt|1,10",
-            upvotes: "numberInt|1,100",
-            date: "dateTime|ISOdate",
-            _repeat: 1
-          }
-        };
-
-        $.ajax({
-          type: "POST",
-          url: "https:app.fakejson.com/q",
-          data: payload,
-          success: (resp => {
-            return resp;
-          })(ans => {
-            for (let i = 0; i < ans.length; i++) {
-              ans[i].id = i + 1;
-            }
-            console.log(ans);
-            context.commit("save_answers", ans);
-          })
-        });
-      } else {
-        context.commit(
-          "save_answers",
-          JSON.parse(localStorage["vuex"]).answers
-        );
-      }
+    get_answers(context) {
+      //seRVE PARA ir buscar as answers
     },
-    save_comments(context) {
-      if (
-        !localStorage.getItem("vuex") == true ||
-        JSON.parse(localStorage["vuex"]).comments.length == 0
-      ) {
-        let payload = {
-          token: "I6EFQFoKLa1FFP453_jzQg",
-          data: {
-            id: 0,
-            idAnswer: "numberInt|1,10",
-            idUser: "numberInt|1,10",
-            text: "stringShort",
-            upvotes: 0,
-            _repeat: 1
-          }
-        };
-        $.ajax({
-          type: "POST",
-          url: "https:app.fakejson.com/q",
-          data: payload,
-          success: (resp => resp)(ans => {
-            for (let i = 0; i < ans.length; i++) {
-              ans[i].id = i + 1;
-            }
-            console.log(ans);
-            context.commit("save_comments", ans);
-          })
-        });
-      } else {
-        context.commit(
-          "save_comments",
-          JSON.parse(localStorage["vuex"]).comments
-        );
-      }
+    get_comment(context) {
+      //Ir buscar todos os comentários
+    },
+    get_badges(context) {
+      axios.get('http://127.0.0.1:420/allbadges').
+        then(collection => {
+          let sortedBadges = collection.data.sort((a, b) => a.id - b.id)
+          console.log(sortedBadges, 'badges')
+          context.commit("get_badges", sortedBadges)
+        }).catch(err => console.log(err ,'erro nos badges'))
     },
     add_user_follow(context, obj) {
       let index = this.getters.getUsers.findIndex(us => us.id == obj.userid);

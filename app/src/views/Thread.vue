@@ -317,13 +317,14 @@ export default {
     console.log(this.thread);
 
     this.thisThreadFollows = this.numberFollowers();
-    this.user = this.$store.getters.getUsers.filter(
-      user => this.thread.userid == user.id
-    )[0];
+    this.user = this.$store.getters.getUsers.filter(user => {
+      console.log(this.thread.userInfo);
+      this.thread.userInfo.userid == user.id;
+    })[0];
     // console.log("OLAAAA");
     // console.log(this.thread);
     // console.log(this.user);
-    let threadid = this.$route.params.threadid
+    let threadid = this.$route.params.threadid;
     if (!this.$store.getters.getAuth) {
       localStorage.setItem("setLastThread", threadid);
     }
@@ -399,7 +400,9 @@ export default {
       if (this.$store.getters.getAuth) {
         this.$refs.myDialogcomment.showModal();
         this.ansIdToComment = ansid;
-        this.replyUser = this.$store.getters.getUsers.find(us => us.id == idUser).name
+        this.replyUser = this.$store.getters.getUsers.find(
+          us => us.id == idUser
+        ).name;
       } else {
         Swal({
           text: "First you need to login!",
@@ -459,7 +462,7 @@ export default {
     },
     adicionarResposta() {
       //Adicionar experiencia ao user
-      console.log(this.textoResposta, 'alalal');
+      console.log(this.textoResposta, "alalal");
       let nivelAtual = this.loginUser.getLevel();
       if (this.textoResposta != "" && this.textoResposta != null) {
         this.addNotificacionToStore(
@@ -494,13 +497,12 @@ export default {
             timer: 1500
           });
         }
-      }
-      else {
+      } else {
         Swal({
           title: "Não podes responder nada",
           type: "error",
           text: "Escreve alguma coisa para responder"
-        })
+        });
       }
     },
     upvoteAns(id) {
@@ -649,7 +651,7 @@ export default {
 
       // console.log(this.$store.getters.getUsers);
       for (let us of this.$store.getters.getUsers) {
-        console.log(us)
+        console.log(us);
         if (us.upvotes.length > 0) {
           for (let ups of us.upvotes) {
             if (
@@ -795,10 +797,10 @@ export default {
       // if (typeof this.thread.closeDate == "object") {
       //   if (this.thread == null) return false;
       // }
-console.log(this.thread.closeDate)
+      console.log(this.thread.closeDate);
       // if (typeof this.thread.closeDate == "string") {
-        if (this.thread.closeDate === "") return false;
-        else return true;
+      if (this.thread.closeDate === "") return false;
+      else return true;
       // }
     }
   }

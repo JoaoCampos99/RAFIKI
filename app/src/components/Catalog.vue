@@ -49,7 +49,7 @@
               <a v-on:click="incrementar(thread.id)" class="title">{{thread.title}}</a>
             </td>
             <td>
-              <img v-bind:src="getUserById(thread.userid).picture" class="img-fluid pic">
+              <img v-bind:src="getUserById(thread.userInfo.userid).picture" class="img-fluid pic">
             </td>
             <td>{{thread.views}}</td>
 
@@ -119,6 +119,7 @@ export default {
       this.tag = this.$store.state.searchTag;
       this.tags.push(this.tag);
     }
+    console.log(this.threads, '......')
   },
   updated() {
     if (this.searchBy == "All") {
@@ -148,6 +149,8 @@ export default {
       });
     },
     filteredThreads() {
+      this.threads = this.$store.getters.getThreads
+      console.log(this.threads)
       return this.threads.filter(thread => {
         if (this.tags.length == 1) {
           console.log("Entra");
@@ -176,6 +179,7 @@ export default {
       this.$store.dispatch("increment_views", id);
     },
     getUserById(id) {
+      console.log('tá')
       return this.$store.getters.getUsers.filter(user => user.id == id)[0];
     }
   }

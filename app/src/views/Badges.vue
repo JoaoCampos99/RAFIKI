@@ -38,7 +38,7 @@
     </div>
   </div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(badge) in $store.state.badges"  v-if="badge.category==='rank'" v-bind:key="badge.id">
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(badge) in $store.getters.getBadges"  v-if="badge.category==='rank'" v-bind:key="badge.id">
 			<div class="offer offer-radius offer-warning">
 				<div class="shape">
 					<div class="shape-text">

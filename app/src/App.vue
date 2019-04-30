@@ -29,14 +29,15 @@ export default {
   computed: {},
   created() {
     this.$store.dispatch("get_users");
-    this.$store.dispatch("save_threads");
-    this.$store.dispatch("save_answers");
-    this.$store.dispatch("save_comments");
-
-    if (this.$store.state.preenchido == false) {
-      //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site
-      this.$store.dispatch("save");
-    }
+    this.$store.dispatch("get_threads");
+    this.$store.dispatch("get_answers");
+    this.$store.dispatch("get_comment");
+    this.$store.dispatch("get_badges");
+    
+    // if (this.$store.state.preenchido == false) {
+    //   //Isto está aqui para fazer com que o vuex se guarde da primeira vez que entrar no site
+    //   this.$store.dispatch("save");
+    // }
   },
   updated() {
     this.logged = this.$store.getters.getAuth;
