@@ -94,7 +94,7 @@ export default {
     };
   },
   created() {
-    this.imageSrc = this.getUser(this.$route.params.visiteduserid).foto;
+    this.imageSrc = this.getUser(this.$route.params.visiteduserid).picture;
     this.users.sort((a, b) => {
       if (a.level > b.level) return -1;
       if (a.level < b.level) return 1;

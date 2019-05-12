@@ -78,7 +78,7 @@ export default {
       user.email,
       user.exp,
       user.desc,
-      user.foto,
+      user.picture,
       user.follow,
       user.skill
     );

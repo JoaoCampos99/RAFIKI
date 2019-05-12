@@ -133,7 +133,7 @@ export default {
   },
   created() {
     this.user = this.getUser(this.$route.params.userid);
-    this.userImage = this.user.foto;
+    this.userImage = this.user.picture;
     this.newDesc = this.user.desc;
     this.newPW = this.user.password;
     this.newYear = this.user.year;
@@ -176,7 +176,7 @@ export default {
         this.user.desc = this.newDesc;
         this.user.year = this.newYear;
         this.user.course = this.newCourse;
-        this.user.foto = this.userImage;
+        this.user.picture = this.userImage;
         console.log(this.user);
         this.$store.dispatch("update_user", this.user);
         location.reload();

@@ -460,7 +460,7 @@ export default new Vuex.Store({
       state.users[index].course = newUser.course;
       state.users[index].year = newUser.year;
       state.users[index].bio = newUser.bio;
-      state.users[index].foto = newUser.foto;
+      state.users[index].picture = newUser.picture;
     },
     SEARCH_TAG(state, tag) {
       state.searchTag = tag;

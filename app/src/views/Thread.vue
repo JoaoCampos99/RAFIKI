@@ -455,7 +455,7 @@ export default {
       this.commentToAnswer = "";
     },
     userFoto(iduser) {
-      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].foto;
+      return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].picture;
     },
     userNome(iduser) {
       return this.$store.getters.getUsers.filter(us => us.id == iduser)[0].name;

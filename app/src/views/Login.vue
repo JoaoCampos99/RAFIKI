@@ -119,7 +119,7 @@ class User {
     this.level = this.getLevel();
     this.rank = this.getRank();
     this.desc = desc;
-    this.foto = foto;
+    this.picture = foto;
     this.follow = follow;
     this.skill = skill; //Isto devia ser um array, um gadjo pode ter váriass skills
   }
