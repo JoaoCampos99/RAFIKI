@@ -166,6 +166,7 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
+    port: '192.168.1.83',
     Userclass: User,
     ThreadClass: Thread,
     autenticated: false,
@@ -645,7 +646,7 @@ export default new Vuex.Store({
     },
     get_users(context) {
       if (context.state.users.length == 0) {
-        axios.get('http://127.0.0.1:420/allusers')
+        axios.get(`http://${context.state.port}:420/allusers`)
           // .then(resp => resp.json())
           .then(collection => {
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
@@ -657,7 +658,7 @@ export default new Vuex.Store({
     },
     get_threads(context) {
       //Serve para ir buscar as threads
-      axios.get('http://127.0.0.1:420/allthreads')
+      axios.get(`http://${context.state.port}:420/allthreads`)
         .then(collection => {
           let sortedThreads = collection.data.sort((a, b) => a.id - b.id)
           console.log(sortedThreads, "threads")
@@ -672,7 +673,7 @@ export default new Vuex.Store({
       //Ir buscar todos os comentários
     },
     get_badges(context) {
-      axios.get('http://127.0.0.1:420/allbadges').
+      axios.get(`http://${context.state.port}:420/allbadges`).
         then(collection => {
           let sortedBadges = collection.data.sort((a, b) => a.id - b.id)
           console.log(sortedBadges, 'badges')
