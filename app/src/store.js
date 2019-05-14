@@ -166,7 +166,7 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
-    port: '172.23.133.240',//'192.168.1.83','172.23.116.246'
+    port: '172.23.133.159',//'192.168.1.83','172.23.116.246'
     Userclass: User,
     ThreadClass: Thread,
     autenticated: false,
@@ -652,6 +652,7 @@ export default new Vuex.Store({
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
             console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
+           
             return sortedUsers;
           })
           .catch(err => console.log(err, 'Erro'));
