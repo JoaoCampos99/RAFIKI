@@ -652,6 +652,7 @@ export default new Vuex.Store({
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
             console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
+           
             return sortedUsers;
           })
           .catch(err => console.log(err, 'Erro'));
