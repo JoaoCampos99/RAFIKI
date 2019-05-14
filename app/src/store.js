@@ -166,7 +166,7 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
-    port: '192.168.1.83',
+    port: '172.23.116.246',//'192.168.1.83',
     Userclass: User,
     ThreadClass: Thread,
     autenticated: false,
@@ -646,19 +646,20 @@ export default new Vuex.Store({
     },
     get_users(context) {
       if (context.state.users.length == 0) {
-        axios.get(`http://${context.state.port}:420/allusers`)
+        axios.get(`http://${context.state.port}:420/data-api/users`)
           // .then(resp => resp.json())
           .then(collection => {
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
             console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
+            return sortedUsers;
           })
           .catch(err => console.log(err, 'Erro'));
       }
     },
     get_threads(context) {
       //Serve para ir buscar as threads
-      axios.get(`http://${context.state.port}:420/allthreads`)
+      axios.get(`http://${context.state.port}:420/data-api/threads`)
         .then(collection => {
           let sortedThreads = collection.data.sort((a, b) => a.id - b.id)
           console.log(sortedThreads, "threads")
@@ -673,12 +674,12 @@ export default new Vuex.Store({
       //Ir buscar todos os comentários
     },
     get_badges(context) {
-      axios.get(`http://${context.state.port}:420/allbadges`).
+      axios.get(`http://${context.state.port}:420/data-api/badges`).
         then(collection => {
           let sortedBadges = collection.data.sort((a, b) => a.id - b.id)
           console.log(sortedBadges, 'badges')
           context.commit("get_badges", sortedBadges)
-        }).catch(err => console.log(err ,'erro nos badges'))
+        }).catch(err => console.log(err, 'erro nos badges'))
     },
     add_user_follow(context, obj) {
       let index = this.getters.getUsers.findIndex(us => us.id == obj.userid);

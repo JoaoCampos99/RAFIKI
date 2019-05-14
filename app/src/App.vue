@@ -28,6 +28,7 @@ export default {
   },
   computed: {},
   created() {
+    console.log('A carregar o APP')
     this.$store.dispatch("get_users");
     this.$store.dispatch("get_threads");
     this.$store.dispatch("get_answers");

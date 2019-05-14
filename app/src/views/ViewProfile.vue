@@ -5,9 +5,9 @@
         <img :src="imageSrc" class="picture img-fluid">
       </div>
       <div class="col-md-5">
-        <h1>{{getUser(this.$route.params.visiteduserid).name}}</h1>
-        <h6>Ladder position:{{getUser(this.$route.params.visiteduserid).rank[0]}}</h6>
-        <span>Level:{{getUser(this.$route.params.visiteduserid).level}}</span>
+        <h1>{{name}}</h1>
+        <h6>Ladder position:{{rank}}</h6>
+        <span>Level:{{level}}</span>
 
         <div class="progress">
           <div
@@ -52,6 +52,10 @@ export default {
   },
   data() {
     return {
+      name: "",
+      rank: "",
+      level: 0,
+      // user: this.$store.getters.getUser(this.$route.params.visiteduserid),
       users: this.$store.getters.getUsers,
       imageSrc: "",
       series: [
@@ -94,111 +98,128 @@ export default {
     };
   },
   created() {
-    this.imageSrc = this.getUser(this.$route.params.visiteduserid).picture;
-    this.users.sort((a, b) => {
-      if (a.level > b.level) return -1;
-      if (a.level < b.level) return 1;
-      else return 0;
-    });
-    console.log(this.users);
-
-    //Ordenar users ranking global
-    for (let i = 0; i < this.users.length; i++) {
-      this.users[i].rank[0] = i + 1;
-    }
-
-    if (!this.$store.getters.getAuth) {
-      this.series.splice(0, 1);
-      //Enviar Para o Gráfico o numero
-      let nUpvotes = 0;
-      for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
-        if (
-          this.$store.getters.getThreads[i].userid ==
-          this.$route.params.visiteduserid
-        ) {
-          nUpvotes += this.$store.getters.getThreads[i].upvotes;
-        }
+    if (this.$store.state.users.length == 0) {
+      async function loadUsers() {
+        console.log('i fuck your mother')
+        let users = await this.$store.dispatch("get_users");
+        console.log(users, 'açaçaçaalalalalalalalalalaal')
+        this.loadGraphics();
       }
-      this.series[0].data.push(nUpvotes / 100);
-      //Enviar o Nº de Threads
-      let count = this.$store.getters.getThreads.filter(
-        thread => thread.userid == this.$route.params.visiteduserid
-      ).length;
-      this.series[0].data.push(count);
-      //Enviar o Nº de comments
-      count = this.$store.getters.getComments.filter(
-        comment => comment.idUser == this.$route.params.visiteduserid
-      ).length;
-      count += this.$store.getters.getAnswers.filter(
-        comment => comment.idUser == this.$route.params.visiteduserid
-      ).length;
-      console.log(count);
-      this.series[0].data.push(count);
-      //Enviar o level
-      this.series[0].data.push(
-        this.getUser(this.$route.params.visiteduserid).level
-      );
+      loadUsers();
     } else {
-      //Enviar Para o Gráfico o numero
-      let nUpvotes = 0;
-      for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
-        if (
-          this.$store.getters.getThreads[i].userid ==
-          this.$route.params.visiteduserid
-        ) {
-          nUpvotes += this.$store.getters.getThreads[i].upvotes;
-        }
-      }
-
-      this.series[1].data.push(nUpvotes / 100);
-      nUpvotes = 0;
-      for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
-        if (
-          this.$store.getters.getThreads[i].userid ==
-          this.$store.getters.getloginID
-        ) {
-          nUpvotes += this.$store.getters.getThreads[i].upvotes;
-        }
-      }
-      console.log(nUpvotes);
-      this.series[0].data.push(nUpvotes / 100);
-      //Enviar o Nº de Threads
-      let count = this.$store.getters.getThreads.filter(
-        thread => thread.userid == this.$route.params.visiteduserid
-      ).length;
-      this.series[1].data.push(count);
-      count = this.$store.getters.getThreads.filter(
-        thread => thread.userid == this.$store.getters.getloginID
-      ).length;
-      this.series[0].data.push(count);
-      //Enviar o Nº de comments
-      count = this.$store.getters.getComments.filter(
-        comment => comment.idUser == this.$route.params.visiteduserid
-      ).length;
-      count += this.$store.getters.getAnswers.filter(
-        comment => comment.idUser == this.$route.params.visiteduserid
-      ).length;
-      console.log(count);
-      this.series[1].data.push(count);
-      count = this.$store.getters.getComments.filter(
-        comment => comment.idUser == this.$store.getters.getloginID
-      ).length;
-      count += this.$store.getters.getAnswers.filter(
-        comment => comment.idUser == this.$store.getters.getloginID
-      ).length;
-      this.series[0].data.push(count);
-
-      //Enviar o level
-
-      this.series[1].data.push(
-        this.getUser(this.$route.params.visiteduserid).level
-      );
-      this.series[0].data.push(
-        this.getUser(this.$store.getters.getloginID).level
-      );
+      this.loadGraphics();
     }
+    async () => {
+      let users = await this.$store.state.users;
+      console.log(users, "alalalalalalal");
+    };
   },
   methods: {
+    loadGraphics() {
+      this.imageSrc = this.getUser(this.$route.params.visiteduserid).picture;
+      this.users.sort((a, b) => {
+        if (a.level > b.level) return -1;
+        if (a.level < b.level) return 1;
+        else return 0;
+      });
+      console.log(this.users);
+
+      //Ordenar users ranking global
+      for (let i = 0; i < this.users.length; i++) {
+        this.users[i].rank[0] = i + 1;
+      }
+
+      if (!this.$store.getters.getAuth) {
+        this.series.splice(0, 1);
+        //Enviar Para o Gráfico o numero
+        let nUpvotes = 0;
+        for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
+          if (
+            this.$store.getters.getThreads[i].userid ==
+            this.$route.params.visiteduserid
+          ) {
+            nUpvotes += this.$store.getters.getThreads[i].upvotes;
+          }
+        }
+        this.series[0].data.push(nUpvotes / 100);
+        //Enviar o Nº de Threads
+        let count = this.$store.getters.getThreads.filter(
+          thread => thread.userid == this.$route.params.visiteduserid
+        ).length;
+        this.series[0].data.push(count);
+        //Enviar o Nº de comments
+        count = this.$store.getters.getComments.filter(
+          comment => comment.idUser == this.$route.params.visiteduserid
+        ).length;
+        count += this.$store.getters.getAnswers.filter(
+          comment => comment.idUser == this.$route.params.visiteduserid
+        ).length;
+        console.log(count);
+        this.series[0].data.push(count);
+        //Enviar o level
+        this.series[0].data.push(
+          this.getUser(this.$route.params.visiteduserid).level
+        );
+      } else {
+        //Enviar Para o Gráfico o numero
+        let nUpvotes = 0;
+        for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
+          if (
+            this.$store.getters.getThreads[i].userid ==
+            this.$route.params.visiteduserid
+          ) {
+            nUpvotes += this.$store.getters.getThreads[i].upvotes;
+          }
+        }
+
+        this.series[1].data.push(nUpvotes / 100);
+        nUpvotes = 0;
+        for (let i = 0; i < this.$store.getters.getThreads.length; i++) {
+          if (
+            this.$store.getters.getThreads[i].userid ==
+            this.$store.getters.getloginID
+          ) {
+            nUpvotes += this.$store.getters.getThreads[i].upvotes;
+          }
+        }
+        console.log(nUpvotes);
+        this.series[0].data.push(nUpvotes / 100);
+        //Enviar o Nº de Threads
+        let count = this.$store.getters.getThreads.filter(
+          thread => thread.userid == this.$route.params.visiteduserid
+        ).length;
+        this.series[1].data.push(count);
+        count = this.$store.getters.getThreads.filter(
+          thread => thread.userid == this.$store.getters.getloginID
+        ).length;
+        this.series[0].data.push(count);
+        //Enviar o Nº de comments
+        count = this.$store.getters.getComments.filter(
+          comment => comment.idUser == this.$route.params.visiteduserid
+        ).length;
+        count += this.$store.getters.getAnswers.filter(
+          comment => comment.idUser == this.$route.params.visiteduserid
+        ).length;
+        console.log(count, "count");
+        this.series[1].data.push(count);
+        count = this.$store.getters.getComments.filter(
+          comment => comment.idUser == this.$store.getters.getloginID
+        ).length;
+        count += this.$store.getters.getAnswers.filter(
+          comment => comment.idUser == this.$store.getters.getloginID
+        ).length;
+        this.series[0].data.push(count);
+
+        //Enviar o level
+
+        this.series[1].data.push(
+          this.getUser(this.$route.params.visiteduserid).level
+        );
+        this.series[0].data.push(
+          this.getUser(this.$store.getters.getloginID).level
+        );
+      }
+    },
     getUser(id) {
       return this.users.filter(user => user.id == id)[0];
     },
