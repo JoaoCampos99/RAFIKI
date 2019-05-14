@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="ready">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
         <img :src="imageSrc" class="picture img-fluid">
@@ -10,10 +10,7 @@
         <span>Level:{{level}}</span>
 
         <div class="progress">
-          <div
-            :style="{'width': getUserProgress(this.$route.params.visiteduserid)}"
-            class="progress-bar progress-bar-info"
-          ></div>
+          <div :style="{'width': width}" class="progress-bar progress-bar-info"></div>
         </div>
       </div>
       <div class="col-md-3">
@@ -46,17 +43,21 @@
 
 <script>
 import VueApexCharts from "vue-apexcharts";
+import axios from "axios";
 export default {
   components: {
-    apexchart: VueApexCharts
+    apexchart: VueApexCharts,
+    axios:axios
   },
   data() {
     return {
+      ready: false,
       name: "",
       rank: "",
       level: 0,
-      // user: this.$store.getters.getUser(this.$route.params.visiteduserid),
-      users: this.$store.getters.getUsers,
+      width: 0,
+      //user: this.$store.getters.getUser(this.$route.params.visiteduserid),
+      users: [],
       imageSrc: "",
       series: [
         {
@@ -99,23 +100,32 @@ export default {
   },
   created() {
     if (this.$store.state.users.length == 0) {
-      async function loadUsers() {
-        console.log('i fuck your mother')
-        let users = await this.$store.dispatch("get_users");
-        console.log(users, 'açaçaçaalalalalalalalalalaal')
-        this.loadGraphics();
-      }
-      loadUsers();
+      this.$store.dispatch("get_users");
+      this.getUsers()
+      console.log(this.users)
+      this.loadGraphics;
+      this.ready = true;
     } else {
-      this.loadGraphics();
+
+      this.loadGraphics;
+      this.ready = true;
     }
-    async () => {
-      let users = await this.$store.state.users;
-      console.log(users, "alalalalalalal");
-    };
   },
   methods: {
+    getUsers(){
+   axios.get(`http://${this.$store.state.port}:420/data-api/users`)
+          // .then(resp => resp.json())
+          .then(collection => {
+            let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
+            console.log(sortedUsers, 'sortedusers')
+            this.users=sortedUsers;
+          })
+          .catch(err => console.log(err, 'Erro'));
+    },
     loadGraphics() {
+      let user = this.getUser(this.$route.params.visiteduserid);
+      console.log(user, "asdasd");
+      this.name = this.getUser(this.$route.params.visiteduserid).name;
       this.imageSrc = this.getUser(this.$route.params.visiteduserid).picture;
       this.users.sort((a, b) => {
         if (a.level > b.level) return -1;
