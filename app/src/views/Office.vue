@@ -36,6 +36,7 @@
       </table>
     </div>
     <!-- BADGES -->
+    
     <div class="row">
       <div class="col-md-12">
         <br>
@@ -130,7 +131,10 @@
         </menu>
       </form>
     </dialog>
+    
+    
     <!-- THREADS -->
+    
     <div class="row">
       <div class="col-md-12">
         <br>
@@ -152,7 +156,7 @@
           <tr v-for="(thread) in $store.state.threads" v-bind:key="thread.id">
             <td>{{thread.title}}</td>
             <td>{{thread.date}}</td>
-            <td>{{getUserById(thread.userid).name}}</td>
+            <td>{{getUserById(thread.userInfo.userid).name}}</td>
             <td>
               <button type="button" class="btn btn-danger btn-sm" @click="deleteThread(thread.id)">X</button>
               <button
@@ -166,6 +170,7 @@
         </tbody>
       </table>
     </div>
+    
     <!-- TAGS -->
     <div class="row">
       <div class="col-md-12">
