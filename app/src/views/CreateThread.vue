@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< Updated upstream
     <div class="container">
       <h1>Create Thread</h1>
       <div class="row">
@@ -52,6 +53,10 @@
         </div>
       </div>
     </div>
+=======
+    <!-- <NavBar/>
+    <Footer/> -->
+>>>>>>> Stashed changes
   </div>
 </template>
 

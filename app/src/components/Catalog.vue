@@ -99,6 +99,7 @@
 <script>
 import VueTagsInput from "@johmun/vue-tags-input";
 
+<<<<<<< Updated upstream
 export default {
   components: {
     VueTagsInput
@@ -185,6 +186,14 @@ export default {
   }
 };
 </script>
+=======
+<script>
+export default {
+    
+};
+</script>
+
+>>>>>>> Stashed changes
 <style scoped>
 /* #letabela {
   padding-left: 30px;

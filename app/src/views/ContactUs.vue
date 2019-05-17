@@ -68,7 +68,8 @@ export default {
               text:
                 "E-mail enviado com sucesso, \nResponderemos o mais breve possivel."
             });
-          },
+          }
+          ,
           error => {
             console.log("Falhou.....!", error);
             conf({

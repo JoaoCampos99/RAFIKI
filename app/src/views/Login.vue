@@ -1,10 +1,19 @@
 <template>
+<<<<<<< Updated upstream
   <div>
     <div class="container login-container">
       <div class="row">
         <div class="col-md-6 login-form-1" style="border-radius: 10px;">
           <h3>Login Now</h3>
           <form v-on:submit.prevent="submitfp()">
+=======
+  <div class="fitWindow">
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-md-6 login-form-1">
+          <h3>Login Now</h3>
+          <form>
+>>>>>>> Stashed changes
             <div class="form-group">
               <input
                 type="email"
@@ -33,6 +42,7 @@
               >
             </div>
             <div class="form-group">
+<<<<<<< Updated upstream
               <p
                 href="#"
                 class="btnForgetPwd"
@@ -55,11 +65,21 @@
           </form>
         </div>
         <div class="col-md-6 login-form-2" style="border-radius: 10px;">
+=======
+              <a href="#" class="btnForgetPwd">Forgot Password?</a>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6 login-form-2">
+>>>>>>> Stashed changes
           <h3>Register Now</h3>
           <form>
             <div class="form-group">
               <input
+<<<<<<< Updated upstream
                 id="inputReg"
+=======
+>>>>>>> Stashed changes
                 type="text"
                 class="form-control"
                 placeholder="Your Username"
@@ -152,19 +172,31 @@ class User {
   }
 }
 
+
 export default {
   data() {
     return {
+<<<<<<< Updated upstream
       users: this.$store.getters.getUsers,
+=======
+      users: [],
+>>>>>>> Stashed changes
       inputEmail: "",
       inputPassword: "",
       newUsername: "",
       newEmail: "",
       newPassword: "",
+<<<<<<< Updated upstream
       newCPassword: "",
       showfp: false,
       emailfp: null
+=======
+      newCPassword: ""
+>>>>>>> Stashed changes
     };
+  },
+  created() {
+    this.users = this.$store.getters.getUsers;
   },
   methods: {
     getLastID() {
@@ -173,6 +205,7 @@ export default {
         this.users.sort(function(a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
+<<<<<<< Updated upstream
         });
         //Por isto a dar
         console.log("Dá?" + this.users.length);
@@ -328,11 +361,78 @@ export default {
           console.log("ata");
           document.getElementById("inputReg").focus();
         }
+=======
+        });
+        //Por isto a dar
+        console.log("Dá?" + this.users.length);
+        console.log("ID:" + this.users);
+        maior = this.users[this.users.length - 1].id;
+        console.log(maior);
+        return maior;
+      } else {
+        return 0;
+      }
+    },
+    addUser() {
+      //Verificar email, depois username
+      let emailExists = this.users.some(user => user.email == this.newEmail);
+      let usernameExists = this.users.some(
+        user => user.name == this.newUsername
+      );
+      console.log("Email Existe:" + emailExists);
+      console.log("Nome existe:" + usernameExists);
+      if (this.newPassword == this.newCPassword) {
+        if (emailExists || usernameExists) {
+          Swal("Já Existe alguém com essas credenciais");
+        } else {
+          let id = this.getLastID() + 1;
+          this.$store.dispatch("addUserAct", {
+            id: id,
+            name: this.newUsername,
+            email: this.newEmail,
+            password: this.newPassword,
+            level: 0,
+            exp: 0,
+            badges: [],
+            rank: 0,
+            desc: "Newbie",
+            foto: "",
+            follow: []
+          });
+          Swal("Utilizador registado com sucesso");
+          this.$router.push({
+            name: "profile",
+            params: { userid: id }
+          });
+        }
+      } else {
+        Swal("Password Diferente de Confirmar Password");
+      }
+    },
+    login() {
+      let id = this.users.filter(user => {
+        if (
+          user.email == this.inputEmail &&
+          user.password == this.inputPassword
+        ) {
+          return true;
+        } else {
+          return 0;
+        }
+      })[0].id;
+      console.log(id);
+      if (id) {
+        this.$router.push({
+          name: "profile",
+          params: { userid: id }
+        });
+>>>>>>> Stashed changes
       }
     }
   }
 };
 </script>
+<<<<<<< Updated upstream
 
 
 <style>
@@ -397,3 +497,10 @@ export default {
   text-align: center;
 }
 </style>
+=======
+<style>
+.fitWindow {
+  height: calc(100vh - 200px);
+}
+</style>
+>>>>>>> Stashed changes

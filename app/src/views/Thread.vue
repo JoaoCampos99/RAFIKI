@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
   <div class="container">
     <div class="row">
       <div class="col-md-9">
@@ -256,6 +257,79 @@
         </div>
       </form>
     </dialog>
+=======
+  <div v-bind:class="extraClass" style="padding: 5px">
+    <div class="col-md-9">
+      <div id="qusestion">
+        <h1>Questions</h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div id="userInfo" class="container text-right" style="margin-bottom: 10px;">
+          <!-- <div class="col-md-4" style></div>
+          <div class="col-md-4" style></div>-->
+          <div class="text-right" style="padding-right: 0px; width: 200px">
+            <div class="card text-left" style="border: none;">
+              <!-- <div class="card-header">Featured</div> -->
+              <div
+                class="card-body"
+                style="border: 1px solid lightgray;border-radius: 10px; padding: 3px;"
+              >
+                <ul style="list-style-type: none;padding: 0px">
+                  <li>Joaquim David</li>
+                  <li>java</li>
+                  <li>exp</li>
+                </ul>
+
+                <!-- <span class="text-left"></span>
+                <span class="card-text">java</span>
+                <span class="card-text"></span>-->
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              </div>
+              <div
+                class="card-footer text-muted"
+                style="padding: 2px; border-radius: 10px"
+              >2 days ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="answers" style="border-top: 1px solid black;">
+        <h1>Answers</h1>
+
+        <div class="row" style="border-bottom: 1px solid black;">
+          <div class="col-md-3" style="border-right: 1px solid black;">
+            <h1>"Profile"</h1>
+            <img src>
+          </div>
+          <div class="col-md-9">
+            <h1>Answer</h1>
+          </div>
+        </div>
+
+        <div class="row" style="border-bottom: 1px solid black;">
+          <div class="col-md-3" style="border-right: 1px solid black;  margin-top: 10px">
+            <h1>"Profile"</h1>
+            <img src>
+          </div>
+          <div class="col-md-9">
+            <h1>Answer</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" style="border-left: 1px solid black">
+      <h1 class="text-center">Related</h1>
+      <ul style="list-style-type: none; padding: 0px">
+        <li
+          style="margin-bottom: 10px; border-bottom: 1px solid black"
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea fuga sed beatae eligendi? Nihil ipsa, illo, alias ab dolorem repellendus quis aut sed illum ullam modi facilis quo voluptatum. Esse!</li>
+        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+        <li>Ea fuga sed beatae eligendi? Nihil ipsa, illo, alias ab dolorem repellendus quis aut sed illum ullam modi facilis quo voluptatum. Esse!</li>
+      </ul>
+    </div>
+>>>>>>> Stashed changes
   </div>
 </template>
    <!-- <span class="float-right">
@@ -271,6 +345,7 @@
                       <i class="text-warning fa fa-star"></i>
                     </span> Estrelas -->
 <script>
+<<<<<<< Updated upstream
 window.addEventListener("click", contarClicks);
 function contarClicks(nClicks) {}
 import Swal from "../../node_modules/sweetalert2/dist/sweetalert2.js";
@@ -803,10 +878,28 @@ export default {
       else return true;
       // }
     }
+=======
+import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
+
+
+
+export default {
+  data() {
+    return {
+        extraClass: ["row", "fit"],
+        wHeight: 0
+    };
+  },
+  components: {
+    NavBar,
+    Footer
+>>>>>>> Stashed changes
   }
 };
 </script>
 
+<<<<<<< Updated upstream
 <style>
 img {
   width: 100%;
@@ -835,3 +928,15 @@ div.threadFechada {
   font-family: fantasy;
 }
 </style>
+=======
+
+<style>
+.fitWindow {
+  height: calc(100vh - 200px);
+}
+.fitcontainer {
+  display: grid;
+  grid-template-columns: fit-content(500px) fit-content(300px) 1fr;
+}
+</style>
+>>>>>>> Stashed changes

@@ -47,6 +47,7 @@
 </template>
 
 <style>
+<<<<<<< Updated upstream
 .navi {
   padding: 10px;
 }
@@ -57,4 +58,6 @@ nav {
 .navLogo {
   width: 100px;
 }
+=======
+>>>>>>> Stashed changes
 </style>

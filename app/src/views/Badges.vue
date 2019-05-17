@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
 <div class="container"> 
   <div class="row">
     <div class="col-md-12">
@@ -8,6 +9,11 @@
       <h4>Helpful Awards</h4>
       <hr>
     </div>
+=======
+  <div class="fitWindow">
+    <!-- <NavBar/>
+    <Footer/> -->
+>>>>>>> Stashed changes
   </div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(badge) in $store.state.badges" v-if="badge.category==='help'" v-bind:key="badge.id">
@@ -140,6 +146,7 @@ export default {
 </script>
 
 <style>
+<<<<<<< Updated upstream
 .shape{    
 	border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
 	-ms-transform:rotate(360deg); /* IE 9 */
@@ -227,3 +234,9 @@ export default {
 </style>
 
 
+=======
+.fitWindow {
+  height: calc(100vh - 200px);
+}
+</style>
+>>>>>>> Stashed changes
