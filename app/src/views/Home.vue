@@ -1,5 +1,4 @@
 <template>
-<<<<<<< Updated upstream
   <div id="containerHome" class="container">
     <h1></h1>
     <div class="row">
@@ -39,11 +38,6 @@
         <related></related>
       </div>
     </div>
-=======
-  <div id="containerHome" class="">
-    <h1>Isto é uma página home</h1>
-    <Catalog/>
->>>>>>> Stashed changes
   </div>
 </template>
 

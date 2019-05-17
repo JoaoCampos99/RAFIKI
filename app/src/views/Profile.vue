@@ -1,5 +1,4 @@
 <template>
-<<<<<<< Updated upstream
   <div class="container">
     <div class="header row" style="margin-bottom: 40px;">
       <div class="col-md-4 text-center">
@@ -47,10 +46,6 @@
     <transition name="fade" mode="out-in">
       <router-view id="router-view"></router-view>
     </transition>
-=======
-  <div class="fitWindow">
-    <h1>Isto é um perfil</h1>
->>>>>>> Stashed changes
   </div>
 </template>
 
@@ -119,9 +114,8 @@ export default {
       thread => thread.upvotes
     );
     let avgUpvotes =
-      threadsUpvotes.reduce(
-        (total = 0, value, index) =>
-          index + 1 <= threadsUpvotes.length ? (total += value) : 0
+      threadsUpvotes.reduce((total = 0, value, index) =>
+        index + 1 <= threadsUpvotes.length ? (total += value) : 0
       ) / threadsUpvotes.length;
 
     console.log(threadsUpvotes);
@@ -205,7 +199,9 @@ export default {
       console.log(
         (this.users.filter(user => user.id == id)[0].experience % 100) + "%"
       );
-      return (this.users.filter(user => user.id == id)[0].experience % 100) + "%";
+      return (
+        (this.users.filter(user => user.id == id)[0].experience % 100) + "%"
+      );
     },
     removeImageTag(content) {
       content = content.replace(/<img[^>]*>/g, "");
@@ -215,7 +211,6 @@ export default {
   }
 };
 </script>
-<<<<<<< Updated upstream
 <style>
 #nav a.router-link-exact-active {
   color: #ffffff;
@@ -252,12 +247,8 @@ export default {
 .apexcharts-canvas {
   background: #8d8b8bb6;
 }
-</style>
-=======
-
-<style>
 .fitWindow {
   height: calc(100vh - 200px);
 }
 </style>
->>>>>>> Stashed changes
+

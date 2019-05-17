@@ -1,30 +1,20 @@
 <template>
-<<<<<<< Updated upstream
   <div id="app2" class>
     <NavbarAdmin v-if="logged"/>
     <Navbar v-else/>
-    <SearchThing/>
-=======
-  <div>
-    <NavBar/>
->>>>>>> Stashed changes
-    <router-view/>
+    <router-view />
     <Footer/>
+    <SearchThing/>
   </div>
 </template>
 
 <script>
-<<<<<<< Updated upstream
 // import { mapGetters } from "vuex";
 import Navbar from "@/components/NavBar.vue";
 import NavbarAdmin from "@/components/Navbar2.vue";
 import Footer from "@/components/Footer.vue";
 import SearchThing from "@/components/searchThing.vue";
-=======
-import NavBar from "@/components/NavBar.vue";
-import Footer from "@/components/Footer.vue";
 
->>>>>>> Stashed changes
 export default {
   components: {
     Navbar,
@@ -39,7 +29,6 @@ export default {
   },
   computed: {},
   created() {
-<<<<<<< Updated upstream
     console.log('A carregar o APP')
     this.$store.dispatch("get_users");
     this.$store.dispatch("get_threads");
@@ -54,7 +43,6 @@ export default {
   },
   updated() {
     this.logged = this.$store.getters.getAuth;
-=======
     this.$store.getters.getUsers;
     // console.log("ata");
     // console.log(this.$store.state.users);
@@ -66,17 +54,11 @@ export default {
           JSON.stringify(this.$store.state.users)
         ) /*console.log(this.$store.state.users); alert('a')}*/
     );
-  },
-  components: {
-    NavBar,
-    Footer
->>>>>>> Stashed changes
   }
 };
 </script>
 
 <style>
-<<<<<<< Updated upstream
 #app2 {
   background-color: "#FEFEFE";
   margin: 0 !important;
@@ -84,9 +66,8 @@ export default {
   margin-right: 0px !important;
   padding: 0;
   display: inline-block;
-=======
+}
 .fitWindowWidth {
   width: inherit;
->>>>>>> Stashed changes
 }
 </style>

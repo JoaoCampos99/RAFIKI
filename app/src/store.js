@@ -166,7 +166,8 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
-    port: '172.23.118.110',//'192.168.1.83','172.23.116.246'
+    port: '192.168.1.83', //'172.23.116.246',
+    doneUsers: false,
     Userclass: User,
     ThreadClass: Thread,
     autenticated: false,
@@ -174,88 +175,7 @@ export default new Vuex.Store({
     preenchido: false,
     searchTag: "",
     users: [],
-    badges: [
-      //helpful awards
-      /*{
-        id: 1,
-        name: "Nice, you're helpful!",
-        goal: 10,
-        desc: "Give 10 answers",
-        category: "help"
-      },
-      {
-        id: 2,
-        name: "Damn! You know a lot!",
-        goal: 20,
-        desc: "Give 20 answers",
-        category: "help"
-      },
-      {
-        id: 3,
-        name: "We don't deserve you!",
-        goal: 30,
-        desc: "Give 30 answers",
-        category: "help"
-      },
-      {
-        id: 4,
-        name: "You're like a guru!",
-        goal: 40,
-        desc: "Give 40 answers",
-        category: "help"
-      },
-      {
-        id: 5,
-        name: "Rafiki, is that you?",
-        goal: 100,
-        desc: "Give 50 answers",
-        category: "help"
-      },
-      // RANK AWARDS
-      {
-        id: 6,
-        name: "THE BEST 100",
-        goal: 200,
-        desc: "Reach TOP 100",
-        category: "rank"
-      },
-      {
-        id: 7,
-        name: "Keep climbing!",
-        goal: 300,
-        desc: "Reach TOP 60",
-        category: "rank"
-      },
-      {
-        id: 8,
-        name: "Leave them behind!",
-        goal: 400,
-        desc: "Reach TOP 50",
-        category: "rank"
-      },
-      {
-        id: 9,
-        name: "You're a beast!",
-        goal: 500,
-        desc: "Reach TOP 5",
-        category: "rank"
-      },
-      {
-        id: 10,
-        name: "Our Lord, our Rafiki",
-        goal: 600,
-        desc: "Reach 1st place",
-        category: "rank"
-      },
-      {
-        id: 11,
-        name: "10 Clicks!!! És grande",
-        goal: 10,
-        desc: "10 clicks on Rafiki",
-        category: "hardwork" //Pode mudar de nome, mas devia ser uma categoria diferente
-      }*/
-    ],
-
+    badges: [],
     groups: [
       {
         id: 0,
@@ -369,7 +289,7 @@ export default new Vuex.Store({
     get_users(state, arr) {
       let aux = [];
 
-      console.log(arr);
+      // console.log(arr);
       for (let user of arr) {
         let ups = user.upvotes == undefined ? [] : user.upvotes;
         let notis = user.notifications == undefined ? [] : user.notifications;
@@ -390,7 +310,8 @@ export default new Vuex.Store({
         aux.push(us);
       }
       state.users = aux;
-      // console.log(state.users);
+      state.doneUsers = true
+      console.log(state.users, 'users na store depois do commit');
     },
     get_threads(state, arr) {
       // console.log(arr);
@@ -650,9 +571,8 @@ export default new Vuex.Store({
           // .then(resp => resp.json())
           .then(collection => {
             let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
-            console.log(sortedUsers, 'users')
+            // console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
-           
             return sortedUsers;
           })
           .catch(err => console.log(err, 'Erro'));

@@ -98,13 +98,16 @@ export default {
     };
   },
   created() {
-    // this.users = this.$store.getters.getUsers
-    console.log(this.users, "primeria volta no created (users)");
+    if(this.$store.state.users.length != 0) {
+      this.users = this.$store.getters.getUsers
+      this.loadGraphics()
+    }
+    // console.log(this.users, "primeria volta no created (users)");
 
-    setTimeout(() => {
-      console.log(this.$store.state.users, "mama mia");
-      console.log(this.$store.getters.getUsers, "mama users local");
-    }, 5000);
+    // setTimeout(() => {
+    //   console.log(this.$store.state.users, "mama mia");
+    //   console.log(this.$store.getters.getUsers, "mama users local");
+    // }, 5000);
   },
   watch: {
     "$store.state.doneUsers": function(newValue, oldValue) {

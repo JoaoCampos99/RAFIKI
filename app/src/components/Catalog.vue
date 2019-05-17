@@ -9,7 +9,8 @@
         <option>Tag</option>
         <option>Keyword</option>
       </select>
-      <p v-if="searchBy=='Tag'">Search By Tag
+      <p v-if="searchBy=='Tag'">
+        Search By Tag
         <vue-tags-input
           id="inputTags"
           v-model="tag"
@@ -99,7 +100,6 @@
 <script>
 import VueTagsInput from "@johmun/vue-tags-input";
 
-<<<<<<< Updated upstream
 export default {
   components: {
     VueTagsInput
@@ -120,7 +120,7 @@ export default {
       this.tag = this.$store.state.searchTag;
       this.tags.push(this.tag);
     }
-    console.log(this.threads, '......')
+    console.log(this.threads, "......");
   },
   updated() {
     if (this.searchBy == "All") {
@@ -150,8 +150,8 @@ export default {
       });
     },
     filteredThreads() {
-      this.threads = this.$store.getters.getThreads
-      console.log(this.threads)
+      this.threads = this.$store.getters.getThreads;
+      console.log(this.threads);
       return this.threads.filter(thread => {
         if (this.tags.length == 1) {
           console.log("Entra");
@@ -180,20 +180,14 @@ export default {
       this.$store.dispatch("increment_views", id);
     },
     getUserById(id) {
-      console.log('tá')
+      console.log("tá");
       return this.$store.getters.getUsers.filter(user => user.id == id)[0];
     }
   }
 };
 </script>
-=======
-<script>
-export default {
-    
-};
-</script>
 
->>>>>>> Stashed changes
+
 <style scoped>
 /* #letabela {
   padding-left: 30px;

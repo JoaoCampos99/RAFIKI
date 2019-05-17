@@ -1,6 +1,5 @@
 <template>
   <div>
-<<<<<<< Updated upstream
     <div class="container">
       <h1>Create Thread</h1>
       <div class="row">
@@ -53,10 +52,8 @@
         </div>
       </div>
     </div>
-=======
     <!-- <NavBar/>
-    <Footer/> -->
->>>>>>> Stashed changes
+    <Footer/>-->
   </div>
 </template>
 
@@ -152,7 +149,7 @@ export default {
         tags: this.tags,
         idGroup: null,
         upvotes: 0,
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split("T")[0],
         views: 0,
         course: "",
         closeDate: null

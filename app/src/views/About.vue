@@ -11,15 +11,15 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{getUser(this.$route.params.visiteduserid).course}}</td>
-            <td>{{getUser(this.$route.params.visiteduserid).year}}</td>
+            <!-- <td>{{getUser(this.$route.params.visiteduserid).course}}</td>
+            <td>{{getUser(this.$route.params.visiteduserid).year}}</td> -->
           </tr>
         </tbody>
       </table>
     </div>
     <div class="bs-callout bs-callout-danger">
       <h4>Bio</h4>
-      <p>{{getUser(this.$route.params.visiteduserid).description}}</p>
+      <!-- <p>{{getUser(this.$route.params.visiteduserid).description}}</p> -->
     </div>
   </div>
 </template>

@@ -11,8 +11,8 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>{{getUser(this.$route.params.userid).couse}}</td>
-                           <td>{{getUser(this.$route.params.userid).year}}</td>
+                           <!-- <td>{{getUser(this.$route.params.userid).couse}}</td>
+                           <td>{{getUser(this.$route.params.userid).year}}</td> -->
                            
                         </tr>
                      </tbody>
@@ -20,7 +20,7 @@
                </div>
     <div class="bs-callout bs-callout-danger">
         <h4>Bio</h4>
-            <p> {{getUser(this.$route.params.userid).desc}}</p>
+            <!-- <p> {{getUser(this.$route.params.userid).desc}}</p> -->
     </div>
 
     

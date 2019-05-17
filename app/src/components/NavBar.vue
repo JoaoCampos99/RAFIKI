@@ -36,18 +36,17 @@
         <img src="../assets/logoR.png" class="d-inline-block align-top img-fluid" alt="">
       </div>-->
       <!-- <div class="navbar-collapse collapse w-100 order-3 dual-collapse"> -->
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link :to="{ name: 'login' }" :class="{ 'nav-link': true }">Login</router-link>
-          </li>
-        </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link :to="{ name: 'login' }" :class="{ 'nav-link': true }">Login</router-link>
+        </li>
+      </ul>
       <!-- </div> -->
     </div>
   </nav>
 </template>
 
 <style>
-<<<<<<< Updated upstream
 .navi {
   padding: 10px;
 }
@@ -58,6 +57,4 @@ nav {
 .navLogo {
   width: 100px;
 }
-=======
->>>>>>> Stashed changes
 </style>
