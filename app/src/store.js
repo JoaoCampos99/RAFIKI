@@ -166,7 +166,7 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
-    port: '192.168.1.83', //'172.23.116.246',
+    port: '172.23.118.110', //'172.23.116.246',
     doneUsers: false,
     Userclass: User,
     ThreadClass: Thread,
