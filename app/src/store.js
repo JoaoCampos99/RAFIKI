@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
-import axios from "axios"
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -51,7 +51,7 @@ class User {
     let trueRank = null;
     // console.log(this.level);
     switch (
-    rank //O calculo do rank deve estar mal....
+      rank //O calculo do rank deve estar mal....
     ) {
       case 0:
         trueRank = "A começar";
@@ -166,7 +166,7 @@ class Notification {
 }
 export default new Vuex.Store({
   state: {
-    port: '192.168.1.83', //'172.23.116.246', 
+    port: "127.0.0.1",
     doneUsers: false,
     Userclass: User, //Tem que sair
     ThreadClass: Thread, //Tem que sair
@@ -268,7 +268,7 @@ export default new Vuex.Store({
     ADD_THREAD(state, payload) {
       let aux = state.threads;
       if (state.threads.length != 0) {
-        state.threads.sort(function (a, b) {
+        state.threads.sort(function(a, b) {
           if (a.id > b.id) return 1;
           if (a.id < b.id) return -1;
         });
@@ -310,17 +310,30 @@ export default new Vuex.Store({
         aux.push(us);
       }
       state.users = aux;
-      state.doneUsers = true
-      console.log(state.users, 'users na store depois do commit');
+      state.doneUsers = true;
+      console.log(state.users, "users na store depois do commit");
     },
     get_threads(state, arr) {
       // console.log(arr);
       let aux = [];
       for (let thread of arr) {
-        let views = thread.views == undefined ? 0 : thread.views
-        let closedate = (thread.closeDate == undefined || thread.closeDate == null) ? null : thread.closeDate
+        let views = thread.views == undefined ? 0 : thread.views;
+        let closedate =
+          thread.closeDate == undefined || thread.closeDate == null
+            ? null
+            : thread.closeDate;
         // console.log(closedate)
-        let th = new Thread(thread.id, thread.userInfo, thread.title, thread.question, 0, null, thread.upvotes, closedate, views)
+        let th = new Thread(
+          thread.id,
+          thread.userInfo,
+          thread.title,
+          thread.question,
+          0,
+          null,
+          thread.upvotes,
+          closedate,
+          views
+        );
         // let views = thread.views == undefined ? 0 : thread.views;
         // let closedate =
         //   thread.closeDate == undefined || null ? null : thread.closeDate;
@@ -439,7 +452,7 @@ export default new Vuex.Store({
     },
     CLOSE_THREAD(state, id) {
       let index = state.threads.findIndex(thread => thread.id == id);
-      console.log(index)
+      console.log(index);
       state.threads[index].closeDate = new Date().toISOString().split("T")[0];
     },
     /* Notificações */
@@ -463,8 +476,8 @@ export default new Vuex.Store({
       state.tags.push(tag);
     },
     get_badges(state, arr) {
-      console.log(arr, 'array badges mutation')
-      state.badges = arr
+      console.log(arr, "array badges mutation");
+      state.badges = arr;
     }
   },
   /**
@@ -538,7 +551,7 @@ export default new Vuex.Store({
     },
     add_upvote_user(context, up) {
       context.commit("add_upvote_user", up);
-      console.log('Isto é um upvote', up)
+      console.log("Isto é um upvote", up);
     },
     update_user(context, newUser) {
       context.commit("UPDATE_USER", newUser);
@@ -567,26 +580,28 @@ export default new Vuex.Store({
     },
     get_users(context) {
       if (context.state.users.length == 0) {
-        axios.get(`http://${context.state.port}:420/data-api/users`)
+        axios
+          .get(`http://${context.state.port}:420/data-api/users`)
           // .then(resp => resp.json())
           .then(collection => {
-            let sortedUsers = collection.data.sort((a, b) => a.id - b.id)
+            let sortedUsers = collection.data.sort((a, b) => a.id - b.id);
             // console.log(sortedUsers, 'users')
             context.commit("get_users", sortedUsers);
             return sortedUsers;
           })
-          .catch(err => console.log(err, 'Erro'));
+          .catch(err => console.log(err, "Erro"));
       }
     },
     get_threads(context) {
       //Serve para ir buscar as threads
-      axios.get(`http://${context.state.port}:420/data-api/threads`)
+      axios
+        .get(`http://${context.state.port}:420/data-api/threads`)
         .then(collection => {
-          let sortedThreads = collection.data.sort((a, b) => a.id - b.id)
-          console.log(sortedThreads, "threads")
-          context.commit("get_threads", sortedThreads)
+          let sortedThreads = collection.data.sort((a, b) => a.id - b.id);
+          console.log(sortedThreads, "threads");
+          context.commit("get_threads", sortedThreads);
         })
-        .catch(err => console.log(err, 'Erro nos Threads'))
+        .catch(err => console.log(err, "Erro nos Threads"));
     },
     get_answers(context) {
       //seRVE PARA ir buscar as answers
@@ -595,12 +610,14 @@ export default new Vuex.Store({
       //Ir buscar todos os comentários
     },
     get_badges(context) {
-      axios.get(`http://${context.state.port}:420/data-api/badges`).
-        then(collection => {
-          let sortedBadges = collection.data.sort((a, b) => a.id - b.id)
-          console.log(sortedBadges, 'badges')
-          context.commit("get_badges", sortedBadges)
-        }).catch(err => console.log(err, 'erro nos badges'))
+      axios
+        .get(`http://${context.state.port}:420/data-api/badges`)
+        .then(collection => {
+          let sortedBadges = collection.data.sort((a, b) => a.id - b.id);
+          console.log(sortedBadges, "badges");
+          context.commit("get_badges", sortedBadges);
+        })
+        .catch(err => console.log(err, "erro nos badges"));
     },
     add_user_follow(context, obj) {
       let index = this.getters.getUsers.findIndex(us => us.id == obj.userid);
